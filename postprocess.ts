@@ -36,9 +36,9 @@ try {
 			  date: date.trim(),
 			  category: category.trim(),
 			  fuelName: fuelName.trim(),
-			  elpePrice: elpePrice,
-			  motoroilPrice: motoroilPrice,
 		  };
+		  if (elpePrice) { datum.elpePrice = elpePrice };
+		  if (motoroilPrice) { datum.motoroilPrice = motoroilPrice };
 		  data.push(datum);
 	  }
   }
