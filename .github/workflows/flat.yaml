@@ -21,10 +21,10 @@ jobs:
         with:
           deno-version: v1.x
       # The third step is a Flat Action step. We fetch the data in the http_url and save it as downloaded_filename
-      - name: Fetch data 
+      - name: Fetch data
         uses: githubocto/flat@v3
         with:
           http_url: http://oil.gge.gov.gr/?p=15190 # The data to fetch. # WE ARE IN TESTING MODE, FETCH A SPECIFIC DATE ONLY
-          downloaded_filename: test.html # The http_url gets saved and renamed in our repository as test.html
-          # postprocess: postprocess.js # A postprocessing javascript or typescript file written in Deno
+          downloaded_filename: tmp.html # The http_url gets saved and renamed in our repository as test.html
+          postprocess: postprocess.ts # A postprocessing javascript or typescript file written in Deno
           # mask: true # optional param to mask the source http_url from the commit. Look at README for more options
