@@ -1,7 +1,10 @@
 import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { readTXT, readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts';
-import { parseFeed } from "https://deno.land/x/rss/mod.ts";
+import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
+import parse from 'https://deno.land/x/date_fns/parse/index.js';
+import { el, enUS } from "https://deno.land/x/date_fns/locale/index.js";
 
+const dateString:string = 'EEEE, d MMMM yyyy';
 const plainDatafile:string = 'data_plain.json';
 const augmentedDatafile:string = 'data_augmented.json';
 const fullDatafile:string = 'data_full.json';
@@ -16,6 +19,7 @@ function parseOilPage(html:string): [object] {
     const tbody:any = document.querySelector('tbody');
 
     let date:string = null;
+    let parsedDate:Date = null;
     let category:string = null;
     let notes:string = null;
     let data:[object] = new Array();
@@ -23,7 +27,10 @@ function parseOilPage(html:string): [object] {
     let i:number;
     for (i=0; i < tbody.children.length; i++) {
       if (daysRegExp.test(tbody.children[i].textContent)) {
-        date = tbody.children[i].textContent;
+        date = tbody.children[i].textContent.trim();
+        parsedDate = parse(date, dateString, new Date(), {locale: el});
+        //console.log(date);
+        //console.log(parsedDate);
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
         let match = tbody.children[i].textContent.match(fuelCategoriesRegExp)
         category = match[1];
@@ -33,17 +40,18 @@ function parseOilPage(html:string): [object] {
       } else {
        // Here we go, we are parsing actual prices now
         let tds = tbody.children[i].children;
-        let fuelName:string = tds[0].textContent;
+        let fuelName:string = tds[0].textContent.trim();
         let elpePrice:number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
         let motoroilPrice:number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
         // And let's create the object
         let datum = {
-          orig_date: date.trim(),
-          category: category.trim(),
-          notes: notes.trim(),
-          fuelName: fuelName.trim(),
-	  elpePrice: elpePrice,
-	  motoroilPrice: motoroilPrice,
+          orig_date: date,
+          parsedDate: parsedDate,
+          category: category,
+          notes: notes,
+          fuelName: fuelName,
+          elpePrice: elpePrice,
+          motoroilPrice: motoroilPrice,
         };
         data.push(datum);
       }
