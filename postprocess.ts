@@ -2,22 +2,24 @@ import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { readTXT, readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts';
 import { parseFeed } from "https://deno.land/x/rss/mod.ts";
 
-const datafile:string = 'data.json';
+const plainDatafile:string = 'data_plain.json';
+const augmentedDatafile:string = 'data_augmented.json';
+const fullDatafile:string = 'data_full.json';
 const statefile:string = 'state.json';
 const daysRegExp:RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
 const fuelCategoriesRegExp:RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ|ΑΣΦΑΛΤΟΣ)/;
 const ignoreRegExp:RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY/;
 
-function parseOilPage(html: string): [object] {
+function parseOilPage(html:string): [object] {
   try {
     const document:any = new DOMParser().parseFromString(html, 'text/html');
     const tbody:any = document.querySelector('tbody');
 
-    var date:string = null;
-    var category:string = null;
-    var data:[object] = new Array();
-   
-    var i:number;
+    let date:string = null;
+    let category:string = null;
+    let data:[object] = new Array();
+
+    let i:number;
     for (i=0; i < tbody.children.length; i++) {
       if (daysRegExp.test(tbody.children[i].textContent)) {
         date = tbody.children[i].textContent;
@@ -27,32 +29,22 @@ function parseOilPage(html: string): [object] {
         // do nothing, we don't care
       } else {
        // Here we go, we are parsing actual prices now
-        var tds = tbody.children[i].children;
-        var fuelName:string = tds[0].textContent;
-        var elpePrice:number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
-        var motoroilPrice:number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
+        let tds = tbody.children[i].children;
+        let fuelName:string = tds[0].textContent;
+        let elpePrice:number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
+        let motoroilPrice:number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
         // And let's create the object
-        var datum = {
-          date: date.trim(),
+        let datum = {
+          orig_date: date.trim(),
           category: category.trim(),
           fuelName: fuelName.trim(),
+	  elpePrice: elpePrice,
+	  motoroilPrice: motoroilPrice,
         };
-        if (elpePrice) { datum.elpePrice = elpePrice };
-        if (motoroilPrice) { datum.motoroilPrice = motoroilPrice };
         data.push(datum);
       }
     }
     return data;
-  } catch(error) {
-    console.log(error);
-  }
-}
-
-async function appendData(data: [object]): void {
-  try {
-    let jsondata  = await readJSON(datafile);
-    jsondata = jsondata.concat(data);
-    await writeJSON(datafile, jsondata, null, 2);
   } catch(error) {
     console.log(error);
   }
@@ -77,12 +69,75 @@ async function parseUnParsed(xml:string): [object] {
   }
 }
 
+function stripNulls(data:[object]): [object] {
+  let ret:[object] = new Array();
+  try {
+    for (let datum of data) {
+      if (!datum.elpePrice) {
+        delete datum.elpePrice;
+      }
+      if (!datum.motoroilPrice) {
+        delete datum.motoroilPrice;
+      }
+      if (!datum.meanPrice) {
+        delete datum.meanPrice;
+      }
+    ret.push(datum);
+    }
+    return ret;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+function addMeanValue(data:[object]): [object] {
+  let ret:[object] = new Array();
+  try {
+    for (let datum of data) {
+      if (datum.elpePrice && datum.motoroilPrice) {
+        datum.meanPrice = (datum.elpePrice + datum.motoroilPrice) / 2;
+      } else if (datum.elpePrice) {
+        datum.meanPrice = datum.elpePrice;
+      } else if (datum.motoroilPrice) {
+        datum.meanPrice = datum.motoroilPrice;
+      } else {
+        datum.meanPrice = NaN;
+      }
+    ret.push(datum);
+    }
+    return ret;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+async function appendData(data:[object], datafile:string): void {
+  let jsondata;
+  try {
+    jsondata  = await readJSON(datafile);
+    jsondata = jsondata.concat(data);
+  } catch(error) {
+    jsondata = data;
+  }
+  try {
+    await writeJSON(datafile, jsondata, null, 2);
+  } catch(error) {
+    console.log(error);
+  }
+}
+
 try {
   const xmlfile:string = Deno.args[0]
   const xml:string = await readTXT(xmlfile);
-  var unparsed:[object] = await parseUnParsed(xml);
-  await appendData(unparsed);
-
+  let parsed:[object] = await parseUnParsed(xml);
+  // Write the original data
+  await appendData(parsed, fullDatafile);
+  // Add mean price
+  let mean:[object] = addMeanValue(parsed);
+  await appendData(parsed, augmentedDatafile);
+  // Remove nulls,NaNs
+  let plain:[object] = stripNulls(mean);
+  await appendData(plain, plainDatafile);
 } catch(error) {
   console.log(error);
 }
