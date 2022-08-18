@@ -63,7 +63,7 @@ async function parseUnParsed(xml:string): [object] {
       }
     };
     await writeJSON(statefile, statedata, null, 2);
-    return ret;
+    return ret.reverse();
   } catch(error) {
     console.log(error);
   }
