@@ -7,7 +7,7 @@ const augmentedDatafile:string = 'data_augmented.json';
 const fullDatafile:string = 'data_full.json';
 const statefile:string = 'state.json';
 const daysRegExp:RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
-const fuelCategoriesRegExp:RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ|ΑΣΦΑΛΤΟΣ)/;
+const fuelCategoriesRegExp:RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp:RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY/;
 
 function parseOilPage(html:string): [object] {
@@ -17,6 +17,7 @@ function parseOilPage(html:string): [object] {
 
     let date:string = null;
     let category:string = null;
+    let notes:string = null;
     let data:[object] = new Array();
 
     let i:number;
@@ -24,7 +25,9 @@ function parseOilPage(html:string): [object] {
       if (daysRegExp.test(tbody.children[i].textContent)) {
         date = tbody.children[i].textContent;
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
-        category = tbody.children[i].textContent.match(fuelCategoriesRegExp)[0];
+        let match = tbody.children[i].textContent.match(fuelCategoriesRegExp)
+        category = match[1];
+        notes = match[2];
       } else if (ignoreRegExp.test(tbody.children[i].textContent)) {
         // do nothing, we don't care
       } else {
@@ -37,6 +40,7 @@ function parseOilPage(html:string): [object] {
         let datum = {
           orig_date: date.trim(),
           category: category.trim(),
+          notes: notes.trim(),
           fuelName: fuelName.trim(),
 	  elpePrice: elpePrice,
 	  motoroilPrice: motoroilPrice,
@@ -111,6 +115,21 @@ function addMeanValue(data:[object]): [object] {
   }
 }
 
+function addVAT(data:[object]): [object] {
+  let ret:[object] = new Array();
+  try {
+    for (let datum of data) {
+      datum.vat24Price_per_lt = datum.meanPrice * 1.24 / 1000;
+      datum.vat17Price_per_lt = datum.meanPrice * 1.17 / 1000;
+      datum.vat17notes = 'Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο';
+    ret.push(datum);
+    }
+    return ret;
+  } catch(error) {
+    console.log(error);
+  }
+}
+
 async function appendData(data:[object], datafile:string): void {
   let jsondata;
   try {
@@ -133,10 +152,11 @@ try {
   // Write the original data
   await appendData(parsed, fullDatafile);
   // Add mean price
-  let mean:[object] = addMeanValue(parsed);
-  await appendData(parsed, augmentedDatafile);
+  let augmented:[object] = addMeanValue(parsed);
+  augmented = addVAT(augmented);
+  await appendData(augmented, augmentedDatafile);
   // Remove nulls,NaNs
-  let plain:[object] = stripNulls(mean);
+  let plain:[object] = stripNulls(augmented);
   await appendData(plain, plainDatafile);
 } catch(error) {
   console.log(error);
