@@ -1,0 +1,128 @@
+[
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "fuelName": "ΒΕΘ 50/70",
+    "elpePrice": 486.95,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "fuelName": "ΒΕΑ 35/40",
+    "elpePrice": 501.74,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "fuelName": "ΒΕΑ 30/45",
+    "elpePrice": null,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "fuelName": "ΒΕΑ 50/70 & 70/100",
+    "elpePrice": 483.01,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΚΗΡΟΖΙΝΗ",
+    "fuelName": "KERO SPECIAL",
+    "elpePrice": 1104.6,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΚΗΡΟΖΙΝΗ",
+    "fuelName": "KERO",
+    "elpePrice": 1098.69,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΜΑΖΟΥΤ-FUEL OIL",
+    "fuelName": "Fuel Oil No 380 1%S",
+    "elpePrice": 695.415,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "ΜΑΖΟΥΤ-FUEL OIL",
+    "fuelName": "Fuel Oil No 180 1%S",
+    "elpePrice": 731.487,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Υγραέρια",
+    "fuelName": "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 700.126,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Υγραέρια",
+    "fuelName": "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 1006.223,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Υγραέρια",
+    "fuelName": "LPG ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 761.339,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Υγραέρια",
+    "fuelName": "LPG ΘΕΡΜΑΝΣΗΣ",
+    "elpePrice": 701.039,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Υγραέρια",
+    "fuelName": "LPG AUTO",
+    "elpePrice": 1103.5,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Πετρέλαια",
+    "fuelName": "HEATING GASOIL",
+    "elpePrice": 1326.106,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Πετρέλαια",
+    "fuelName": "DIΕSEL AUTO BIO",
+    "elpePrice": 1341.562,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Βενζίνες",
+    "fuelName": "UNLEADED 100 BIO",
+    "elpePrice": 1601.711,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Βενζίνες",
+    "fuelName": "UNLEADED 95 BIO",
+    "elpePrice": 1521.785,
+    "motoroilPrice": null
+  },
+  {
+    "orig_date": "Πέμπτη, 18 Αυγούστου 2022",
+    "category": "Βενζίνες",
+    "fuelName": "UNLEADED LRP BIO",
+    "elpePrice": null,
+    "motoroilPrice": null
+  }
+]
