@@ -107,7 +107,7 @@ function addMeanValue(data:[object]): [object] {
       } else {
         datum.meanPrice = NaN;
       }
-    ret.push(datum);
+      ret.push(datum);
     }
     return ret;
   } catch(error) {
@@ -122,7 +122,7 @@ function addVAT(data:[object]): [object] {
       datum.vat24Price_per_lt = datum.meanPrice * 1.24 / 1000;
       datum.vat17Price_per_lt = datum.meanPrice * 1.17 / 1000;
       datum.vat17notes = 'Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο';
-    ret.push(datum);
+      ret.push(datum);
     }
     return ret;
   } catch(error) {
