@@ -10,10 +10,11 @@ const augmentedDatafile:string = 'data_augmented.json';
 const fullDatafile:string = 'data_full.json';
 const statefile:string = 'state.json';
 const daysRegExp:RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
+const dateRangeRegExp:RegExp = /(έ|ε)ως/;
 const fuelCategoriesRegExp:RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp:RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
-function parseOilPage(html:string): [object] {
+export function parseOilPage(html:string): [object] {
   try {
     const document:any = new DOMParser().parseFromString(html, 'text/html');
     const tbody:any = document.querySelector('tbody');
