@@ -2034,5 +2034,199 @@
     "vat24Price_per_lt": null,
     "vat17Price_per_lt": null,
     "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuelName": "ΒΕΘ 50/70",
+    "elpePrice": 483.48,
+    "meanPrice": 483.48,
+    "vat24Price_per_lt": 0.5995152,
+    "vat17Price_per_lt": 0.5656716,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuelName": "ΒΕΑ 35/40",
+    "elpePrice": 498.31,
+    "meanPrice": 498.31,
+    "vat24Price_per_lt": 0.6179044,
+    "vat17Price_per_lt": 0.5830227,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuelName": "ΒΕΑ 30/45",
+    "vat24Price_per_lt": null,
+    "vat17Price_per_lt": null,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuelName": "ΒΕΑ 50/70 & 70/100",
+    "elpePrice": 479.53,
+    "meanPrice": 479.53,
+    "vat24Price_per_lt": 0.5946172,
+    "vat17Price_per_lt": 0.5610500999999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΚΗΡΟΖΙΝΗ – KERO",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuelName": "KERO SPECIAL",
+    "elpePrice": 1115.81,
+    "meanPrice": 1115.81,
+    "vat24Price_per_lt": 1.3836043999999998,
+    "vat17Price_per_lt": 1.3054976999999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΚΗΡΟΖΙΝΗ – KERO",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuelName": "KERO",
+    "elpePrice": 1109.88,
+    "meanPrice": 1109.88,
+    "vat24Price_per_lt": 1.3762512000000002,
+    "vat17Price_per_lt": 1.2985596000000001,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΜΑΖΟΥΤ-FUEL OIL",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "Fuel Oil No 380 1%S",
+    "elpePrice": 692.384,
+    "meanPrice": 692.384,
+    "vat24Price_per_lt": 0.85855616,
+    "vat17Price_per_lt": 0.8100892799999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "ΜΑΖΟΥΤ-FUEL OIL",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "Fuel Oil No 180 1%S",
+    "elpePrice": 729.433,
+    "meanPrice": 729.433,
+    "vat24Price_per_lt": 0.9044969199999999,
+    "vat17Price_per_lt": 0.8534366099999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 710.011,
+    "meanPrice": 710.011,
+    "vat24Price_per_lt": 0.88041364,
+    "vat17Price_per_lt": 0.8307128699999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 1011.032,
+    "meanPrice": 1011.032,
+    "vat24Price_per_lt": 1.2536796799999999,
+    "vat17Price_per_lt": 1.18290744,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "LPG ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 770.217,
+    "meanPrice": 770.217,
+    "vat24Price_per_lt": 0.95506908,
+    "vat17Price_per_lt": 0.9011538899999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "LPG ΘΕΡΜΑΝΣΗΣ",
+    "elpePrice": 709.917,
+    "meanPrice": 709.917,
+    "vat24Price_per_lt": 0.8802970800000001,
+    "vat17Price_per_lt": 0.83060289,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "LPG AUTO",
+    "elpePrice": 1111.87,
+    "meanPrice": 1111.87,
+    "vat24Price_per_lt": 1.3787188,
+    "vat17Price_per_lt": 1.3008878999999998,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Πετρέλαια",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "HEATING GASOIL",
+    "elpePrice": 1332.757,
+    "meanPrice": 1332.757,
+    "vat24Price_per_lt": 1.65261868,
+    "vat17Price_per_lt": 1.5593256899999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Πετρέλαια",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "DIΕSEL AUTO BIO",
+    "elpePrice": 1350.187,
+    "meanPrice": 1350.187,
+    "vat24Price_per_lt": 1.6742318799999998,
+    "vat17Price_per_lt": 1.5797187899999996,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Βενζίνες",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "UNLEADED 100 BIO",
+    "elpePrice": 1603.602,
+    "meanPrice": 1603.602,
+    "vat24Price_per_lt": 1.98846648,
+    "vat17Price_per_lt": 1.87621434,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Βενζίνες",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "UNLEADED 95 BIO",
+    "elpePrice": 1523.473,
+    "meanPrice": 1523.473,
+    "vat24Price_per_lt": 1.8891065200000001,
+    "vat17Price_per_lt": 1.7824634099999999,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
+  },
+  {
+    "orig_date": "Παρασκευή, 19 Αυγούστου 2022",
+    "category": "Βενζίνες",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuelName": "UNLEADED LRP BIO",
+    "vat24Price_per_lt": null,
+    "vat17Price_per_lt": null,
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο"
   }
 ]
