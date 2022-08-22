@@ -2,6 +2,7 @@ import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { readTXT, readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts';
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
+import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from "https://deno.land/x/date_fns/locale/index.js";
 
 const plainDatafile:string = 'data_plain.json';
@@ -42,17 +43,19 @@ function parseOilPage(html:string): [object] {
         let fuelName:string = tds[0].textContent.trim();
         let elpePrice:number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
         let motoroilPrice:number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
-        // And let's create the object
-        let datum = {
-          orig_date: date,
-          parsedDate: parsedDates[0],
-          category: category,
-          notes: notes,
-          fuelName: fuelName,
-          elpePrice: elpePrice,
-          motoroilPrice: motoroilPrice,
-        };
-        data.push(datum);
+        // And let's create the objects
+        for (let parsedDate:Date of parsedDates) {
+          let datum = {
+            orig_date: candidateDates,
+            parsedDate: parsedDate,
+            category: category,
+            notes: notes,
+            fuelName: fuelName,
+            elpePrice: elpePrice,
+            motoroilPrice: motoroilPrice,
+          };
+          data.push(datum);
+        }
       }
     }
     return data;
@@ -79,9 +82,13 @@ function sanitizeDates(input:string): string {
 function parseDates(candidateDates:string): [Date] {
   const dateString:string = 'EEEE,dMMMMyyyy';
   let dates:[Date] = new Array();
-  let hack:[string] = [candidateDates];
-  for (let date of hack) {
+  let parsedDate:Date = null;
+  for (let date:string of [candidateDates]) {
     parsedDate = parse(date, dateString, new Date(), {locale: el});
+    if (!isValid(parsedDate)) {
+      console.log('Date invalid: ' + date);
+      continue;
+    }
     dates.push(parsedDate);
   }
   return dates;
