@@ -187,17 +187,19 @@ async function appendData(data:[object], datafile:string): void {
 
 try {
   const xmlfile:string = Deno.args[0]
-  const xml:string = await readTXT(xmlfile);
-  let parsed:[object] = await parseUnParsed(xml);
-  // Write the original data
-  await appendData(parsed, fullDatafile);
-  // Add mean price
-  let augmented:[object] = addMeanValue(parsed);
-  augmented = addVAT(augmented);
-  await appendData(augmented, augmentedDatafile);
-  // Remove nulls,NaNs
-  let plain:[object] = stripNulls(augmented);
-  await appendData(plain, plainDatafile);
+  if (xmlfile) {
+    const xml:string = await readTXT(xmlfile);
+    let parsed:[object] = await parseUnParsed(xml);
+    // Write the original data
+    await appendData(parsed, fullDatafile);
+    // Add mean price
+    let augmented:[object] = addMeanValue(parsed);
+    augmented = addVAT(augmented);
+    await appendData(augmented, augmentedDatafile);
+    // Remove nulls,NaNs
+    let plain:[object] = stripNulls(augmented);
+    await appendData(plain, plainDatafile);
+  }
 } catch(error) {
   console.log(error);
 }
