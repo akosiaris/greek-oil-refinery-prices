@@ -4,7 +4,6 @@ import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import { el, enUS } from "https://deno.land/x/date_fns/locale/index.js";
 
-const dateString:string = 'EEEE, d MMMM yyyy';
 const plainDatafile:string = 'data_plain.json';
 const augmentedDatafile:string = 'data_augmented.json';
 const fullDatafile:string = 'data_full.json';
@@ -18,8 +17,9 @@ function parseOilPage(html:string): [object] {
     const document:any = new DOMParser().parseFromString(html, 'text/html');
     const tbody:any = document.querySelector('tbody');
 
-    let date:string = null;
-    let parsedDate:Date = null;
+    let candidateDates:string = null;
+    let sanitizedDates:string = null;
+    let parsedDates:[Date] = null;
     let category:string = null;
     let notes:string = null;
     let data:[object] = new Array();
@@ -27,10 +27,9 @@ function parseOilPage(html:string): [object] {
     let i:number;
     for (i=0; i < tbody.children.length; i++) {
       if (daysRegExp.test(tbody.children[i].textContent)) {
-        date = tbody.children[i].textContent.trim();
-        parsedDate = parse(date, dateString, new Date(), {locale: el});
-        //console.log(date);
-        //console.log(parsedDate);
+        candidateDates = tbody.children[i].textContent.trim();
+        sanitizedDates = sanitizeDates(candidateDates);
+        parsedDates = parseDates(sanitizedDates);
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
         let match = tbody.children[i].textContent.match(fuelCategoriesRegExp)
         category = match[1];
@@ -46,7 +45,7 @@ function parseOilPage(html:string): [object] {
         // And let's create the object
         let datum = {
           orig_date: date,
-          parsedDate: parsedDate,
+          parsedDate: parsedDates[0],
           category: category,
           notes: notes,
           fuelName: fuelName,
@@ -60,6 +59,32 @@ function parseOilPage(html:string): [object] {
   } catch(error) {
     console.log(error);
   }
+}
+
+function sanitizeDates(input:string): string {
+  let dates:string = null;
+  // Remove great from days
+  dates = input.replace('Μεγάλο', '').replace('Μεγάλη', '').replace('Μεγ.', '');
+  // Normalize string, e.g. get rid of unicode no break spaces
+  dates = dates.normalize('NFKC');
+  // Remove all spaces now, the original data can be inconsistent anyway
+  dates = dates.replaceAll(' ', '');
+  // Lowercase too as the original data can be inconsistent anyway
+  dates = dates.toLowerCase();
+  // Selectively fix a mess with diacritics and accents, hopefully it won't become larger than this
+  dates = dates.replace('μαϊου', 'μαΐου').replace('μάϊου', 'μαΐου').replace('ιουνιου', 'ιουνίου');
+  return dates;
+}
+
+function parseDates(candidateDates:string): [Date] {
+  const dateString:string = 'EEEE,dMMMMyyyy';
+  let dates:[Date] = new Array();
+  let hack:[string] = [candidateDates];
+  for (let date of hack) {
+    parsedDate = parse(date, dateString, new Date(), {locale: el});
+    dates.push(parsedDate);
+  }
+  return dates;
 }
 
 async function parseUnParsed(xml:string): [object] {
