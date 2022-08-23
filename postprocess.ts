@@ -223,20 +223,24 @@ async function appendData(data:[object], datafile:string): void {
   }
 }
 
-try {
-  const xmlfile:string = Deno.args[0]
-  if (xmlfile) {
-    const xml:string = await readTXT(xmlfile);
-    let parsed:[object] = await parseUnParsed(xml);
+export async function writeDataFiles(data:[object]): void {
     // Write the original data
-    await appendData(parsed, fullDatafile);
+    await appendData(data, fullDatafile);
     // Add mean price
-    let augmented:[object] = addMeanValue(parsed);
+    let augmented:[object] = addMeanValue(data);
     augmented = addVAT(augmented);
     await appendData(augmented, augmentedDatafile);
     // Remove nulls,NaNs
     let plain:[object] = stripNulls(augmented);
     await appendData(plain, plainDatafile);
+}
+
+try {
+  const xmlfile:string = Deno.args[0]
+  if (xmlfile) {
+    const xml:string = await readTXT(xmlfile);
+    let parsed:[object] = await parseUnParsed(xml);
+    writeDataFiles(parsed);
   }
 } catch(error) {
   console.log(error);
