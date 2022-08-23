@@ -16,8 +16,8 @@ for (var i:number=start; i<=end; i++) {
     if (!(resp.status == 200)) {
       continue;
     }
-    let txt = await resp.text();
-    await writeTXT('old_data/html_' + i, txt );
+    txt = await resp.text();
+    await writeTXT('old_data/html_' + i, txt);
   }
   let pagedata:[object] = parseOilPage(txt);
   if (!pagedata) {
