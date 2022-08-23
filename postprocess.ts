@@ -47,8 +47,8 @@ export function parseOilPage(html:string): [object] {
         // And let's create the objects
         for (let parsedDate:Date of parsedDates) {
           let datum = {
-            orig_date: candidateDates,
-            parsedDate: parsedDate,
+            //orig_date: candidateDates,
+            parsedDate: parsedDate.toISOString().split('T')[0],
             category: category,
             notes: notes,
             fuelName: fuelName,
