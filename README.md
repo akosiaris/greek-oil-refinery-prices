@@ -12,7 +12,11 @@ A Flat Data Github action approach that uses Deno, Typescript and Github to fetc
 
 ## Data file description:
 
-STILL WIP
+3 data files exist in JSON format (pretty much ready to be posted to elasticsearch (albeit not in the bulk endpoint)
+
+* data_full.json: Has the entirety of the original data.
+* data_augmented.json: Original data + augmented with calculation including VAT.
+* data_plain.json: Trimmed down version of the above one, with properties having null values removed.
 
 # How to use:
 
@@ -21,9 +25,5 @@ Just go to https://flatgithub.com/akosiaris/greek-oil-distillery-prices , pick t
 You can also choose to feed it to whatever datastore you like (e.g. I plan to eventually post it to Elasticsearch and graph it via Grafana)
 
 # TODOs:
-
-* Fill in historical data
-
-* Figure out how to parse the really awkward date formats
 
 * Unit tests
