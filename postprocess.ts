@@ -33,7 +33,7 @@ export function parseOilPage(html:string): [object] {
         sanitizedDates = sanitizeDates(candidateDates);
         parsedDates = parseDates(sanitizedDates);
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
-        let match = tbody.children[i].textContent.match(fuelCategoriesRegExp)
+        let match:[string] = tbody.children[i].textContent.match(fuelCategoriesRegExp);
         category = match[1];
         notes = match[2];
       } else if (ignoreRegExp.test(tbody.children[i].textContent)) {
