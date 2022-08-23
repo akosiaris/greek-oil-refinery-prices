@@ -164,6 +164,13 @@ function stripNulls(data:[object]): [object] {
       if (!datum.meanPrice) {
         delete datum.meanPrice;
       }
+      if (!datum.vat24Price_per_lt) {
+        delete datum.vat24Price_per_lt;
+      }
+      if (!datum.vat17Price_per_lt) {
+        delete datum.vat17Price_per_lt;
+	delete datum.vat17notes;
+      }
     ret.push(datum);
     }
     return ret;
