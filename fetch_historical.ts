@@ -8,20 +8,16 @@ let start:number=11505;
 let end:number=15154;
 
 for (var i:number=start; i<=end; i++) {
-  /*
-  let resp = await fetch(site + i);
-  if (!(resp.status == 200)) {
-    continue;
-  }
-  let txt = await resp.text();
-  await writeTXT('old_data/html_' + i, txt );
-  */
   let txt = null;
   try {
     txt = await readTXT('old_data/html_' + i);
   } catch(error) {
-    //console.log('File html_' + i + ' does not exist');
-    continue;
+    let resp = await fetch(site + i);
+    if (!(resp.status == 200)) {
+      continue;
+    }
+    let txt = await resp.text();
+    await writeTXT('old_data/html_' + i, txt );
   }
   let pagedata:[object] = parseOilPage(txt);
   if (!pagedata) {
