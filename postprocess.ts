@@ -247,7 +247,7 @@ try {
   if (xmlfile) {
     const xml:string = await readTXT(xmlfile);
     let parsed:[object] = await parseUnParsed(xml);
-    writeDataFiles(parsed);
+    await writeDataFiles(parsed);
   }
 } catch(error) {
   console.log(error);

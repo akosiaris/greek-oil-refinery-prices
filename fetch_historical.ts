@@ -27,7 +27,7 @@ for (var i:number=start; i<=end; i++) {
   if (!pagedata) {
     console.log('Not parsed' + txt);
   } else if (pagedata.length > 0) {
-    writeDataFiles(pagedata);
+    await writeDataFiles(pagedata);
     continue
   } else {
     console.log('Empty page, not parsed? html_' + i);
