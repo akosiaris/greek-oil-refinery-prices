@@ -10,7 +10,7 @@ const augmentedDatafile:string = 'data_augmented.json';
 const fullDatafile:string = 'data_full.json';
 const statefile:string = 'state.json';
 const daysRegExp:RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
-const dateRangeRegExp:RegExp = /(έ|ε)ως/;
+const dateRangeRegExp:RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/; 
 const fuelCategoriesRegExp:RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp:RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
@@ -80,11 +80,38 @@ function sanitizeDates(input:string): string {
   return dates;
 }
 
+function getDateRange(candidateDates:string): [string] {
+  let dates:[string] = new Array();
+  let match:[string] = candidateDates.match(dateRangeRegExp);
+  if (match) {
+    let startweekday:string = match[1];
+    let stopweekday:string = match[3];
+    let startmonthday:string = match[4];
+    let stopmonthday:string = match[7];
+    let startmonth:string = null;
+    let stopmonth:string = match[8];
+    if (match[5]) {
+      startmonth = match[5];
+    } else {
+      startmonth = stopmonth;
+    }
+    let year:string = match[9];
+    let startdate:string = `${startweekday},${startmonthday}${startmonth}${year}`;
+    let stopdate:string = `${stopweekday},${stopmonthday}${stopmonth}${year}`;
+    dates.push(startdate);
+    dates.push(stopdate);
+  } else {
+    dates.push(candidateDates);
+  }
+  return dates;
+}
+
 function parseDates(candidateDates:string): [Date] {
   const dateString:string = 'EEEE,dMMMMyyyy';
   let dates:[Date] = new Array();
   let parsedDate:Date = null;
-  for (let date:string of [candidateDates]) {
+  let dateRange:[string] = getDateRange(candidateDates);
+  for (let date:string of dateRange) {
     parsedDate = parse(date, dateString, new Date(), {locale: el});
     if (!isValid(parsedDate)) {
       console.log('Date invalid: ' + date);
@@ -92,7 +119,17 @@ function parseDates(candidateDates:string): [Date] {
     }
     dates.push(parsedDate);
   }
-  return dates;
+  // Let's see if we had a date range after all and we need to augment it
+  if (dates.length == 2) {
+    let duration = dates[1] - dates[0];
+    let extradays = (duration / 86400000) - 1;
+    for (let i:number=1; i<=extradays; i++) {
+      let newdate:Date = new Date(dates[0]);
+      newdate.setDate(newdate.getDate() + i);
+      dates.push(newdate);
+    }
+  }
+  return dates.sort();
 }
 
 async function parseUnParsed(xml:string): [object] {
