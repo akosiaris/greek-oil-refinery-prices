@@ -13,7 +13,7 @@
 	<atom:link href="http://oil.gge.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>http://oil.gge.gov.gr</link>
 	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
-	<lastBuildDate>Mon, 05 Sep 2022 07:45:17 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 05 Sep 2022 09:19:36 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
@@ -29,10 +29,10 @@
 		<guid isPermaLink="false">http://oil.gge.gov.gr/?p=15243</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
 				<content:encoded><![CDATA[<p>&nbsp;</p>
-<table style="height: 815px" width="522">
+<table style="height: 770px" width="514">
 <tbody>
 <tr>
-<td colspan="3" width="616">Σάββατο εως Δευτέρα 3 εως 5 Σεπτεμβρίου 2022</td>
+<td colspan="3" width="616">Σάββατο 3 έως Δευτέρα 5 Σεπτεμβρίου 2022</td>
 </tr>
 <tr>
 <td colspan="3">ΤΙΜΕΣ ΓΙΑ ΕΤΑΙΡΙΕΣ ΕΜΠΟΡΙΑΣ (EX-FACTORY)</td>
@@ -70,7 +70,7 @@
 </tr>
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
-<td>1.280,574</td>
+<td>1.388,263</td>
 <td></td>
 </tr>
 <tr>
@@ -177,6 +177,8 @@
 </tr>
 </tbody>
 </table>
+<p>&nbsp;</p>
+<p>ΧΠ: Χειμερινή Περίοδος(από 15/10 έως 30/4 επόμενου έτους)</p>
 ]]></content:encoded>
 			<wfw:commentRss>http://oil.gge.gov.gr/?feed=rss2&#038;p=15243</wfw:commentRss>
 		<slash:comments>0</slash:comments>
