@@ -13,7 +13,7 @@
 	<atom:link href="http://oil.gge.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>http://oil.gge.gov.gr</link>
 	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
-	<lastBuildDate>Fri, 14 Oct 2022 06:10:07 +0000</lastBuildDate>
+	<lastBuildDate>Fri, 14 Oct 2022 11:35:22 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
@@ -28,7 +28,7 @@
 
 		<guid isPermaLink="false">http://oil.gge.gov.gr/?p=15346</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
-				<content:encoded><![CDATA[<table style="height: 757px" width="497">
+				<content:encoded><![CDATA[<table style="height: 766px" width="495">
 <tbody>
 <tr>
 <td colspan="3" width="616">Παρασκευή, 14 Οκτωβρίου 2022</td>
@@ -52,12 +52,12 @@
 <tr>
 <td>UNLEADED 95 BIO</td>
 <td>1.524,328</td>
-<td></td>
+<td>1.523,686</td>
 </tr>
 <tr>
 <td>UNLEADED 100 BIO</td>
 <td>1.607,691</td>
-<td></td>
+<td>1.608,057</td>
 </tr>
 <tr>
 <td colspan="3">Πετρέλαια (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -70,12 +70,12 @@
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
 <td>1.604,620</td>
-<td></td>
+<td>1.603,338</td>
 </tr>
 <tr>
-<td>HEATING GASOIL (Χ.Π)</td>
+<td>HEATING GASOIL (ΧΠ)</td>
 <td>1.054,012</td>
-<td></td>
+<td>1.113,679</td>
 </tr>
 <tr>
 <td colspan="3">Υγραέρια – LPG (τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -88,22 +88,22 @@
 <tr>
 <td>LPG AUTO</td>
 <td>1.263,942</td>
-<td></td>
+<td>1.265,529</td>
 </tr>
 <tr>
 <td>LPG ΘΕΡΜΑΝΣΗΣ</td>
 <td>898,368</td>
-<td></td>
+<td>898,835</td>
 </tr>
 <tr>
 <td>LPG ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>958,668</td>
-<td></td>
+<td>959,135</td>
 </tr>
 <tr>
 <td>ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>908,448</td>
-<td></td>
+<td>920,509</td>
 </tr>
 <tr>
 <td>ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
@@ -121,7 +121,7 @@
 <tr>
 <td>Fuel Oil No 180 1%S</td>
 <td>736,949</td>
-<td></td>
+<td>735,596</td>
 </tr>
 <tr>
 <td>Fuel Oil No 380 1%S</td>
@@ -157,12 +157,12 @@
 <tr>
 <td>ΒΕΑ 50/70 &amp; 70/100</td>
 <td>463,480</td>
-<td></td>
+<td>464,330</td>
 </tr>
 <tr>
 <td>ΒΕΑ 30/45</td>
 <td>-</td>
-<td></td>
+<td>483,990</td>
 </tr>
 <tr>
 <td>ΒΕΑ 35/40</td>
