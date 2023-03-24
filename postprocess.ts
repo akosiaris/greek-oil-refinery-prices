@@ -13,6 +13,7 @@ const daysRegExp:RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτ�
 const dateRangeRegExp:RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/; 
 const fuelCategoriesRegExp:RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp:RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
+const volumeRegExp:RegExp = /τιμές σε €\/m3/;
 
 export function parseOilPage(html:string): [object] {
   try {
@@ -169,7 +170,7 @@ function stripNulls(data:[object]): [object] {
       }
       if (!datum.vat17Price_per_lt) {
         delete datum.vat17Price_per_lt;
-	delete datum.vat17notes;
+        delete datum.vat17notes;
       }
     ret.push(datum);
     }
@@ -204,9 +205,11 @@ function addVAT(data:[object]): [object] {
   let ret:[object] = new Array();
   try {
     for (let datum of data) {
-      datum.vat24Price_per_lt = datum.meanPrice * 1.24 / 1000;
-      datum.vat17Price_per_lt = datum.meanPrice * 1.17 / 1000;
-      datum.vat17notes = 'Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο';
+      if (volumeRegExp.test(datum.notes)) {
+        datum.vat24Price_per_lt = datum.meanPrice * 1.24 / 1000;
+        datum.vat17Price_per_lt = datum.meanPrice * 1.17 / 1000;
+        datum.vat17notes = 'Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο';
+      }
       ret.push(datum);
     }
     return ret;
