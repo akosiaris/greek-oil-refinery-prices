@@ -1,12 +1,12 @@
 import { writeTXT, readTXT } from 'https://deno.land/x/flat/mod.ts';
 import { parseOilPage, writeDataFiles } from './postprocess.ts';
 
-const site = 'http://oil.gge.gov.gr/?p=';
-let start:number=11505;
-let end:number=15154;
+const site: string = 'http://oil.gge.gov.gr/?p=';
+let start: number=11505;
+let end: number=15154;
 
-for (var i:number=start; i<=end; i++) {
-  let txt = null;
+for (var i: number=start; i<=end; i++) {
+  let txt: string = '';
   try {
     txt = await readTXT('old_data/html_' + i);
   } catch(error) {
@@ -17,7 +17,7 @@ for (var i:number=start; i<=end; i++) {
     txt = await resp.text();
     await writeTXT('old_data/html_' + i, txt);
   }
-  let pagedata:[object] = parseOilPage(txt);
+  let pagedata: object[] = parseOilPage(txt);
   if (!pagedata) {
     console.log('Not parsed' + txt);
   } else if (pagedata.length > 0) {
