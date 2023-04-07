@@ -10,7 +10,7 @@ type FuelName = 'DIΕSEL AUTO BIO' | 'Fuel Oil No 180 1%S' | 'Fuel Oil No 380 1%
 // Type to limit the values for notes. Interestingly they are rather well structured
 type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ' | 'τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ' | 'τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ';
 // Is this fuel counted in mass? or volume ?
-type Unit = 'Cubic Meter' | 'Liter' | 'Metric Ton';
+type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος';
 
 export class FuelEntry {
   // naive (not timezeone aware) date
@@ -55,9 +55,9 @@ export class FuelEntry {
   
   private setUnit(): void {
     if (volumeRegExp.test(this.notes)) {
-      this.unit = 'Cubic Meter';
+      this.unit = 'Κυβικό Μέτρο';
     } else if (massRegExp.test(this.notes))  {
-      this.unit = 'Metric Ton';
+      this.unit = 'Μετρικός Τόνος';
     }
   }
 
