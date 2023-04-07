@@ -14,6 +14,46 @@ const fuelCategoriesRegExp: RegExp = /(Βενζίνες|Πετρέλαια|Υγ�
 const ignoreRegExp: RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 const volumeRegExp: RegExp = /τιμές σε €\/m3/;
 
+// Type to limit the values for fuel categories. String otherwise
+type FuelCategory = "Βενζίνες" | "Πετρέλαια" | "Υγραέρια – LPG" | "ΜΑΖΟΥΤ-FUEL OIL" | "ΚΗΡΟΖΙΝΗ – KERO" | "ΑΣΦΑΛΤΟΣ";
+// Type to limit the values for fuel names. String otherwise
+type FuelName = "DIΕSEL AUTO BIO" | "Fuel Oil No 180 1%S" | "Fuel Oil No 380 1%S" | "HEATING GASOIL" | "HEATING GASOIL (Χ.Π)" | "HEATING GASOIL (ΧΠ)" | "KERO" | "KERO SPECIAL" | "LPG AUTO" | "LPG ΒΙΟΜΗΧΑΝΙΑΣ" | "LPG ΘΕΡΜΑΝΣΗΣ" | "UNLEADED 100" | "UNLEADED 100 BIO" | "UNLEADED 95" | "UNLEADED 95 BIO" | "UNLEADED LRP" | "UNLEADED LRP BIO" | "ΒΕΑ 30/45" | "ΒΕΑ 35/40" | "ΒΕΑ 50/70 & 70/100" | "ΒΕΘ 50/70" | "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ" | "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ";
+// Type to limit the values for notes. Interestingly they are rather well structured
+type Notes = "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ" | "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ" | "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ";
+
+class FuelEntry {
+  // naive (not timezeone aware) date
+  public date: Date;
+  // Category of product, e.g. "Βενζινες"
+  public category: FuelCategory;
+  public notes: Notes;
+  // name of product, e.g. "DIΕSEL AUTO BIO"
+  public fuel: FuelName;
+  // Prices for the 2 large oil distilleries
+  public elpePrice: number;
+  public motoroilPrice: number;
+  public meanPrice: number;
+
+  public constructor(date: Date, category: FuelCategory, notes: Notes, fuel: FuelName, elpePrice: number, motoroilPrice: number) {
+    this.date = date;
+    this.category = category;
+    this.notes = notes;
+    this.fuel = fuel;
+    this.elpePrice = elpePrice;
+    this.motoroilPrice = motoroilPrice;
+  
+    if (elpePrice && motoroilPrice) {
+      this.meanPrice = (elpePrice + motoroilPrice) / 2;
+    } else if (elpePrice) {
+      this.meanPrice = elpePrice;
+    } else if (motoroilPrice) {
+      this.meanPrice = motoroilPrice;
+    } else {
+      this.meanPrice = NaN;
+    }
+  }
+}
+
 export function parseOilPage(html:string): object[] {
   try {
     const document: any = new DOMParser().parseFromString(html, 'text/html');
@@ -25,8 +65,9 @@ export function parseOilPage(html:string): object[] {
     let category: string = '';
     let notes: string = '';
     let data:object[] = new Array();
+    let fuels:FuelEntry[] = new Array();
 
-    let i:number;
+    let i: number;
     for (i=0; i < tbody.children.length; i++) {
       if (daysRegExp.test(tbody.children[i].textContent)) {
         candidateDates = tbody.children[i].textContent.trim();
@@ -46,15 +87,18 @@ export function parseOilPage(html:string): object[] {
         let motoroilPrice: number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
         // And let's create the objects
         for (let parsedDate of parsedDates) {
+          let dtmp: Date = new Date(parsedDate.toISOString().split('T')[0]);
           let datum = {
-            parsedDate: parsedDate.toISOString().split('T')[0],
+            parsedDate: dtmp,
             category: category,
             notes: notes,
             fuelName: fuelName,
             elpePrice: elpePrice,
             motoroilPrice: motoroilPrice,
           };
+          let fuel = new FuelEntry(dtmp, category as FuelCategory, notes as Notes, fuelName as FuelName, elpePrice, motoroilPrice);
           data.push(datum);
+          fuels.push(fuel);
         }
       }
     }
