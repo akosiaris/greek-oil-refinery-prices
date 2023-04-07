@@ -1,20 +1,20 @@
 import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
-import { readTXT, readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts';
+import { readTXT, readJSON, writeJSON, readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
 import { FuelEntry, volumeRegExp } from './FuelEntry.ts';
 
-const augmentedDatafile: string = 'data_augmented.json';
-const fullDatafile: string = 'data_full.json';
+const csvdatafile: string = 'fuels.csv';
+const jsondatafile: string = 'fuels.json';
 const statefile: string = 'state.json';
 const daysRegExp: RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
 const dateRangeRegExp: RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/; 
 const fuelCategoriesRegExp: RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp: RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
-export function parseFuelPage(html: string): object[] {
+export function parseFuelPage(html: string): FuelEntry[] {
   try {
     const document: any = new DOMParser().parseFromString(html, 'text/html');
     const tbody: any = document.querySelector('tbody');
@@ -24,7 +24,6 @@ export function parseFuelPage(html: string): object[] {
     let parsedDates: Date[] = new Array();
     let category: string = '';
     let notes: string = '';
-    let data: object[] = new Array();
     let fuels: FuelEntry[] = new Array();
 
     let i: number;
@@ -48,21 +47,12 @@ export function parseFuelPage(html: string): object[] {
         // And let's create the objects
         for (let parsedDate of parsedDates) {
           let dtmp: Date = new Date(parsedDate.toISOString().split('T')[0]);
-          let datum = {
-            parsedDate: dtmp,
-            category: category,
-            notes: notes,
-            fuelName: fuelName,
-            elpePrice: elpePrice,
-            motoroilPrice: motoroilPrice,
-          };
           let fuel = new FuelEntry(dtmp, category, notes, fuelName, elpePrice, motoroilPrice);
-          data.push(datum);
           fuels.push(fuel);
         }
       }
     }
-    return data;
+    return fuels;
   } catch(error) {
     console.log(error);
     return new Array();
@@ -135,14 +125,14 @@ function parseDates(candidateDates: string): Date[] {
   return dates.sort();
 }
 
-async function parseUnParsed(xml: string): Promise<object[]> {
+async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
   try {
-    let ret: object[] = new Array();
+    let ret: FuelEntry[] = new Array();
     var statedata  = await readJSON(statefile);
     const {entries} = await parseFeed(xml);
     for (let entry of entries) {
       if (!(entry.id in statedata)) {
-        let freshdata = parseFuelPage(entry.content.value);
+        let freshdata: FuelEntry[] = parseFuelPage(entry.content.value);
         ret = ret.concat(freshdata);
         statedata[entry.id] = true;
       }
@@ -155,47 +145,7 @@ async function parseUnParsed(xml: string): Promise<object[]> {
   }
 }
 
-function addMeanValue(data: object[]): object[] {
-  let ret: object[] = new Array();
-  try {
-    for (let datum of data) {
-      if (datum.elpePrice && datum.motoroilPrice) {
-        datum.meanPrice = (datum.elpePrice + datum.motoroilPrice) / 2;
-      } else if (datum.elpePrice) {
-        datum.meanPrice = datum.elpePrice;
-      } else if (datum.motoroilPrice) {
-        datum.meanPrice = datum.motoroilPrice;
-      } else {
-        datum.meanPrice = NaN;
-      }
-      ret.push(datum);
-    }
-    return ret;
-  } catch(error) {
-    console.log(error);
-    return new Array();
-  }
-}
-
-function addVAT(data: object[]): object[] {
-  let ret: object[] = new Array();
-  try {
-    for (let datum of data) {
-      if (volumeRegExp.test(datum.notes)) {
-        datum.vat24Price_per_lt = datum.meanPrice * 1.24 / 1000;
-        datum.vat17Price_per_lt = datum.meanPrice * 1.17 / 1000;
-        datum.vat17notes = 'Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο';
-      }
-      ret.push(datum);
-    }
-    return ret;
-  } catch(error) {
-    console.log(error);
-    return new Array();
-  }
-}
-
-async function appendData(data: object[], datafile: string): Promise<void> {
+async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void> {
   let jsondata;
   try {
     jsondata  = await readJSON(datafile);
@@ -210,20 +160,32 @@ async function appendData(data: object[], datafile: string): Promise<void> {
   }
 }
 
-export async function writeDataFiles(data: object[]): Promise<void> {
+async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void> {
+  let csvdata;
+  try {
+    csvdata  = await readCSV(datafile);
+    csvdata = csvdata.concat(data);
+  } catch(error) {
+    csvdata = data;
+  }
+  try {
+    await writeCSV(datafile, csvdata);
+  } catch(error) {
+    console.log(error);
+  }
+}
+
+export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
     // Write the original data
-    await appendData(data, fullDatafile);
-    // Add mean price
-    let augmented: object[] = addMeanValue(data);
-    augmented = addVAT(augmented);
-    await appendData(augmented, augmentedDatafile);
+    await appendJSONData(data, jsondatafile);
+    await appendCSVData(data, csvdatafile);
 }
 
 try {
   const xmlfile: string = Deno.args[0]
   if (xmlfile) {
     const xml: string = await readTXT(xmlfile);
-    let parsed: object[] = await parseUnParsed(xml);
+    let parsed: FuelEntry[] = await parseUnParsed(xml);
     await writeDataFiles(parsed);
   }
 } catch(error) {
