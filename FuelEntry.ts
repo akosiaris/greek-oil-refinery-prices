@@ -42,15 +42,18 @@ export class FuelEntry {
   }
 
   private addMeanPrice() {
+    let meanPrice: number;
     if (this.elpePrice && this.motoroilPrice) {
-      this.meanPrice = (this.elpePrice + this.motoroilPrice) / 2;
+      meanPrice = (this.elpePrice + this.motoroilPrice) / 2;
     } else if (this.elpePrice) {
-      this.meanPrice = this.elpePrice;
+      meanPrice = this.elpePrice;
     } else if (this.motoroilPrice) {
-      this.meanPrice = this.motoroilPrice;
+      meanPrice = this.motoroilPrice;
     } else {
-      this.meanPrice = NaN;
+      meanPrice = NaN;
     }
+    // Rounding to 2 digits. Javascript sucks
+    this.meanPrice = parseFloat(meanPrice.toFixed(2));
   }
   
   private setUnit(): void {
@@ -63,8 +66,11 @@ export class FuelEntry {
 
   private addVAT(): void {
     if (missingOnlyVATRegExp.test(this.notes)) {
-      this.vat24Price = this.meanPrice * 1.24;
-      this.vat17Price = this.meanPrice * 1.17;
+      let vat24Price: number = this.meanPrice * 1.24;
+      let vat17Price: number = this.meanPrice * 1.17;
+      // Round to 2 digits, Javascript sucks
+      this.vat24Price = parseFloat(vat24Price.toFixed(2));
+      this.vat17Price = parseFloat(vat17Price.toFixed(2));
     } else {
       console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
     }
