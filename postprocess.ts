@@ -165,34 +165,6 @@ async function parseUnParsed(xml:string): Promise<object[]> {
   }
 }
 
-function stripNulls(data: object[]): object[] {
-  let ret: object[] = new Array();
-  try {
-    for (let datum of data) {
-      if (!datum.elpePrice) {
-        delete datum.elpePrice;
-      }
-      if (!datum.motoroilPrice) {
-        delete datum.motoroilPrice;
-      }
-      if (!datum.meanPrice) {
-        delete datum.meanPrice;
-      }
-      if (!datum.vat24Price_per_lt) {
-        delete datum.vat24Price_per_lt;
-      }
-      if (!datum.vat17Price_per_lt) {
-        delete datum.vat17Price_per_lt;
-        delete datum.vat17notes;
-      }
-    ret.push(datum);
-    }
-    return ret;
-  } catch(error) {
-    console.log(error);
-  }
-}
-
 function addMeanValue(data: object[]): object[] {
   let ret: object[] = new Array();
   try {
