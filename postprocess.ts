@@ -5,7 +5,6 @@ import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from "https://deno.land/x/date_fns/locale/index.js";
 
-const plainDatafile: string = 'data_plain.json';
 const augmentedDatafile: string = 'data_augmented.json';
 const fullDatafile: string = 'data_full.json';
 const statefile: string = 'state.json';
@@ -243,9 +242,6 @@ export async function writeDataFiles(data: object[]): Promise<void> {
     let augmented: object[] = addMeanValue(data);
     augmented = addVAT(augmented);
     await appendData(augmented, augmentedDatafile);
-    // Remove nulls,NaNs
-    let plain: object[] = stripNulls(augmented);
-    await appendData(plain, plainDatafile);
 }
 
 try {

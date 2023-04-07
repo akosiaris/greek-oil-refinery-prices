@@ -12,32 +12,35 @@ A Flat Data Github action approach that uses Deno, Typescript and Github to fetc
 
 ## Data file description:
 
-3 data files exist in JSON format (pretty much ready to be posted to elasticsearch (albeit not in the bulk endpoint)
+2 data files exist in JSON. Both pretty much ready to be posted to elasticsearch (albeit not in the bulk endpoint)
 
-* **data_full.json**: Has the entirety of the original data. Example below
-  * ```{
-        "parsedDate": "2018-12-31", # Just a naive (not timezone aware) date.
-        "category": "Βενζίνες", # Category of product
-        "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ", # Notes
-        "fuelName": "UNLEADED LRP", # Name of product
-        "elpePrice": 1051.717, # Price at ΕΛ.ΠΕ. distilleries
-        "motoroilPrice": 1092.438 # Price at Motor Oil distilleries
-      }```
+* **data_full.json**: Has the entirety of the original data as parsed. Example below
+  ```
+  {
+    "parsedDate": "2018-12-31", # Just a naive (not timezone aware) date.
+    "category": "Βενζίνες", # Category of product
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ", # Notes
+    "fuelName": "UNLEADED LRP", # Name of product
+    "elpePrice": 1051.717, # Price at ΕΛ.ΠΕ. distilleries
+    "motoroilPrice": 1092.438 # Price at Motor Oil distilleries
+  }
+  ```
   * Note that some fields could be null.
 * **data_augmented.json:** Original data + augmented with calculation including VAT. Example below with explanations
-  * ```{
-        "parsedDate": "2018-12-31", # Just a naive (not timezone aware) date.
-        "category": "Βενζίνες", # Category of product
-        "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ", # Notes
-        "fuelName": "UNLEADED LRP", # Name of product
-        "elpePrice": 1051.717, # Price at ΕΛ.ΠΕ. distilleries
-        "motoroilPrice": 1092.438, # Price at Motor Oil distilleries
-        "meanPrice": 1072.0775, # Mean price if both above prices are provided
-        "vat24Price_per_lt": 1.3293761000000002, # Mean price if VAT 24% is added
-        "vat17Price_per_lt": 1.2543306749999998, # Mean price if VAT 17% is added
-        "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο" # Notes about where the 17% VAT applies
-      }```
-* **data_plain.json**: Trimmed down version of the above one, with properties having null values removed.
+  ```
+  {
+    "parsedDate": "2018-12-31", # Just a naive (not timezone aware) date.
+    "category": "Βενζίνες", # Category of product
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ", # Notes
+    "fuelName": "UNLEADED LRP", # Name of product
+    "elpePrice": 1051.717, # Price at ΕΛ.ΠΕ. distilleries
+    "motoroilPrice": 1092.438, # Price at Motor Oil distilleries
+    "meanPrice": 1072.0775, # Mean price if both above prices are provided
+    "vat24Price_per_lt": 1.3293761000000002, # Mean price if VAT 24% is added
+    "vat17Price_per_lt": 1.2543306749999998, # Mean price if VAT 17% is added
+    "vat17notes": "Only for Λέρο, Λέσβο, Κω, Σάμο και Χίο" # Notes about where the 17% VAT applies
+  }
+  ```
 
 # How to use:
 
