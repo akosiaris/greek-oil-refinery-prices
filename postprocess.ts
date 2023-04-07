@@ -3,7 +3,8 @@ import { readTXT, readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts';
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
-import { el, enUS } from "https://deno.land/x/date_fns/locale/index.js";
+import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
+import FuelEntry from './FuelEntry.ts';
 
 const augmentedDatafile: string = 'data_augmented.json';
 const fullDatafile: string = 'data_full.json';
@@ -21,38 +22,6 @@ type FuelName = "DIΕSEL AUTO BIO" | "Fuel Oil No 180 1%S" | "Fuel Oil No 380 1%
 // Type to limit the values for notes. Interestingly they are rather well structured
 type Notes = "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ" | "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ" | "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ";
 
-class FuelEntry {
-  // naive (not timezeone aware) date
-  public date: Date;
-  // Category of product, e.g. "Βενζινες"
-  public category: FuelCategory;
-  public notes: Notes;
-  // name of product, e.g. "DIΕSEL AUTO BIO"
-  public fuel: FuelName;
-  // Prices for the 2 large oil distilleries
-  public elpePrice: number;
-  public motoroilPrice: number;
-  public meanPrice: number;
-
-  public constructor(date: Date, category: FuelCategory, notes: Notes, fuel: FuelName, elpePrice: number, motoroilPrice: number) {
-    this.date = date;
-    this.category = category;
-    this.notes = notes;
-    this.fuel = fuel;
-    this.elpePrice = elpePrice;
-    this.motoroilPrice = motoroilPrice;
-  
-    if (elpePrice && motoroilPrice) {
-      this.meanPrice = (elpePrice + motoroilPrice) / 2;
-    } else if (elpePrice) {
-      this.meanPrice = elpePrice;
-    } else if (motoroilPrice) {
-      this.meanPrice = motoroilPrice;
-    } else {
-      this.meanPrice = NaN;
-    }
-  }
-}
 
 export function parseOilPage(html:string): object[] {
   try {
