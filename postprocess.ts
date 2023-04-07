@@ -4,7 +4,7 @@ import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
-import FuelEntry from './FuelEntry.ts';
+import { FuelEntry, volumeRegExp } from './FuelEntry.ts';
 
 const augmentedDatafile: string = 'data_augmented.json';
 const fullDatafile: string = 'data_full.json';
@@ -13,15 +13,6 @@ const daysRegExp: RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτ
 const dateRangeRegExp: RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/; 
 const fuelCategoriesRegExp: RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp: RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
-const volumeRegExp: RegExp = /τιμές σε €\/m3/;
-
-// Type to limit the values for fuel categories. String otherwise
-type FuelCategory = "Βενζίνες" | "Πετρέλαια" | "Υγραέρια – LPG" | "ΜΑΖΟΥΤ-FUEL OIL" | "ΚΗΡΟΖΙΝΗ – KERO" | "ΑΣΦΑΛΤΟΣ";
-// Type to limit the values for fuel names. String otherwise
-type FuelName = "DIΕSEL AUTO BIO" | "Fuel Oil No 180 1%S" | "Fuel Oil No 380 1%S" | "HEATING GASOIL" | "HEATING GASOIL (Χ.Π)" | "HEATING GASOIL (ΧΠ)" | "KERO" | "KERO SPECIAL" | "LPG AUTO" | "LPG ΒΙΟΜΗΧΑΝΙΑΣ" | "LPG ΘΕΡΜΑΝΣΗΣ" | "UNLEADED 100" | "UNLEADED 100 BIO" | "UNLEADED 95" | "UNLEADED 95 BIO" | "UNLEADED LRP" | "UNLEADED LRP BIO" | "ΒΕΑ 30/45" | "ΒΕΑ 35/40" | "ΒΕΑ 50/70 & 70/100" | "ΒΕΘ 50/70" | "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ" | "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ";
-// Type to limit the values for notes. Interestingly they are rather well structured
-type Notes = "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ" | "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ" | "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ";
-
 
 export function parseOilPage(html:string): object[] {
   try {
@@ -65,7 +56,7 @@ export function parseOilPage(html:string): object[] {
             elpePrice: elpePrice,
             motoroilPrice: motoroilPrice,
           };
-          let fuel = new FuelEntry(dtmp, category as FuelCategory, notes as Notes, fuelName as FuelName, elpePrice, motoroilPrice);
+          let fuel = new FuelEntry(dtmp, category, notes, fuelName, elpePrice, motoroilPrice);
           data.push(datum);
           fuels.push(fuel);
         }

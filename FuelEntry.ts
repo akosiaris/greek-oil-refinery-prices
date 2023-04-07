@@ -1,33 +1,72 @@
+// Used for VAT calculation
+export const volumeRegExp: RegExp = /τιμές σε €\/m3/;
+export const massRegExp: RegExp = /τιμές σε €\/μ.τ./;
+export const missingOnlyVATRegExp: RegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
+
+// Type to limit the values for fuel categories. String otherwise
+type FuelCategory = 'Βενζίνες' | 'Πετρέλαια' | 'Υγραέρια – LPG' | 'ΜΑΖΟΥΤ-FUEL OIL' | 'ΚΗΡΟΖΙΝΗ – KERO' | 'ΑΣΦΑΛΤΟΣ';
+// Type to limit the values for fuel names. String otherwise
+type FuelName = 'DIΕSEL AUTO BIO' | 'Fuel Oil No 180 1%S' | 'Fuel Oil No 380 1%S' | 'HEATING GASOIL' | 'HEATING GASOIL (Χ.Π)' | 'HEATING GASOIL (ΧΠ)' | 'KERO' | 'KERO SPECIAL' | 'LPG AUTO' | 'LPG ΒΙΟΜΗΧΑΝΙΑΣ' | 'LPG ΘΕΡΜΑΝΣΗΣ' | 'UNLEADED 100' | 'UNLEADED 100 BIO' | 'UNLEADED 95' | 'UNLEADED 95 BIO' | 'UNLEADED LRP' | 'UNLEADED LRP BIO' | 'ΒΕΑ 30/45' | 'ΒΕΑ 35/40' | 'ΒΕΑ 50/70 & 70/100' | 'ΒΕΘ 50/70' | 'ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ' | 'ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ';
+// Type to limit the values for notes. Interestingly they are rather well structured
+type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ' | 'τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ' | 'τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ';
+// Is this fuel counted in mass? or volume ?
+type Unit = 'Cubic Meter' | 'Liter' | 'Metric Ton';
+
 export class FuelEntry {
-    // naive (not timezeone aware) date
-    public date: Date;
-    // Category of product, e.g. "Βενζινες"
-    public category: FuelCategory;
-    public notes: Notes;
-    // name of product, e.g. "DIΕSEL AUTO BIO"
-    public fuel: FuelName;
-    // Prices for the 2 large oil distilleries
-    public elpePrice: number;
-    public motoroilPrice: number;
-    public meanPrice: number;
-  
-    public constructor(date: Date, category: FuelCategory, notes: Notes, fuel: FuelName, elpePrice: number, motoroilPrice: number) {
-      this.date = date;
-      this.category = category;
-      this.notes = notes;
-      this.fuel = fuel;
-      this.elpePrice = elpePrice;
-      this.motoroilPrice = motoroilPrice;
-    
-      if (elpePrice && motoroilPrice) {
-        this.meanPrice = (elpePrice + motoroilPrice) / 2;
-      } else if (elpePrice) {
-        this.meanPrice = elpePrice;
-      } else if (motoroilPrice) {
-        this.meanPrice = motoroilPrice;
-      } else {
-        this.meanPrice = NaN;
-      }
+  // naive (not timezeone aware) date
+  public date: Date;
+  // Category of product, e.g. 'Βενζινες'
+  public category: FuelCategory;
+  public notes: Notes;
+  // name of product, e.g. 'DIΕSEL AUTO BIO'
+  public fuel: FuelName;
+  // Prices for the 2 large oil distilleries
+  public elpePrice: number;
+  public motoroilPrice: number;
+  public meanPrice: number;
+  public vat24Price: number;
+  public vat17Price: number; // 'Ισχύει μόνο για Λέρο, Λέσβο, Κω, Σάμο και Χίο';
+  public unit: Unit;
+
+  public constructor(date: Date, category: string, notes: string, fuel: string, elpePrice: number, motoroilPrice: number) {
+    this.date = date;
+    this.category = category as FuelCategory;
+    this.notes = notes as Notes;
+    this.fuel = fuel as FuelName;
+    this.elpePrice = elpePrice;
+    this.motoroilPrice = motoroilPrice;
+
+    this.setUnit();
+    this.addMeanPrice();
+    this.addVAT();
+  }
+
+  private addMeanPrice() {
+    if (this.elpePrice && this.motoroilPrice) {
+      this.meanPrice = (this.elpePrice + this.motoroilPrice) / 2;
+    } else if (this.elpePrice) {
+      this.meanPrice = this.elpePrice;
+    } else if (this.motoroilPrice) {
+      this.meanPrice = this.motoroilPrice;
+    } else {
+      this.meanPrice = NaN;
     }
+  }
+  
+  private setUnit(): void {
+    if (volumeRegExp.test(this.notes)) {
+      this.unit = 'Cubic Meter';
+    } else if (massRegExp.test(this.notes))  {
+      this.unit = 'Metric Ton';
+    }
+  }
+
+  private addVAT(): void {
+    if (missingOnlyVATRegExp.test(this.notes)) {
+      this.vat24Price = this.meanPrice * 1.24;
+      this.vat17Price = this.meanPrice * 1.17;
+    } else {
+      console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
+    }
+  }
 }
-export default FuelEntry;
