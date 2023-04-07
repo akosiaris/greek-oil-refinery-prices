@@ -14,7 +14,7 @@ const dateRangeRegExp: RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|
 const fuelCategoriesRegExp: RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp: RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
-export function parseOilPage(html:string): object[] {
+export function parseFuelPage(html: string): object[] {
   try {
     const document: any = new DOMParser().parseFromString(html, 'text/html');
     const tbody: any = document.querySelector('tbody');
@@ -24,8 +24,8 @@ export function parseOilPage(html:string): object[] {
     let parsedDates: Date[] = new Array();
     let category: string = '';
     let notes: string = '';
-    let data:object[] = new Array();
-    let fuels:FuelEntry[] = new Array();
+    let data: object[] = new Array();
+    let fuels: FuelEntry[] = new Array();
 
     let i: number;
     for (i=0; i < tbody.children.length; i++) {
@@ -69,10 +69,9 @@ export function parseOilPage(html:string): object[] {
   }
 }
 
-function sanitizeDates(input:string): string {
-  let dates: string = '';
+function sanitizeDates(input: string): string {
   // Remove great from days
-  dates = input.replace('Μεγάλο', '').replace('Μεγάλη', '').replace('Μεγ.', '');
+  let dates: string = input.replace('Μεγάλο', '').replace('Μεγάλη', '').replace('Μεγ.', '');
   // Normalize string, e.g. get rid of unicode no break spaces
   dates = dates.normalize('NFKC');
   // Remove all spaces now, the original data can be inconsistent anyway
@@ -84,7 +83,7 @@ function sanitizeDates(input:string): string {
   return dates;
 }
 
-function getDateRange(candidateDates:string): string[] {
+function getDateRange(candidateDates: string): string[] {
   let dates: string[] = new Array();
   let match: RegExpMatchArray | null = candidateDates.match(dateRangeRegExp);
   if (match) {
@@ -110,7 +109,7 @@ function getDateRange(candidateDates:string): string[] {
   return dates;
 }
 
-function parseDates(candidateDates:string): Date[] {
+function parseDates(candidateDates: string): Date[] {
   const dateString: string = 'EEEE,dMMMMyyyy';
   let dates: Date[] = new Array();
   let dateRange: string[] = getDateRange(candidateDates);
@@ -136,14 +135,14 @@ function parseDates(candidateDates:string): Date[] {
   return dates.sort();
 }
 
-async function parseUnParsed(xml:string): Promise<object[]> {
+async function parseUnParsed(xml: string): Promise<object[]> {
   try {
     let ret: object[] = new Array();
     var statedata  = await readJSON(statefile);
     const {entries} = await parseFeed(xml);
     for (let entry of entries) {
       if (!(entry.id in statedata)) {
-        let freshdata = parseOilPage(entry.content.value);
+        let freshdata = parseFuelPage(entry.content.value);
         ret = ret.concat(freshdata);
         statedata[entry.id] = true;
       }
@@ -221,9 +220,9 @@ export async function writeDataFiles(data: object[]): Promise<void> {
 }
 
 try {
-  const xmlfile:string = Deno.args[0]
+  const xmlfile: string = Deno.args[0]
   if (xmlfile) {
-    const xml:string = await readTXT(xmlfile);
+    const xml: string = await readTXT(xmlfile);
     let parsed: object[] = await parseUnParsed(xml);
     await writeDataFiles(parsed);
   }
