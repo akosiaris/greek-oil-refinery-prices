@@ -4,7 +4,7 @@ import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
-import { FuelEntry, volumeRegExp } from './FuelEntry.ts';
+import { FuelEntry } from './FuelEntry.ts';
 
 const csvdatafile: string = 'fuels.csv';
 const jsondatafile: string = 'fuels.json';

@@ -1,7 +1,7 @@
 // Used for VAT calculation
-export const volumeRegExp: RegExp = /τιμές σε €\/m3/;
-export const massRegExp: RegExp = /τιμές σε €\/μ.τ./;
-export const missingOnlyVATRegExp: RegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
+const volumeRegExp: RegExp = /τιμές σε €\/m3/;
+const massRegExp: RegExp = /τιμές σε €\/μ.τ./;
+const missingOnlyVATRegExp: RegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
 
 // Type to limit the values for fuel categories. String otherwise
 type FuelCategory = 'Βενζίνες' | 'Πετρέλαια' | 'Υγραέρια – LPG' | 'ΜΑΖΟΥΤ-FUEL OIL' | 'ΚΗΡΟΖΙΝΗ – KERO' | 'ΑΣΦΑΛΤΟΣ';
