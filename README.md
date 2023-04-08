@@ -24,8 +24,8 @@ The data exists in 2 formats, JSON and CSV.
   "elpePrice": 1454.368,
   "motoroilPrice": null,
   "meanPrice": 1454.368,
-  "vat24Price": 1803.4163199999998,
-  "vat17Price": 1701.6105599999999,
+  "vat24Price": 1803.416,
+  "vat17Price": 1701.610,
   "unit": "Κυβικό Μέτρο"
 },
 ```
