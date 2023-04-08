@@ -28,6 +28,16 @@ export class FuelEntry {
   public vat17Price: number; // 'Ισχύει μόνο για Λέρο, Λέσβο, Κω, Σάμο και Χίο';
   public unit: Unit;
 
+  /**
+   * Constructs a FuelEntry
+   * 
+   * @param date - Date type, the date of the record
+   * @param category - The category of the record
+   * @param notes - Some notes about the record
+   * @param fuel - The name of the fuel
+   * @param elpePrice - The price of ΕΛ.ΠΕ. 
+   * @param motoroilPrice - The price of MotorOil
+   */
   public constructor(date: Date, category: string, notes: string, fuel: string, elpePrice: number, motoroilPrice: number) {
     this.date = date;
     this.category = category as FuelCategory;
@@ -41,7 +51,10 @@ export class FuelEntry {
     this.addVAT();
   }
 
-  private addMeanPrice() {
+  /**
+   * Calcuates the mean price of ΕΛ.ΠΕ. and MotorOil
+   */
+  private addMeanPrice(): void {
     let meanPrice: number;
     if (this.elpePrice && this.motoroilPrice) {
       meanPrice = (this.elpePrice + this.motoroilPrice) / 2;
@@ -52,10 +65,13 @@ export class FuelEntry {
     } else {
       meanPrice = NaN;
     }
-    // Rounding to 2 digits. Javascript sucks
-    this.meanPrice = parseFloat(meanPrice.toFixed(2));
+    // Rounding to 3 digits. Javascript sucks
+    this.meanPrice = parseFloat(meanPrice.toFixed(3));
   }
-  
+
+  /**
+   * Calculates and set the unit property based on the notes
+   */
   private setUnit(): void {
     if (volumeRegExp.test(this.notes)) {
       this.unit = 'Κυβικό Μέτρο';
@@ -64,13 +80,16 @@ export class FuelEntry {
     }
   }
 
+  /**
+   * Adds 24% VAT and 17% VAT properties. Only some fuel types will have that added
+   */
   private addVAT(): void {
     if (missingOnlyVATRegExp.test(this.notes)) {
       let vat24Price: number = this.meanPrice * 1.24;
       let vat17Price: number = this.meanPrice * 1.17;
-      // Round to 2 digits, Javascript sucks
-      this.vat24Price = parseFloat(vat24Price.toFixed(2));
-      this.vat17Price = parseFloat(vat17Price.toFixed(2));
+      // Round to 3 digits, Javascript sucks
+      this.vat24Price = parseFloat(vat24Price.toFixed(3));
+      this.vat17Price = parseFloat(vat17Price.toFixed(3));
     } else {
       console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
     }
