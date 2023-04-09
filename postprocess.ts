@@ -5,6 +5,7 @@ import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
 import { FuelEntry } from './FuelEntry.ts';
+import env from "node:process";
 
 const csvdatafile: string = 'fuels.csv';
 const jsondatafile: string = 'fuels.json';
@@ -183,10 +184,27 @@ export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
 
 try {
   const xmlfile: string = Deno.args[0]
+  const elasticsearch_url = env['ELASTICSEARCH_URL'];
+  const elasticsearch_username = env['ELASTICSEARCH_USERNAME']
+  const elasticsearch_password = env['ELASTICSEARCH_PASSWORD'];
+  const b64 = btoa(elasticsearch_username + ':' + elasticsearch_password);
+
   if (xmlfile) {
     const xml: string = await readTXT(xmlfile);
     let parsed: FuelEntry[] = await parseUnParsed(xml);
     await writeDataFiles(parsed);
+    /* Now, let's post them to elasticsearch */
+    for (let entry of parsed) {
+        let response = await fetch(elasticsearch_url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Basic " + b64,
+            },
+            body: JSON.stringify(entry),
+        });
+        console.log(response);
+    }
   }
 } catch(error) {
   console.log(error);
