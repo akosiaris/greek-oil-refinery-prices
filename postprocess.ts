@@ -203,7 +203,10 @@ try {
             },
             body: JSON.stringify(entry),
         });
-        console.log(response);
+        if (response.status != 201) {
+          // POST failed, log why
+          console.log(response);
+        }
     }
   }
 } catch(error) {
