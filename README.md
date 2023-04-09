@@ -12,7 +12,7 @@ A Flat Data Github action approach that uses Deno, Typescript and Github to fetc
 
 ## Data file description:
 
-The data exists in 2 formats, JSON and CSV. 
+The data exists in 3 formats, JSON, CSV and SQLite.
 
 **fuels.json**: An example is below. For an elasticsearch compatible schema, see schema.json
 ```
@@ -38,6 +38,22 @@ date,category,notes,fuel,elpePrice,motoroilPrice,meanPrice,vat24Price,vat17Price
 """2018-12-31T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,1254.33,Κυβικό Μέτρο
 """2018-12-29T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,1254.33,Κυβικό Μέτρο
 """2018-12-30T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,1254.33,Κυβικό Μέτρο
+```
+
+**fuels.db**: The table schema is the following. No various normal forms, no indices, or any kind of optimization. This is experimental
+
+```
+CREATE TABLE IF NOT EXISTS fuels (
+  date TEXT NOT NULL,
+  category TEXT NOT NULL,
+  notes TEXT NOT NULL,
+  fuel TEXT NOT NULL,
+  elpePrice REAL,
+  motoroilPrice REAL,
+  meanPrice REAL,
+  vat24Price REAL,
+  vat17Price REAL,
+  unit TEXT NOT NULL)
 ```
 
 # How to use:

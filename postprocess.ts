@@ -1,5 +1,6 @@
 import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { readTXT, readJSON, writeJSON, readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
+import { DB } from "https://deno.land/x/sqlite/mod.ts";
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
@@ -9,6 +10,7 @@ import { env } from "node:process";
 
 const csvdatafile: string = 'fuels.csv';
 const jsondatafile: string = 'fuels.json';
+const sqlitedatafile: string = 'fuels.db';
 const statefile: string = 'state.json';
 const daysRegExp: RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
 const dateRangeRegExp: RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/; 
@@ -176,10 +178,46 @@ async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void>
   }
 }
 
+async function appendSQLiteData(data: FuelEntry[], datafile: string): Promise<void> {
+  const db = new DB(datafile);
+  db.execute(`
+  CREATE TABLE IF NOT EXISTS fuels (
+    date TEXT NOT NULL,
+    category TEXT NOT NULL,
+    notes TEXT NOT NULL,
+    fuel TEXT NOT NULL,
+    elpePrice REAL,
+    motoroilPrice REAL,
+    meanPrice REAL,
+    vat24Price REAL,
+    vat17Price REAL,
+    unit TEXT NOT NULL)
+  `);
+  for (let entry of data) {
+    db.query(`
+    INSERT INTO fuels (
+      date, category, notes, fuel, 
+      elpePrice, motoroilPrice, meanPrice, vat24price, vat17price, unit)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [entry.date,
+    entry.category,
+    entry.notes,
+    entry.fuel,
+    entry.elpePrice,
+    entry.motoroilPrice,
+    entry.meanPrice,
+    entry.vat24Price,
+    entry.vat17Price,
+    entry.unit]
+    );
+  }
+}
+
 export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
     // Write the original data
     await appendJSONData(data, jsondatafile);
     await appendCSVData(data, csvdatafile);
+    await appendSQLiteData(data, sqlitedatafile);
 }
 
 try {
