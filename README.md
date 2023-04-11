@@ -1,6 +1,6 @@
-# greek-oil-distillery-prices
+# greek-oil-refinery-prices
 
-A repo using the Flat Data approach, scraping Greek oil distillery prices from http://oil.gge.gov.gr (note the lack of HTTPS) and assembling them in a number of more usable forms.
+A repo using the Flat Data approach, scraping Greek oil refinery prices from http://oil.gge.gov.gr (note the lack of HTTPS) and assembling them in a number of more usable forms.
 
 # Still in development
 
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS fuels (
 
 # How to use:
 
-Just go to https://flatgithub.com/akosiaris/greek-oil-distillery-prices , pick the data file you want and get a basic UI for exploring it.
+Just go to https://flatgithub.com/akosiaris/greek-oil-refinery-prices , pick the data file you want and get a basic UI for exploring it.
 
 You can also choose to feed it to whatever datastore you like (e.g. I plan to eventually post it to Elasticsearch and graph it via Grafana)
 
