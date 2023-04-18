@@ -23,10 +23,10 @@ export class FuelEntry {
   // Prices for the 2 large oil distilleries
   public elpePrice: number;
   public motoroilPrice: number;
-  public meanPrice: number;
-  public vat24Price: number;
-  public vat17Price: number; // 'Ισχύει μόνο για Λέρο, Λέσβο, Κω, Σάμο και Χίο';
-  public unit: Unit;
+  public meanPrice!: number;
+  public vat24Price!: number;
+  public vat17Price!: number; // 'Ισχύει μόνο για Λέρο, Λέσβο, Κω, Σάμο και Χίο';
+  public unit!: Unit;
 
   /**
    * Constructs a FuelEntry
