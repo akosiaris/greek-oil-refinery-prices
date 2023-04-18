@@ -3,12 +3,23 @@ export class VAT {
     public end: Date
     public value: number
 
+    /**
+     * @param start - When that VAT rate becomes active
+     * @param end - When that VAT rate becomes inactive
+     * @param value - The VAT rate
+     * 
+     */
     public constructor(start: Date, end: Date, value: number) {
         this.start = start;
         this.end = end;
         this.value = value;
     }
 
+    /**
+     * 
+     * @param date - The date we want the VAT rate for
+     * @returns - The VAT rate as a number
+     */
     public static VATbyDate(date: Date): number {
         if (date > VAT_18_PERCENT.start && date < VAT_18_PERCENT.end) {
             return VAT_18_PERCENT.value;
