@@ -1,4 +1,5 @@
 // Used for VAT calculation
+import { VAT } from './VAT.ts';
 const volumeRegExp: RegExp = /τιμές σε €\/m3/;
 const massRegExp: RegExp = /τιμές σε €\/μ.τ./;
 const missingOnlyVATRegExp: RegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
@@ -24,8 +25,7 @@ export class FuelEntry {
   public elpePrice: number;
   public motoroilPrice: number;
   public meanPrice!: number;
-  public vat24Price!: number;
-  public vat17Price!: number; // 'Ισχύει μόνο για Λέρο, Λέσβο, Κω, Σάμο και Χίο';
+  public vatPrice!: number;
   public unit!: Unit;
 
   /**
@@ -81,15 +81,13 @@ export class FuelEntry {
   }
 
   /**
-   * Adds 24% VAT and 17% VAT properties. Only some fuel types will have that added
+   * Adds VAT property. Only some fuel types will have that added
    */
   private addVAT(): void {
     if (missingOnlyVATRegExp.test(this.notes)) {
-      let vat24Price: number = this.meanPrice * 1.24;
-      let vat17Price: number = this.meanPrice * 1.17;
+      let vatPrice: number = this.meanPrice * (1+ VAT.VATbyDate(this.date));
       // Round to 3 digits, Javascript sucks
-      this.vat24Price = parseFloat(vat24Price.toFixed(3));
-      this.vat17Price = parseFloat(vat17Price.toFixed(3));
+      this.vatPrice = parseFloat(vatPrice.toFixed(3));
     } else {
       console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
     }
