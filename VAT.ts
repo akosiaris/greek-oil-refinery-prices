@@ -1,3 +1,9 @@
+
+/**
+ * A class to model how to apply Greek VAT rates on fuels across the last 20+ years 
+ * 
+ * @alpha
+ */
 export class VAT { 
     public start: Date
     public end: Date
@@ -16,8 +22,8 @@ export class VAT {
     }
 
     /**
+     * @param date - The date we want the VAT rate for. Needs to be a Date
      * 
-     * @param date - The date we want the VAT rate for
      * @returns - The VAT rate as a number
      */
     public static VATbyDate(date: Date): number {
