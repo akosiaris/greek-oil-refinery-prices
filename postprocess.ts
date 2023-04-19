@@ -1,12 +1,12 @@
 import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { readTXT, readJSON, writeJSON, readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
-import { DB } from "https://deno.land/x/sqlite/mod.ts";
+import { DB } from 'https://deno.land/x/sqlite/mod.ts';
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
 import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
 import { FuelEntry } from './FuelEntry.ts';
-import { env } from "node:process";
+import { env } from 'node:process';
 
 const csvdatafile: string = 'fuels.csv';
 const jsondatafile: string = 'fuels.json';
@@ -234,10 +234,10 @@ try {
     /* Now, let's post them to elasticsearch */
     for (let entry of parsed) {
         let response = await fetch(elasticsearch_url, {
-            method: "POST",
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": "Basic " + b64,
+                'Content-Type': 'application/json',
+                'Authorization': 'Basic ' + b64,
             },
             body: JSON.stringify(entry),
         });

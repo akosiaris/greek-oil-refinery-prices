@@ -1,7 +1,7 @@
-import { assertEquals } from "https://deno.land/std@0.183.0/testing/asserts.ts";
-import { FuelEntry } from "./FuelEntry.ts";
+import { assertEquals } from 'https://deno.land/std@0.183.0/testing/asserts.ts';
+import { FuelEntry } from './FuelEntry.ts';
 
-Deno.test("Simple Correct Entry", () => {
+Deno.test('Simple Correct Entry', () => {
     const date = new Date('2020-01-01T00:00:00.000Z');
     const entry = new FuelEntry(
         date,
