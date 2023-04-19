@@ -189,28 +189,42 @@ async function appendSQLiteData(data: FuelEntry[], datafile: string): Promise<vo
     elpePrice REAL,
     motoroilPrice REAL,
     meanPrice REAL,
-    vat24Price REAL,
-    vat17Price REAL,
+    vatPrice REAL,
     unit TEXT NOT NULL)
   `);
+  const query = db.prepareQuery<never, never, {
+    date: string,
+    category: string,
+    notes: string,
+    fuel: string,
+    elpePrice: number,
+    meanPrice: number,
+    vatPrice: number,
+    unit: string }>
+  (`
+  INSERT INTO fuels (
+    date,
+    category,
+    notes,
+    fuel,
+    elpePrice,
+    motoroilPrice,
+    meanPrice,
+    vatPrice,
+    unit) VALUES (
+      :date,
+      :category,
+      :notes,
+      :fuel,
+      :elpePrice,
+      :motoroilPrice,
+      :meanPrice,
+      :vatPrice,
+      :unit)`);
   for (let entry of data) {
-    db.query(`
-    INSERT INTO fuels (
-      date, category, notes, fuel, 
-      elpePrice, motoroilPrice, meanPrice, vat24price, vat17price, unit)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-    [entry.date,
-    entry.category,
-    entry.notes,
-    entry.fuel,
-    entry.elpePrice,
-    entry.motoroilPrice,
-    entry.meanPrice,
-    entry.vat24Price,
-    entry.vat17Price,
-    entry.unit]
-    );
+    query.execute(entry);
   }
+  query.finalize();
 }
 
 export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
