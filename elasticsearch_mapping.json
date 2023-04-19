@@ -9,8 +9,7 @@
       "elpePrice":{ "type": "float" },
       "motoroilPrice": { "type": "float" },
       "meanPrice": { "type": "float" },
-      "vat24Price": { "type": "float" },
-      "vat17Price": { "type": "float" },
+      "vatPrice": { "type": "float" },
       "unit": { "type": "keyword" }
     }
   }
