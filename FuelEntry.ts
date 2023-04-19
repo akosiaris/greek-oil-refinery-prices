@@ -13,6 +13,11 @@ type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελώ�
 // Is this fuel counted in mass? or volume ?
 type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγνωστο';
 
+/**
+ * A class to represent a single entry of the Fuel data. 
+ * 
+ * @alpha
+ */
 export class FuelEntry {
   // naive (not timezeone aware) date
   public date: Date;
