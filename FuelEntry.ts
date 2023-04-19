@@ -11,7 +11,7 @@ type FuelName = 'DIΕSEL AUTO BIO' | 'Fuel Oil No 180 1%S' | 'Fuel Oil No 380 1%
 // Type to limit the values for notes. Interestingly they are rather well structured
 type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ' | 'τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ' | 'τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ';
 // Is this fuel counted in mass? or volume ?
-type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος';
+type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγνωστο';
 
 export class FuelEntry {
   // naive (not timezeone aware) date
@@ -24,9 +24,9 @@ export class FuelEntry {
   // Prices for the 2 large oil distilleries
   public elpePrice: number;
   public motoroilPrice: number;
-  public meanPrice!: number;
-  public vatPrice!: number;
-  public unit!: Unit;
+  public meanPrice: number;
+  public vatPrice: number;
+  public unit: Unit;
 
   /**
    * Constructs a FuelEntry
@@ -46,15 +46,15 @@ export class FuelEntry {
     this.elpePrice = elpePrice;
     this.motoroilPrice = motoroilPrice;
 
-    this.setUnit();
-    this.addMeanPrice();
-    this.addVAT();
+    this.unit = this.deriveUnit();
+    this.meanPrice = this.calculateMeanPrice();
+    this.vatPrice = this.calculateVAT();
   }
 
   /**
    * Calcuates the mean price of ΕΛ.ΠΕ. and MotorOil
    */
-  private addMeanPrice(): void {
+  private calculateMeanPrice(): number {
     let meanPrice: number;
     if (this.elpePrice && this.motoroilPrice) {
       meanPrice = (this.elpePrice + this.motoroilPrice) / 2;
@@ -66,30 +66,34 @@ export class FuelEntry {
       meanPrice = NaN;
     }
     // Rounding to 3 digits. Javascript sucks
-    this.meanPrice = parseFloat(meanPrice.toFixed(3));
+    return parseFloat(meanPrice.toFixed(3));
   }
 
   /**
    * Calculates and set the unit property based on the notes
    */
-  private setUnit(): void {
+  private deriveUnit(): Unit {
     if (volumeRegExp.test(this.notes)) {
-      this.unit = 'Κυβικό Μέτρο';
+      return 'Κυβικό Μέτρο';
     } else if (massRegExp.test(this.notes))  {
-      this.unit = 'Μετρικός Τόνος';
+      return 'Μετρικός Τόνος';
+    } else {
+      console.log('Could not figure out Unit, notes field is: ' + this.notes);
+      return 'Άγνωστο';
     }
   }
 
   /**
    * Adds VAT property. Only some fuel types will have that added
    */
-  private addVAT(): void {
+  private calculateVAT(): number {
     if (missingOnlyVATRegExp.test(this.notes)) {
       let vatPrice: number = this.meanPrice * (1+ VAT.VATbyDate(this.date));
       // Round to 3 digits, Javascript sucks
-      this.vatPrice = parseFloat(vatPrice.toFixed(3));
+      return parseFloat(vatPrice.toFixed(3));
     } else {
       console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
+      return NaN;
     }
   }
 }
