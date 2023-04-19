@@ -24,8 +24,7 @@ The data exists in 3 formats, JSON, CSV and SQLite.
   "elpePrice": 1454.368,
   "motoroilPrice": null,
   "meanPrice": 1454.368,
-  "vat24Price": 1803.416,
-  "vat17Price": 1701.610,
+  "vatPrice": 1803.416,
   "unit": "Κυβικό Μέτρο"
 },
 ```
@@ -34,10 +33,10 @@ Note that some fields could be null. Pretty much ready to be posted to elasticse
 
 **fuels.csv**: An example of a few entries is below.
 ```
-date,category,notes,fuel,elpePrice,motoroilPrice,meanPrice,vat24Price,vat17Price,unit
-"""2018-12-31T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,1254.33,Κυβικό Μέτρο
-"""2018-12-29T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,1254.33,Κυβικό Μέτρο
-"""2018-12-30T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,1254.33,Κυβικό Μέτρο
+date,category,notes,fuel,elpePrice,motoroilPrice,meanPrice,vatPrice,unit
+"""2018-12-31T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,Κυβικό Μέτρο
+"""2018-12-29T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,Κυβικό Μέτρο
+"""2018-12-30T00:00:00.000Z""",Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1051.717,1092.438,1072.08,1329.38,Κυβικό Μέτρο
 ```
 
 **fuels.db**: The table schema is the following. No various normal forms, no indices, or any kind of optimization. This is experimental
@@ -51,8 +50,7 @@ CREATE TABLE IF NOT EXISTS fuels (
   elpePrice REAL,
   motoroilPrice REAL,
   meanPrice REAL,
-  vat24Price REAL,
-  vat17Price REAL,
+  vatPrice REAL,
   unit TEXT NOT NULL)
 ```
 
