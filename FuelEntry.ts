@@ -93,7 +93,7 @@ export class FuelEntry {
    */
   private calculateVAT(): number {
     if (missingOnlyVATRegExp.test(this.notes)) {
-      let vatPrice: number = this.meanPrice * (1+ VAT.VATbyDate(this.date));
+      let vatPrice: number = this.meanPrice * (1 + VAT.VATbyDate(this.date));
       // Round to 3 digits, Javascript sucks
       return parseFloat(vatPrice.toFixed(3));
     } else {
