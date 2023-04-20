@@ -59,19 +59,19 @@
         },
         "elpePrice": {
             "description": "The price of the fuel as advertised by ΕΛ.ΠΕ - (https://www.helpe.gr)",
-            "type": "number"
+            "type": ["number", "null"]
         },
         "motoroilPrice": {
             "description": "The price of the fuel as advertised by Motor Oil - (https://www.moh.gr/)",
-            "type": "number"
+            "type": ["number", "null"]
         },
         "meanPrice": {
             "description": "Derived data. The mean price of the above 2 prices",
-            "type": "number"
+            "type": ["number", "null"]
         },
         "vatPrice": {
             "description": "Derived data. The mean price including the appropriate for that date VAT",
-            "type": "number"
+            "type": ["number", "null"]
         },
         "unit": {
             "description": "The unit of the fuel. Mass vs Volume",
@@ -83,5 +83,5 @@
         }
     },
     "additionalProperties": false,
-    "required": ["date", "category", "notes", "fuel", "unit"]
+    "required": ["date", "category", "notes", "fuel", "unit", "elpePrice", "motoroilPrice", "meanPrice", "vatPrice"]
 }
