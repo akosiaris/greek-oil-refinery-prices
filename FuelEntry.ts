@@ -1,16 +1,28 @@
+// Schema validation import
+import Ajv2020 from "npm:ajv/dist/2020.js"
+import addFormats from "npm:ajv-formats"
+import { readJSON } from 'https://deno.land/x/flat/mod.ts';
+
+const ajv = new Ajv2020()
+addFormats(ajv)
+const fuel_schema = await readJSON('schema.json');
+const fuel_validate = ajv.compile(fuel_schema);
+
 // Used for VAT calculation
 import { VAT } from './VAT.ts';
+
+// RegExps for parsing notes to produce units, VAT
 const volumeRegExp: RegExp = /τιμές σε €\/m3/;
 const massRegExp: RegExp = /τιμές σε €\/μ.τ./;
 const missingOnlyVATRegExp: RegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
 
-// Type to limit the values for fuel categories. String otherwise
+// Type to limit the values for fuel categories. String Literal
 type FuelCategory = 'Βενζίνες' | 'Πετρέλαια' | 'Υγραέρια – LPG' | 'ΜΑΖΟΥΤ-FUEL OIL' | 'ΚΗΡΟΖΙΝΗ – KERO' | 'ΑΣΦΑΛΤΟΣ';
-// Type to limit the values for fuel names. String otherwise
+// Type to limit the values for fuel names. String Literal
 type FuelName = 'DIΕSEL AUTO BIO' | 'Fuel Oil No 180 1%S' | 'Fuel Oil No 380 1%S' | 'HEATING GASOIL' | 'HEATING GASOIL (Χ.Π)' | 'HEATING GASOIL (ΧΠ)' | 'KERO' | 'KERO SPECIAL' | 'LPG AUTO' | 'LPG ΒΙΟΜΗΧΑΝΙΑΣ' | 'LPG ΘΕΡΜΑΝΣΗΣ' | 'UNLEADED 100' | 'UNLEADED 100 BIO' | 'UNLEADED 95' | 'UNLEADED 95 BIO' | 'UNLEADED LRP' | 'UNLEADED LRP BIO' | 'ΒΕΑ 30/45' | 'ΒΕΑ 35/40' | 'ΒΕΑ 50/70 & 70/100' | 'ΒΕΘ 50/70' | 'ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ' | 'ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ';
-// Type to limit the values for notes. Interestingly they are rather well structured
+// Type to limit the values for notes. Interestingly they are rather well structured, more than FuelNames. String Literal
 type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ' | 'τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ' | 'τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ';
-// Is this fuel counted in mass? or volume ?
+// Type to limit values of units. Is this fuel counted in mass? or volume ?. String Literal
 type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγνωστο';
 
 /**
