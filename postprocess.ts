@@ -245,20 +245,22 @@ try {
     const xml: string = await readTXT(xmlfile);
     let parsed: FuelEntry[] = await parseUnParsed(xml);
     await writeDataFiles(parsed);
-    /* Now, let's post them to elasticsearch */
-    for (let entry of parsed) {
-        let response = await fetch(elasticsearch_url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + b64,
-            },
-            body: JSON.stringify(entry),
-        });
-        if (response.status != 201) {
-          // POST failed, log why
-          console.log(response);
-        }
+    if (elasticsearch_url) {
+      /* Now, let's post them to elasticsearch */
+      for (let entry of parsed) {
+          let response = await fetch(elasticsearch_url, {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': 'Basic ' + b64,
+              },
+              body: JSON.stringify(entry),
+          });
+          if (response.status != 201) {
+            // POST failed, log why
+            console.log(response);
+          }
+      }
     }
   }
 } catch(error) {
