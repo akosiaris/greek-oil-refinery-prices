@@ -1,10 +1,19 @@
-// Schema validation import
-import Ajv2020 from "npm:ajv/dist/2020.js"
-import addFormats from "npm:ajv-formats"
+// Schema validation imports
+/*  TODO: Honestly, I have no idea what I am doing with the imports here. I 've 
+    ended up with something that looks wrong for some reason, but works with deno,
+    without having to use npm directly. I am pretty sure I 'll have to revisit this,
+    but one thing at a time. The 2 things that bug me are:
+    * Usage of that .default thing.
+    * Needing to put .js at the end of 2020, but not for ajv-formats
+*/
+import Ajv2020 from "npm:ajv/dist/2020.js";
+import addFormats from "npm:ajv-formats";
+const ajv = new Ajv2020.default();
+addFormats.default(ajv);
+
+// We wanna parse JSON
 import { readJSON } from 'https://deno.land/x/flat/mod.ts';
 
-const ajv = new Ajv2020()
-addFormats(ajv)
 const fuel_schema = await readJSON('schema.json');
 const fuel_validate = ajv.compile(fuel_schema);
 
