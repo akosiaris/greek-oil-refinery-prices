@@ -14,4 +14,7 @@ Deno.test('Simple Correct Entry', () => {
     assertEquals(entry.unit, 'Κυβικό Μέτρο');
     assertEquals(entry.meanPrice, 100);
     assertEquals(entry.vatPrice, 124);
+    const serialized: string = entry.serialize();
+    const unserialized: FuelEntry = FuelEntry.unserialize(serialized);
+    console.log(typeof(unserialized.date));
 });

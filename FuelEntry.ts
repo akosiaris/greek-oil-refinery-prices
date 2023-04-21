@@ -1,5 +1,5 @@
 // Schema validation imports
-/*  TODO: Honestly, I have no idea what I am doing with the imports here. I 've 
+/*  TODO: Honestly, I have no idea what I am doing with the imports here. I 've
     ended up with something that looks wrong for some reason, but works with deno,
     without having to use npm directly. I am pretty sure I 'll have to revisit this,
     but one thing at a time. The 2 things that bug me are:
@@ -8,15 +8,11 @@
 */
 import Ajv2020 from "npm:ajv/dist/2020.js";
 import addFormats from "npm:ajv-formats";
-const ajv = new Ajv2020.default();
+const ajv = new Ajv2020.default({coerceTypes: true});
 addFormats.default(ajv);
 
 // We wanna parse JSON
 import { readJSON } from 'https://deno.land/x/flat/mod.ts';
-
-const fuel_schema = await readJSON('schema.json');
-const fuel_validate = ajv.compile(fuel_schema);
-
 // Used for VAT calculation
 import { VAT } from './VAT.ts';
 
@@ -34,9 +30,13 @@ type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελώ�
 // Type to limit values of units. Is this fuel counted in mass? or volume ?. String Literal
 type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγνωστο';
 
+// Let's compile the schema
+const fuel_schema = await readJSON('schema.json');
+const validate_fuel = ajv.compile<FuelEntry>(fuel_schema);
+
 /**
- * A class to represent a single entry of the Fuel data. 
- * 
+ * A class to represent a single entry of the Fuel data.
+ *
  * @alpha
  */
 export class FuelEntry {
@@ -56,12 +56,12 @@ export class FuelEntry {
 
   /**
    * Constructs a FuelEntry
-   * 
+   *
    * @param date - Date type, the date of the record
    * @param category - The category of the record
    * @param notes - Some notes about the record
    * @param fuel - The name of the fuel
-   * @param elpePrice - The price of ΕΛ.ΠΕ. 
+   * @param elpePrice - The price of ΕΛ.ΠΕ.
    * @param motoroilPrice - The price of MotorOil
    */
   public constructor(date: Date, category: string, notes: string, fuel: string, elpePrice: number, motoroilPrice: number) {
@@ -120,6 +120,31 @@ export class FuelEntry {
     } else {
       console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
       return NaN;
+    }
+  }
+
+  /**
+   * JSON stringify the entry
+   *
+   * @returns JSON representation of the fuel entry
+   */
+  public serialize(): string {
+    return JSON.stringify(this);
+  }
+
+  /**
+   * Unserialize a previously serialized entry
+   *
+   * @param s - String. The stringified serialized entry
+   * @returns A FuelEntry instance
+   */
+  public static unserialize(s: string): FuelEntry {
+    const datum = JSON.parse(s);
+    if (validate_fuel(datum)) {
+      return datum as FuelEntry;
+    } else {
+      console.log(validate_fuel.errors);
+      throw TypeError;
     }
   }
 }
