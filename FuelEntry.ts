@@ -138,7 +138,7 @@ export class FuelEntry {
    * @param s - String. The stringified serialized entry
    * @returns A FuelEntry instance
    */
-  public static unserialize(s: string): FuelEntry {
+  public static deserialize(s: string): FuelEntry {
     const datum = JSON.parse(s);
     if (validate_fuel(datum)) {
       return datum as FuelEntry;

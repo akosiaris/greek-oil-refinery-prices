@@ -30,8 +30,8 @@ Deno.test('Test serialization of entry', () => {
     console.log(typeof(entry.meanPrice));
     console.log(typeof(entry.category));
     const serialized: string = entry.serialize();
-    const unserialized: FuelEntry = FuelEntry.unserialize(serialized);
-    console.log(typeof(unserialized.date));
-    console.log(typeof(unserialized.meanPrice));
-    console.log(typeof(unserialized.category));
+    const deserialized: FuelEntry = FuelEntry.deserialize(serialized);
+    console.log(typeof(deserialized.date));
+    console.log(typeof(deserialized.meanPrice));
+    console.log(typeof(deserialized.category));
 });
