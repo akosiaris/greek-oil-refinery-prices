@@ -64,8 +64,12 @@ export class FuelEntry {
    * @param elpePrice - The price of ΕΛ.ΠΕ.
    * @param motoroilPrice - The price of MotorOil
    */
-  public constructor(date: Date, category: string, notes: string, fuel: string, elpePrice: number, motoroilPrice: number) {
-    this.date = date;
+  public constructor(date: Date | string, category: string, notes: string, fuel: string, elpePrice = NaN, motoroilPrice = NaN) {
+    if (typeof date === 'string') {
+      this.date = new Date(date);
+    } else {
+      this.date = date;
+    }
     this.category = category as FuelCategory;
     this.notes = notes as Notes;
     this.fuel = fuel as FuelName;
