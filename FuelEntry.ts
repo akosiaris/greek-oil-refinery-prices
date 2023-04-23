@@ -145,7 +145,14 @@ export class FuelEntry {
   public static deserialize(s: string): FuelEntry {
     const datum = JSON.parse(s);
     if (validate_fuel(datum)) {
-      return datum as FuelEntry;
+      return new FuelEntry(
+        datum.date,
+        datum.category,
+        datum.notes,
+        datum.fuel,
+        datum.elpePrice,
+        datum.motoroilPrice
+      );
     } else {
       console.log(validate_fuel.errors);
       throw TypeError;
