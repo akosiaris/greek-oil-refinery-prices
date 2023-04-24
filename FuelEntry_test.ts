@@ -31,7 +31,7 @@ Deno.test('Fully Specified Entry with string date - Gazoline', () => {
     assertEquals(entry.vatPrice, 124);
 });
 
-Deno.test('with no elpePrice - Diesel', () => {
+Deno.test('with no motoroilPrice - Diesel', () => {
     const date = new Date('2020-01-01T00:00:00.000Z');
     const entry = new FuelEntry(
         date,
@@ -44,6 +44,22 @@ Deno.test('with no elpePrice - Diesel', () => {
     assertEquals(entry.meanPrice, 100);
     assertEquals(entry.vatPrice, 124);
 });
+
+/* TODO: This test should be failing, but it is not */
+Deno.test('with wrong category', () => {
+    const date = new Date('2020-01-01T00:00:00.000Z');
+    const entry = new FuelEntry(
+        date,
+        'Λάθος Κατηγορία',
+        'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ',
+        'DIΕSEL AUTO BIO',
+        100,
+    );
+    assertEquals(entry.unit, 'Κυβικό Μέτρο');
+    assertEquals(entry.meanPrice, 100);
+    assertEquals(entry.vatPrice, 124);
+});
+
 
 Deno.test('Test serialization of entry', () => {
     const date = '2020-01-01T00:00:00.000Z';
