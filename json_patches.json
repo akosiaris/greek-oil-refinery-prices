@@ -1,7 +1,35 @@
 [
   [
-    { op: "replace", path: "/motoroilPrice", value: 1521.475 },
-    { op: "test", path: "/fuel", value: "DIΕSEL AUTO BIO" },
-    { op: "test", path: "/date", value: "2022-06-29T00:00:00.000Z" }
+    { "op": "test", "path": "/fuel", "value": "DIΕSEL AUTO BIO" },
+    { "op": "replace", "path": "/fuel", "value": "DIESEL AUTO BIO" }
+  ],
+  [
+    { "op": "test", "path": "/fuel", "value": "HEATING GASOIL (Χ.Π)" },
+    { "op": "replace", "path": "/fuel", "value": "HEATING GASOIL (ΧΠ)" }
+  ],
+  [
+    { "op": "test", "path": "/notes", "value": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ"},
+    { "op": "replace", "path": "/notes", "value": "τιμές σε €/m3, συμπεριλ. φόρων - τελών, προ ΦΠΑ"}
+  ],
+  [
+    { "op": "test", "path": "/notes", "value": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ" },
+    { "op": "replace", "path": "/notes", "value": "τιμές σε €/μ.τ., προ φόρων - τελών και ΦΠΑ" }
+  ],
+  [
+    { "op": "test", "path": "/notes", "value": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ" },
+    { "op": "replace", "path": "/notes", "value": "τιμές σε €/μ.τ., συμπεριλ. φόρων - τελών, προ ΦΠΑ" }
+  ],
+  [
+    { "op": "test", "path": "/category", "value": "Υγραέρια – LPG" },
+    { "op": "replace", "path": "/category", "value": "Υγραέρια - LPG" }
+  ],
+  [
+    { "op": "test", "path": "/category", "value": "ΚΗΡΟΖΙΝΗ – KERO" },
+    { "op": "replace", "path": "/category", "value": "ΚΗΡΟΖΙΝΗ - KERO" }
+  ],
+  [
+    { "op": "replace", "path": "/motoroilPrice", "value": 1521.475 },
+    { "op": "test", "path": "/fuel", "value": "DIESEL AUTO BIO" },
+    { "op": "test", "path": "/date", "value": "2022-06-29T00:00:00.000Z" }
   ]
 ]
