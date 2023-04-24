@@ -1,0 +1,7 @@
+[
+  [
+    { op: "replace", path: "/motoroilPrice", value: 1521.475 },
+    { op: "test", path: "/fuel", value: "DIΕSEL AUTO BIO" },
+    { op: "test", path: "/date", value: "2022-06-29T00:00:00.000Z" }
+  ]
+]
