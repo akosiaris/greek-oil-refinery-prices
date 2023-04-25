@@ -14,14 +14,14 @@ for (let i: number=start; i<=end; i++) {
   try {
     txt = await readTXT('dist/html_' + i);
   } catch(_error) {
-    let resp = await fetch(site + i);
+    const resp = await fetch(site + i);
     if (!(resp.status == 200)) {
       continue;
     }
     txt = await resp.text();
     await writeTXT('dist/html_' + i, txt);
   }
-  let pagedata: FuelEntry[] = parseFuelPage(txt);
+  const pagedata = parseFuelPage(txt);
   if (!pagedata) {
     console.log('Not parsed' + txt);
   } else if (pagedata.length > 0) {
