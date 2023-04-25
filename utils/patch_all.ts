@@ -1,6 +1,6 @@
 // Patch all data using our json_patches.json
 
-import { JsonPatch } from "https://deno.land/x/json_patch@v0.1.1/mod.ts";
+import { JsonPatch } from "https://deno.land/x/json_patch@v0.1.2/mod.ts";
 import { readJSON, writeJSON } from 'https://deno.land/x/flat/mod.ts';
 
 const inputfile = Deno.args[0];
