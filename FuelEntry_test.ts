@@ -1,4 +1,4 @@
-import { assertEquals } from './test_deps.ts';
+import { assertEquals, assertThrows } from './test_deps.ts';
 import { FuelEntry } from './FuelEntry.ts';
 
 Deno.test('Fully Specified Entry - Gazoline', () => {
