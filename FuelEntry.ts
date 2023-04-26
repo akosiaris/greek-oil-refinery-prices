@@ -11,10 +11,9 @@ import addFormats from "npm:ajv-formats";
 const ajv = new Ajv2020.default({coerceTypes: true});
 addFormats.default(ajv);
 
-// We wanna parse JSON
-import { readJSON } from './deps.ts';
 // Used for VAT calculation
 import { VAT } from './VAT.ts';
+import fuel_schema from './schema.json' assert {type: 'json'};
 
 // RegExps for parsing notes to produce units, VAT
 const volumeRegExp = /τιμές σε €\/m3/;
@@ -31,7 +30,6 @@ type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελώ�
 type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγνωστο';
 
 // Let's compile the schema
-const fuel_schema = await readJSON('schema.json');
 const validate_fuel = ajv.compile<FuelEntry>(fuel_schema);
 
 /**
