@@ -1,4 +1,4 @@
-import { writeTXT, readTXT } from 'https://deno.land/x/flat/mod.ts';
+import { writeTXT, readTXT } from '../deps.ts';
 import { parseFuelPage, writeDataFiles } from '../postprocess.ts';
 
 const site = 'http://oil.gge.gov.gr/?p=';

@@ -1,6 +1,6 @@
 // Posts a fuels.csv file to an elasticsearch cluster
 
-import { readJSON } from "https://deno.land/x/flat/mod.ts";
+import { readJSON } from '../deps.ts';
 
 try {
     const inputfile: string = Deno.args[0];

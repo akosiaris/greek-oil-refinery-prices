@@ -12,7 +12,7 @@ const ajv = new Ajv2020.default({coerceTypes: true});
 addFormats.default(ajv);
 
 // We wanna parse JSON
-import { readJSON } from 'https://deno.land/x/flat/mod.ts';
+import { readJSON } from './deps.ts';
 // Used for VAT calculation
 import { VAT } from './VAT.ts';
 
