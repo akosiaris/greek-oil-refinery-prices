@@ -1,10 +1,10 @@
 
 /**
- * A class to model how to apply Greek VAT rates on fuels across the last 20+ years 
- * 
+ * A class to model how to apply Greek VAT rates on fuels across the last 20+ years
+ *
  * @alpha
  */
-export class VAT { 
+export class VAT {
     public start: Date
     public end: Date
     public value: number
@@ -13,7 +13,7 @@ export class VAT {
      * @param start - When that VAT rate becomes active
      * @param end - When that VAT rate becomes inactive
      * @param value - The VAT rate
-     * 
+     *
      */
     public constructor(start: Date, end: Date, value: number) {
         this.start = start;
@@ -23,7 +23,7 @@ export class VAT {
 
     /**
      * @param date - The date we want the VAT rate for. Needs to be a Date
-     * 
+     *
      * @returns - The VAT rate as a number
      */
     public static VATbyDate(date: Date): number {
@@ -51,12 +51,12 @@ const VAT_18_PERCENT = new VAT(
 
 const VAT_19_PERCENT = new VAT(
     new Date('2005-04-20'), // Ν. 3336/2005, ΦΕΚ Α 96/20-04-2005)
-    new Date('2010-03-14'), // Ν. 3833/2010, ΦΕΚ Α 40/15-03-2010 
+    new Date('2010-03-14'), // Ν. 3833/2010, ΦΕΚ Α 40/15-03-2010
     0.19,
 );
 
 const VAT_21_PERCENT = new VAT(
-    new Date('2010-03-15'), // Ν. 3833/2010, ΦΕΚ Α 40/15-03-2010 
+    new Date('2010-03-15'), // Ν. 3833/2010, ΦΕΚ Α 40/15-03-2010
     new Date('2010-06-30'), // N. 3845/2010, ΦΕΚ Α 65/06-05-2010
     0.21,
 );
