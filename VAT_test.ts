@@ -30,3 +30,8 @@ Deno.test('2019-05-04T00:00:00.000Z', () => {
     let rate = VAT.VATbyDate(new Date('2019-05-04T00:00:00.000Z'));
     assertEquals(rate, 0.24);
 });
+
+Deno.test('No known VAT', () => {
+    let rate = VAT.VATbyDate(new Date('2000-01-01'));
+    assertEquals(rate, NaN);
+})
