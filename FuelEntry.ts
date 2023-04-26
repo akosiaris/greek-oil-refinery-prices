@@ -17,9 +17,9 @@ import { readJSON } from './deps.ts';
 import { VAT } from './VAT.ts';
 
 // RegExps for parsing notes to produce units, VAT
-const volumeRegExp: RegExp = /τιμές σε €\/m3/;
-const massRegExp: RegExp = /τιμές σε €\/μ.τ./;
-const missingOnlyVATRegExp: RegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
+const volumeRegExp = /τιμές σε €\/m3/;
+const massRegExp = /τιμές σε €\/μ.τ./;
+const missingOnlyVATRegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
 
 // Type to limit the values for fuel categories. String Literal
 type FuelCategory = 'Βενζίνες' | 'Πετρέλαια' | 'Υγραέρια – LPG' | 'ΜΑΖΟΥΤ-FUEL OIL' | 'ΚΗΡΟΖΙΝΗ – KERO' | 'ΑΣΦΑΛΤΟΣ';
