@@ -100,3 +100,23 @@ Deno.test('Test serialization and deserialization of entry', () => {
     const deserialized: FuelEntry = FuelEntry.deserialize(serialized);
     assertEquals(entry, deserialized);
 });
+
+Deno.test('Test non syntactically valid JSON deserialization', () => {
+    // The syntax error is the comma at the end
+    const entry = '{"motoroilPrice": 101,}';
+    assertThrows(() => {FuelEntry.deserialize(entry)}, SyntaxError);
+});
+
+Deno.test('Test non JSONSchema validating but syntactically valid JSON', () => {
+    const entry = `{
+        "date": "2020-01-01T00:00:00.000Z",
+        "category": "Wrong Category",
+        "notes": "wrong notes",
+        "fuel": "wrong fuel",
+        "elpePrice": 99,
+        "motoroilPrice": 101
+    }`;
+    assertThrows(() => {FuelEntry.deserialize(entry)},
+        TypeError, 'Failed to validate'
+    );
+});
