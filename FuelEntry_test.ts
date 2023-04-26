@@ -45,6 +45,32 @@ Deno.test('with no motoroilPrice - Diesel', () => {
     assertEquals(entry.vatPrice, 124);
 });
 
+Deno.test('with no prices - tarmac', () => {
+    const date = new Date('2020-01-01T00:00:00.000Z');
+    const entry = new FuelEntry(
+        date,
+        'ΑΣΦΑΛΤΟΣ',
+        'τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ',
+        'ΒΕΑ 30/45'
+    );
+    assertEquals(entry.unit, 'Μετρικός Τόνος');
+    assertEquals(entry.meanPrice, NaN);
+    assertEquals(entry.vatPrice, NaN);
+});
+
+Deno.test('with unknown notes - tarmac', () => {
+    const date = new Date('2020-01-01T00:00:00.000Z');
+    const entry = new FuelEntry(
+        date,
+        'ΑΣΦΑΛΤΟΣ',
+        'dummy notes',
+        'ΒΕΑ 30/45'
+    );
+    assertEquals(entry.unit, 'Άγνωστο');
+    assertEquals(entry.meanPrice, NaN);
+    assertEquals(entry.vatPrice, NaN);
+});
+
 /* TODO: This test should be failing, but it is not */
 Deno.test('with wrong category', () => {
     const date = new Date('2020-01-01T00:00:00.000Z');
@@ -60,8 +86,7 @@ Deno.test('with wrong category', () => {
     assertEquals(entry.vatPrice, 124);
 });
 
-
-Deno.test('Test serialization of entry', () => {
+Deno.test('Test serialization and deserialization of entry', () => {
     const date = '2020-01-01T00:00:00.000Z';
     const entry = new FuelEntry(
         date,
