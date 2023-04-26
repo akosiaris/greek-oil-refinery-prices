@@ -155,7 +155,7 @@ export class FuelEntry {
       );
     } else {
       console.log(validate_fuel.errors);
-      throw TypeError;
+      throw TypeError('Failed to validate');
     }
   }
 }
