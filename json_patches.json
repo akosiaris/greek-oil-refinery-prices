@@ -28,8 +28,19 @@
     { "op": "replace", "path": "/category", "value": "ΚΗΡΟΖΙΝΗ - KERO" }
   ],
   [
+    { "op": "replace", "path": "/elpePrice", "value": null },
+    { "op": "test", "path": "/fuel", "value": "ΒΕΘ 50/70" },
+    { "op": "test", "path": "/date", "value": "2022-06-14T00:00:00.000Z" }
+  ],
+  [
+    { "op": "replace", "path": "/motoroilPrice", "value": 581.6 },
+    { "op": "test", "path": "/fuel", "value": "ΒΕΑ 50/70 & 70/100" },
+    { "op": "test", "path": "/date", "value": "2022-06-29T00:00:00.000Z" }
+  ],
+  [
     { "op": "replace", "path": "/motoroilPrice", "value": 1521.475 },
     { "op": "test", "path": "/fuel", "value": "DIESEL AUTO BIO" },
     { "op": "test", "path": "/date", "value": "2022-06-29T00:00:00.000Z" }
   ]
+
 ]
