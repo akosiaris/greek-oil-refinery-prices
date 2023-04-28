@@ -2,5 +2,12 @@
   "image": "mcr.microsoft.com/devcontainers/universal:2",
   "features": {
     "ghcr.io/devcontainers-contrib/features/deno:1": {}
-  }
+},
+"customizations": {
+	"vscode": {
+		"extensions": [
+			"denoland.vscode-deno"
+		]
+	}
+}
 }
