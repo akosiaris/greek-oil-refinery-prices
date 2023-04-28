@@ -45,6 +45,21 @@ Deno.test('with no motoroilPrice - Diesel', () => {
     assertEquals(entry.vatPrice, 124);
 });
 
+Deno.test('with no elPePrice - Diesel', () => {
+    const date = new Date('2020-01-01T00:00:00.000Z');
+    const entry = new FuelEntry(
+        date,
+        'Πετρέλαια',
+        'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ',
+        'DIΕSEL AUTO BIO',
+        NaN,
+        100,
+    );
+    assertEquals(entry.unit, 'Κυβικό Μέτρο');
+    assertEquals(entry.meanPrice, 100);
+    assertEquals(entry.vatPrice, 124);
+});
+
 Deno.test('with no prices - tarmac', () => {
     const date = new Date('2020-01-01T00:00:00.000Z');
     const entry = new FuelEntry(
