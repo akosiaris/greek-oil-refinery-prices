@@ -153,7 +153,7 @@ async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void
   try {
     jsondata  = await readJSON(datafile);
     jsondata = jsondata.concat(data);
-  } catch(error) {
+  } catch(_error) {
     jsondata = data;
   }
   try {
@@ -168,7 +168,7 @@ async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void>
   try {
     csvdata  = await readCSV(datafile);
     csvdata = csvdata.concat(data);
-  } catch(error) {
+  } catch(_error) {
     csvdata = data;
   }
   try {
