@@ -131,7 +131,7 @@ function parseDates(candidateDates: string): Date[] {
 async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
   try {
     let ret: FuelEntry[] = new Array();
-    var statedata  = await readJSON(statefile);
+    const statedata  = await readJSON(statefile);
     const {entries} = await parseFeed(xml);
     for (const entry of entries) {
       if (!(entry.id in statedata)) {
@@ -139,7 +139,7 @@ async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
         ret = ret.concat(freshdata);
         statedata[entry.id] = true;
       }
-    };
+    }
     await writeJSON(statefile, statedata, null, 2);
     return ret.reverse();
   } catch(error) {
