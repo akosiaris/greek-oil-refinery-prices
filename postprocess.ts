@@ -4,7 +4,7 @@ import { DB } from 'https://deno.land/x/sqlite/mod.ts';
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import parse from 'https://deno.land/x/date_fns/parse/index.js';
 import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
-import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
+import { el } from 'https://deno.land/x/date_fns/locale/index.js';
 import { FuelEntry } from './FuelEntry.ts';
 import { env } from 'node:process';
 
