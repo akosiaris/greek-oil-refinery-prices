@@ -8,25 +8,25 @@ import { el, enUS } from 'https://deno.land/x/date_fns/locale/index.js';
 import { FuelEntry } from './FuelEntry.ts';
 import { env } from 'node:process';
 
-const csvdatafile: string = 'fuels.csv';
-const jsondatafile: string = 'fuels.json';
-const sqlitedatafile: string = 'fuels.db';
-const statefile: string = 'state.json';
-const daysRegExp: RegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
-const dateRangeRegExp: RegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;
-const fuelCategoriesRegExp: RegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
-const ignoreRegExp: RegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
+const csvdatafile = 'fuels.csv';
+const jsondatafile = 'fuels.json';
+const sqlitedatafile = 'fuels.db';
+const statefile = 'state.json';
+const daysRegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
+const dateRangeRegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;
+const fuelCategoriesRegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
+const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
 export function parseFuelPage(html: string): FuelEntry[] {
   try {
     const document: any = new DOMParser().parseFromString(html, 'text/html');
     const tbody: any = document.querySelector('tbody');
 
-    let candidateDates: string = '';
-    let sanitizedDates: string = '';
+    let candidateDates = '';
+    let sanitizedDates = '';
     let parsedDates: Date[] = new Array();
-    let category: string = '';
-    let notes: string = '';
+    let category = '';
+    let notes = '';
     let fuels: FuelEntry[] = new Array();
 
     let i: number;
@@ -84,7 +84,7 @@ function getDateRange(candidateDates: string): string[] {
     let stopweekday: string = match[3];
     let startmonthday: string = match[4];
     let stopmonthday: string = match[7];
-    let startmonth: string = '';
+    let startmonth = '';
     let stopmonth: string = match[8];
     if (match[5]) {
       startmonth = match[5];
@@ -92,8 +92,8 @@ function getDateRange(candidateDates: string): string[] {
       startmonth = stopmonth;
     }
     let year: string = match[9];
-    let startdate: string = `${startweekday},${startmonthday}${startmonth}${year}`;
-    let stopdate: string = `${stopweekday},${stopmonthday}${stopmonth}${year}`;
+    let startdate = `${startweekday},${startmonthday}${startmonth}${year}`;
+    let stopdate = `${stopweekday},${stopmonthday}${stopmonth}${year}`;
     dates.push(startdate);
     dates.push(stopdate);
   } else {
@@ -103,7 +103,7 @@ function getDateRange(candidateDates: string): string[] {
 }
 
 function parseDates(candidateDates: string): Date[] {
-  const dateString: string = 'EEEE,dMMMMyyyy';
+  const dateString = 'EEEE,dMMMMyyyy';
   let dates: Date[] = new Array();
   let dateRange: string[] = getDateRange(candidateDates);
 
@@ -119,7 +119,7 @@ function parseDates(candidateDates: string): Date[] {
   if (dates.length == 2) {
     let duration: number = dates[1] - dates[0];
     let extradays: number = (duration / 86400000) - 1;
-    for (let i: number=1; i <= extradays; i++) {
+    for (let i=1; i <= extradays; i++) {
       let newdate: Date = new Date(dates[0]);
       newdate.setDate(newdate.getDate() + i);
       dates.push(newdate);
