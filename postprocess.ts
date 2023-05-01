@@ -27,7 +27,7 @@ export function parseFuelPage(html: string): FuelEntry[] {
     let parsedDates: Date[] = new Array();
     let category = '';
     let notes = '';
-    let fuels: FuelEntry[] = new Array();
+    const fuels: FuelEntry[] = new Array();
 
     let i: number;
     for (i=0; i < tbody.children.length; i++) {
@@ -36,21 +36,21 @@ export function parseFuelPage(html: string): FuelEntry[] {
         sanitizedDates = sanitizeDates(candidateDates);
         parsedDates = parseDates(sanitizedDates);
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
-        let match: string[] = tbody.children[i].textContent.match(fuelCategoriesRegExp);
+        const match: string[] = tbody.children[i].textContent.match(fuelCategoriesRegExp);
         category = match[1];
         notes = match[2];
       } else if (ignoreRegExp.test(tbody.children[i].textContent)) {
         // do nothing, we don't care
       } else {
        // Here we go, we are parsing actual prices now
-        let tds: any = tbody.children[i].children;
-        let fuelName: string = tds[0].textContent.trim();
-        let elpePrice: number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
-        let motoroilPrice: number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
+        const tds: any = tbody.children[i].children;
+        const fuelName: string = tds[0].textContent.trim();
+        const elpePrice: number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
+        const motoroilPrice: number = parseFloat(tds[2].textContent.replace(/\./, '').replace(/,/, '.'));
         // And let's create the objects
-        for (let parsedDate of parsedDates) {
-          let dtmp: Date = new Date(parsedDate.toISOString().split('T')[0]);
-          let fuel = new FuelEntry(dtmp, category, notes, fuelName, elpePrice, motoroilPrice);
+        for (const parsedDate of parsedDates) {
+          const dtmp: Date = new Date(parsedDate.toISOString().split('T')[0]);
+          const fuel = new FuelEntry(dtmp, category, notes, fuelName, elpePrice, motoroilPrice);
           fuels.push(fuel);
         }
       }
@@ -77,23 +77,23 @@ function sanitizeDates(input: string): string {
 }
 
 function getDateRange(candidateDates: string): string[] {
-  let dates: string[] = new Array();
-  let match: RegExpMatchArray | null = candidateDates.match(dateRangeRegExp);
+  const dates: string[] = new Array();
+  const match: RegExpMatchArray | null = candidateDates.match(dateRangeRegExp);
   if (match) {
-    let startweekday: string = match[1];
-    let stopweekday: string = match[3];
-    let startmonthday: string = match[4];
-    let stopmonthday: string = match[7];
+    const startweekday: string = match[1];
+    const stopweekday: string = match[3];
+    const startmonthday: string = match[4];
+    const stopmonthday: string = match[7];
     let startmonth = '';
-    let stopmonth: string = match[8];
+    const stopmonth: string = match[8];
     if (match[5]) {
       startmonth = match[5];
     } else {
       startmonth = stopmonth;
     }
-    let year: string = match[9];
-    let startdate = `${startweekday},${startmonthday}${startmonth}${year}`;
-    let stopdate = `${stopweekday},${stopmonthday}${stopmonth}${year}`;
+    const year: string = match[9];
+    const startdate = `${startweekday},${startmonthday}${startmonth}${year}`;
+    const stopdate = `${stopweekday},${stopmonthday}${stopmonth}${year}`;
     dates.push(startdate);
     dates.push(stopdate);
   } else {
@@ -104,11 +104,11 @@ function getDateRange(candidateDates: string): string[] {
 
 function parseDates(candidateDates: string): Date[] {
   const dateString = 'EEEE,dMMMMyyyy';
-  let dates: Date[] = new Array();
-  let dateRange: string[] = getDateRange(candidateDates);
+  const dates: Date[] = new Array();
+  const dateRange: string[] = getDateRange(candidateDates);
 
-  for (let date of dateRange) {
-    let parsedDate: Date = parse(date, dateString, new Date(), {locale: el});
+  for (const date of dateRange) {
+    const parsedDate: Date = parse(date, dateString, new Date(), {locale: el});
     if (!isValid(parsedDate)) {
       console.log('Date invalid: ' + date);
       continue;
@@ -117,10 +117,10 @@ function parseDates(candidateDates: string): Date[] {
   }
   // Let's see if we had a date range after all and we need to augment it
   if (dates.length == 2) {
-    let duration: number = dates[1] - dates[0];
-    let extradays: number = (duration / 86400000) - 1;
+    const duration: number = dates[1] - dates[0];
+    const extradays: number = (duration / 86400000) - 1;
     for (let i=1; i <= extradays; i++) {
-      let newdate: Date = new Date(dates[0]);
+      const newdate: Date = new Date(dates[0]);
       newdate.setDate(newdate.getDate() + i);
       dates.push(newdate);
     }
@@ -133,9 +133,9 @@ async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
     let ret: FuelEntry[] = new Array();
     var statedata  = await readJSON(statefile);
     const {entries} = await parseFeed(xml);
-    for (let entry of entries) {
+    for (const entry of entries) {
       if (!(entry.id in statedata)) {
-        let freshdata: FuelEntry[] = parseFuelPage(entry.content.value);
+        const freshdata: FuelEntry[] = parseFuelPage(entry.content.value);
         ret = ret.concat(freshdata);
         statedata[entry.id] = true;
       }
@@ -221,7 +221,7 @@ async function appendSQLiteData(data: FuelEntry[], datafile: string): Promise<vo
       :meanPrice,
       :vatPrice,
       :unit)`);
-  for (let entry of data) {
+  for (const entry of data) {
     query.execute(entry);
   }
   query.finalize();
@@ -243,12 +243,12 @@ try {
 
   if (xmlfile) {
     const xml: string = await readTXT(xmlfile);
-    let parsed: FuelEntry[] = await parseUnParsed(xml);
+    const parsed: FuelEntry[] = await parseUnParsed(xml);
     await writeDataFiles(parsed);
     if (elasticsearch_url) {
       /* Now, let's post them to elasticsearch */
-      for (let entry of parsed) {
-          let response = await fetch(elasticsearch_url, {
+      for (const entry of parsed) {
+          const response = await fetch(elasticsearch_url, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
