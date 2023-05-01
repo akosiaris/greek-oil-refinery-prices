@@ -178,7 +178,7 @@ async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void>
   }
 }
 
-async function appendSQLiteData(data: FuelEntry[], datafile: string): Promise<void> {
+function appendSQLiteData(data: FuelEntry[], datafile: string): void {
   const db = new DB(datafile);
   db.execute(`
   CREATE TABLE IF NOT EXISTS fuels (
@@ -231,7 +231,7 @@ export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
     // Write the original data
     await appendJSONData(data, jsondatafile);
     await appendCSVData(data, csvdatafile);
-    await appendSQLiteData(data, sqlitedatafile);
+    appendSQLiteData(data, sqlitedatafile);
 }
 
 try {
