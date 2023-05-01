@@ -24,10 +24,10 @@ export function parseFuelPage(html: string): FuelEntry[] {
 
     let candidateDates = '';
     let sanitizedDates = '';
-    let parsedDates: Date[] = new Array();
+    let parsedDates: Date[] = [];
     let category = '';
     let notes = '';
-    const fuels: FuelEntry[] = new Array();
+    const fuels: FuelEntry[] = [];
 
     let i: number;
     for (i=0; i < tbody.children.length; i++) {
@@ -58,7 +58,7 @@ export function parseFuelPage(html: string): FuelEntry[] {
     return fuels;
   } catch(error) {
     console.log(error);
-    return new Array();
+    return [];
   }
 }
 
@@ -77,7 +77,7 @@ function sanitizeDates(input: string): string {
 }
 
 function getDateRange(candidateDates: string): string[] {
-  const dates: string[] = new Array();
+  const dates: string[] = [];
   const match: RegExpMatchArray | null = candidateDates.match(dateRangeRegExp);
   if (match) {
     const startweekday: string = match[1];
@@ -104,7 +104,7 @@ function getDateRange(candidateDates: string): string[] {
 
 function parseDates(candidateDates: string): Date[] {
   const dateString = 'EEEE,dMMMMyyyy';
-  const dates: Date[] = new Array();
+  const dates: Date[] = [];
   const dateRange: string[] = getDateRange(candidateDates);
 
   for (const date of dateRange) {
@@ -130,7 +130,7 @@ function parseDates(candidateDates: string): Date[] {
 
 async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
   try {
-    let ret: FuelEntry[] = new Array();
+    let ret: FuelEntry[] = [];
     const statedata  = await readJSON(statefile);
     const {entries} = await parseFeed(xml);
     for (const entry of entries) {
@@ -144,7 +144,7 @@ async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
     return ret.reverse();
   } catch(error) {
     console.log(error);
-    return new Array();
+    return [];
   }
 }
 
