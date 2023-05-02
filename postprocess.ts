@@ -1,29 +1,35 @@
-import { DOMParser } from 'https://deno.land/x/deno_dom/deno-dom-wasm.ts';
 import { readTXT, readJSON, writeJSON, readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { DB } from 'https://deno.land/x/sqlite/mod.ts';
 import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
-import parse from 'https://deno.land/x/date_fns/parse/index.js';
-import isValid from 'https://deno.land/x/date_fns/isValid/index.js';
-import { el } from 'https://deno.land/x/date_fns/locale/index.js';
 import { FuelEntry } from './FuelEntry.ts';
 import { env } from 'node:process';
+import { DetectAndHandleDates } from './parsedates.ts';
+import {
+  DOMParser,
+  Element,
+  HTMLDocument,
+} from './deps.ts';
 
 const csvdatafile = 'fuels.csv';
 const jsondatafile = 'fuels.json';
 const sqlitedatafile = 'fuels.db';
 const statefile = 'state.json';
-const daysRegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
-const dateRangeRegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;
+
+
 const fuelCategoriesRegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
 export function parseFuelPage(html: string): FuelEntry[] {
   try {
-    const document: any = new DOMParser().parseFromString(html, 'text/html');
-    const tbody: any = document.querySelector('tbody');
+    const document: HTMLDocument | null = new DOMParser().parseFromString(html, 'text/html');
+    if (!document) {
+        return [];
+    }
+    const tbody: Element | null = document.querySelector('tbody');
+    if (!tbody) {
+        return [];
+    }
 
-    let candidateDates = '';
-    let sanitizedDates = '';
     let parsedDates: Date[] = [];
     let category = '';
     let notes = '';
@@ -31,18 +37,20 @@ export function parseFuelPage(html: string): FuelEntry[] {
 
     let i: number;
     for (i=0; i < tbody.children.length; i++) {
-      if (daysRegExp.test(tbody.children[i].textContent)) {
-        candidateDates = tbody.children[i].textContent.trim();
-        sanitizedDates = sanitizeDates(candidateDates);
-        parsedDates = parseDates(sanitizedDates);
+      const tmp: Date[] = DetectAndHandleDates(tbody.children[i].textContent);
+      if (tmp) {
+        parsedDates = tmp;
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
-        const match: string[] = tbody.children[i].textContent.match(fuelCategoriesRegExp);
-        category = match[1];
-        notes = match[2];
+        const match: RegExpMatchArray | null = tbody.children[i].textContent.match(fuelCategoriesRegExp);
+        if (match) {
+            category = match[1];
+            notes = match[2];
+        }
       } else if (ignoreRegExp.test(tbody.children[i].textContent)) {
         // do nothing, we don't care
       } else {
        // Here we go, we are parsing actual prices now
+        // deno-lint-ignore no-explicit-any
         const tds: any = tbody.children[i].children;
         const fuelName: string = tds[0].textContent.trim();
         const elpePrice: number = parseFloat(tds[1].textContent.replace(/\./, '').replace(/,/, '.'));
@@ -60,72 +68,6 @@ export function parseFuelPage(html: string): FuelEntry[] {
     console.log(error);
     return [];
   }
-}
-
-function sanitizeDates(input: string): string {
-  // Remove great from days
-  let dates: string = input.replace('Μεγάλο', '').replace('Μεγάλη', '').replace('Μεγ.', '');
-  // Normalize string, e.g. get rid of unicode no break spaces
-  dates = dates.normalize('NFKC');
-  // Remove all spaces now, the original data can be inconsistent anyway
-  dates = dates.replaceAll(' ', '');
-  // Lowercase too as the original data can be inconsistent anyway
-  dates = dates.toLowerCase();
-  // Selectively fix a mess with diacritics and accents, hopefully it won't become larger than this
-  dates = dates.replace('μαϊου', 'μαΐου').replace('μάϊου', 'μαΐου').replace('ιουνιου', 'ιουνίου');
-  return dates;
-}
-
-function getDateRange(candidateDates: string): string[] {
-  const dates: string[] = [];
-  const match: RegExpMatchArray | null = candidateDates.match(dateRangeRegExp);
-  if (match) {
-    const startweekday: string = match[1];
-    const stopweekday: string = match[3];
-    const startmonthday: string = match[4];
-    const stopmonthday: string = match[7];
-    let startmonth = '';
-    const stopmonth: string = match[8];
-    if (match[5]) {
-      startmonth = match[5];
-    } else {
-      startmonth = stopmonth;
-    }
-    const year: string = match[9];
-    const startdate = `${startweekday},${startmonthday}${startmonth}${year}`;
-    const stopdate = `${stopweekday},${stopmonthday}${stopmonth}${year}`;
-    dates.push(startdate);
-    dates.push(stopdate);
-  } else {
-    dates.push(candidateDates);
-  }
-  return dates;
-}
-
-function parseDates(candidateDates: string): Date[] {
-  const dateString = 'EEEE,dMMMMyyyy';
-  const dates: Date[] = [];
-  const dateRange: string[] = getDateRange(candidateDates);
-
-  for (const date of dateRange) {
-    const parsedDate: Date = parse(date, dateString, new Date(), {locale: el});
-    if (!isValid(parsedDate)) {
-      console.log('Date invalid: ' + date);
-      continue;
-    }
-    dates.push(parsedDate);
-  }
-  // Let's see if we had a date range after all and we need to augment it
-  if (dates.length == 2) {
-    const duration: number = dates[1] - dates[0];
-    const extradays: number = (duration / 86400000) - 1;
-    for (let i=1; i <= extradays; i++) {
-      const newdate: Date = new Date(dates[0]);
-      newdate.setDate(newdate.getDate() + i);
-      dates.push(newdate);
-    }
-  }
-  return dates.sort();
 }
 
 async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
