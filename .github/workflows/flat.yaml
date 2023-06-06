@@ -26,7 +26,7 @@ jobs:
           ELASTICSEARCH_URL: ${{ secrets.ELASTICSEARCH_URL }}
           ELASTICSEARCH_USERNAME: ${{ secrets.ELASTICSEARCH_USERNAME }}
           ELASTICSEARCH_PASSWORD: ${{ secrets.ELASTICSEARCH_PASSWORD }}
-        uses: githubocto/flat@v3
+        uses: githubocto/flat@mr/node16
         with:
           http_url: http://oil.gge.gov.gr/?feed=rss2
           downloaded_filename: rss.xml # The http_url gets saved and renamed in our repository as test.html
