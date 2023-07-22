@@ -1,6 +1,5 @@
 import { readTXT, readJSON, writeJSON, readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { DB } from 'https://deno.land/x/sqlite/mod.ts';
-import { parseFeed } from 'https://deno.land/x/rss/mod.ts';
 import { FuelEntry } from './FuelEntry.ts';
 import { env } from 'node:process';
 import { DetectAndHandleDates } from './parsedates.ts';
@@ -8,6 +7,7 @@ import {
   DOMParser,
   Element,
   HTMLDocument,
+  parseFeed,
 } from './deps.ts';
 
 const csvdatafile = 'fuels.csv';
