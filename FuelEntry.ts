@@ -135,6 +135,26 @@ export class FuelEntry {
   }
 
   /**
+   * Recordize an instance.
+   *
+   * @returns Record<string, unknown> of the entry
+   */
+  public recordize(): Record<string, unknown> {
+    const t: Record<string, unknown> = {
+      date: this.date,
+      category: this.category,
+      notes: this.notes,
+      fuel: this.fuel,
+      elpePrice: this.elpePrice,
+      motoroilPrice: this.motoroilPrice,
+      unit: this.unit,
+      meanPrice: this.meanPrice,
+      vatPrice: this.vatPrice,
+    };
+    return t;
+  }
+
+  /**
    * Unserialize a previously serialized entry
    *
    * @param s - String. The stringified serialized entry

@@ -1,24 +1,16 @@
-import { readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
-import { DB } from 'https://deno.land/x/sqlite/mod.ts';
 import { FuelEntry } from './FuelEntry.ts';
 import { env } from 'node:process';
 import { DetectAndHandleDates } from './parsedates.ts';
+import { parseUnParsed } from './feedparse.ts';
+import { writeDataFiles } from './datastorage.ts';
 import {
   DOMParser,
   Element,
   HTMLDocument,
-  parseFeed,
   readTXT,
-  readJSON,
-  writeJSON,
 } from './deps.ts';
 
-const csvdatafile = 'fuels.csv';
-const jsondatafile = 'fuels.json';
-const sqlitedatafile = 'fuels.db';
 const statefile = 'state.json';
-
-
 const fuelCategoriesRegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
@@ -73,91 +65,6 @@ export function parseFuelPage(html: string): FuelEntry[] {
   }
 }
 
-async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void> {
-  let jsondata;
-  try {
-    jsondata  = await readJSON(datafile);
-    jsondata = jsondata.concat(data);
-  } catch(_error) {
-    jsondata = data;
-  }
-  try {
-    await writeJSON(datafile, jsondata, null, 2);
-  } catch(error) {
-    console.log(error);
-  }
-}
-
-async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void> {
-  let csvdata;
-  try {
-    csvdata  = await readCSV(datafile);
-    csvdata = csvdata.concat(data);
-  } catch(_error) {
-    csvdata = data;
-  }
-  try {
-    await writeCSV(datafile, csvdata);
-  } catch(error) {
-    console.log(error);
-  }
-}
-
-function appendSQLiteData(data: FuelEntry[], datafile: string): void {
-  const db = new DB(datafile);
-  db.execute(`
-  CREATE TABLE IF NOT EXISTS fuels (
-    date TEXT NOT NULL,
-    category TEXT NOT NULL,
-    notes TEXT NOT NULL,
-    fuel TEXT NOT NULL,
-    elpePrice REAL,
-    motoroilPrice REAL,
-    meanPrice REAL,
-    vatPrice REAL,
-    unit TEXT NOT NULL)
-  `);
-  const query = db.prepareQuery<never, never, {
-    date: string,
-    category: string,
-    notes: string,
-    fuel: string,
-    elpePrice: number,
-    meanPrice: number,
-    vatPrice: number,
-    unit: string }>
-  (`
-  INSERT INTO fuels (
-    date,
-    category,
-    notes,
-    fuel,
-    elpePrice,
-    motoroilPrice,
-    meanPrice,
-    vatPrice,
-    unit) VALUES (
-      :date,
-      :category,
-      :notes,
-      :fuel,
-      :elpePrice,
-      :motoroilPrice,
-      :meanPrice,
-      :vatPrice,
-      :unit)`);
-  for (const entry of data) {
-    query.execute(entry);
-  }
-  query.finalize();
-}
-
-export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
-    // Write the original data
-    await appendJSONData(data, jsondatafile);
-    await appendCSVData(data, csvdatafile);
-    appendSQLiteData(data, sqlitedatafile);
-}
 
 async function main(): Promise<void> {
   try {
@@ -169,7 +76,7 @@ async function main(): Promise<void> {
 
     if (xmlfile) {
       const xml: string = await readTXT(xmlfile);
-      const parsed: FuelEntry[] = await parseUnParsed(xml);
+      const parsed: FuelEntry[] = await parseUnParsed(xml, statefile);
       await writeDataFiles(parsed);
       if (elasticsearch_url) {
         /* Now, let's post them to elasticsearch */
