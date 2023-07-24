@@ -1,4 +1,4 @@
-import { readTXT, readJSON, writeJSON, readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
+import { readCSV, writeCSV } from 'https://deno.land/x/flat/mod.ts';
 import { DB } from 'https://deno.land/x/sqlite/mod.ts';
 import { FuelEntry } from './FuelEntry.ts';
 import { env } from 'node:process';
@@ -8,6 +8,9 @@ import {
   Element,
   HTMLDocument,
   parseFeed,
+  readTXT,
+  readJSON,
+  writeJSON,
 } from './deps.ts';
 
 const csvdatafile = 'fuels.csv';
@@ -64,26 +67,6 @@ export function parseFuelPage(html: string): FuelEntry[] {
       }
     }
     return fuels;
-  } catch(error) {
-    console.log(error);
-    return [];
-  }
-}
-
-async function parseUnParsed(xml: string): Promise<FuelEntry[]> {
-  try {
-    let ret: FuelEntry[] = [];
-    const statedata  = await readJSON(statefile);
-    const {entries} = await parseFeed(xml);
-    for (const entry of entries) {
-      if (!(entry.id in statedata)) {
-        const freshdata: FuelEntry[] = parseFuelPage(entry.content.value);
-        ret = ret.concat(freshdata);
-        statedata[entry.id] = true;
-      }
-    }
-    await writeJSON(statefile, statedata, null, 2);
-    return ret.reverse();
   } catch(error) {
     console.log(error);
     return [];
