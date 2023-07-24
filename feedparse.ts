@@ -12,7 +12,7 @@ export async function parseUnParsed(xml: string, statefile: string): Promise<Fue
     const {entries} = await parseFeed(xml);
     for (const entry of entries) {
       if (!(entry.id in statedata)) {
-        const freshdata: FuelEntry[] = parseFuelPage(entry.content.value);
+        const freshdata: FuelEntry[] = parseFuelPage(entry.content!.value!);
         ret = ret.concat(freshdata);
         statedata[entry.id] = true;
       }

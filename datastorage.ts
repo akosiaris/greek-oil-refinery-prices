@@ -61,6 +61,7 @@ function appendSQLiteData(data: FuelEntry[], datafile: string): void {
     notes: string,
     fuel: string,
     elpePrice: number,
+    motoroilPrice: number,
     meanPrice: number,
     vatPrice: number,
     unit: string }>
@@ -85,7 +86,7 @@ function appendSQLiteData(data: FuelEntry[], datafile: string): void {
       :vatPrice,
       :unit)`);
   for (const entry of data) {
-    query.execute(entry);
+    query.execute(entry.recordize());
   }
   query.finalize();
 }

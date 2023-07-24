@@ -32,6 +32,18 @@ type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγν�
 // Let's compile the schema
 const validate_fuel = ajv.compile<FuelEntry>(fuel_schema);
 
+type Usable = {
+  date: string,
+  category: string,
+  notes: string,
+  fuel: string,
+  elpePrice: number,
+  motoroilPrice: number,
+  meanPrice: number,
+  vatPrice: number,
+  unit: string
+};
+
 /**
  * A class to represent a single entry of the Fuel data.
  *
@@ -139,9 +151,9 @@ export class FuelEntry {
    *
    * @returns Record<string, unknown> of the entry
    */
-  public recordize(): Record<string, unknown> {
-    const t: Record<string, unknown> = {
-      date: this.date,
+  public recordize(): Usable {
+    return {
+      date: this.date.toString(),
       category: this.category,
       notes: this.notes,
       fuel: this.fuel,
@@ -151,7 +163,6 @@ export class FuelEntry {
       meanPrice: this.meanPrice,
       vatPrice: this.vatPrice,
     };
-    return t;
   }
 
   /**
