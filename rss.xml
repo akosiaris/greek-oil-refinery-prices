@@ -13,7 +13,7 @@
 	<atom:link href="http://oil.gge.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>http://oil.gge.gov.gr</link>
 	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
-	<lastBuildDate>Sun, 30 Jul 2023 13:11:12 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 31 Jul 2023 08:30:37 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
@@ -28,7 +28,7 @@
 
 		<guid isPermaLink="false">http://oil.gge.gov.gr/?p=16091</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
-				<content:encoded><![CDATA[<table style="height: 765px" width="489">
+				<content:encoded><![CDATA[<table style="height: 795px" width="534">
 <tbody>
 <tr>
 <td colspan="3" width="616">Σάββατο έως Δευτέρα, 29 έως 31 Ιουλίου 2023</td>
@@ -52,12 +52,12 @@
 <tr>
 <td>UNLEADED 95 BIO</td>
 <td>1.460,572</td>
-<td></td>
+<td>1.460,022</td>
 </tr>
 <tr>
 <td>UNLEADED 100 BIO</td>
 <td>1.534,263</td>
-<td></td>
+<td>1.534,609</td>
 </tr>
 <tr>
 <td colspan="3">Πετρέλαια (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -70,7 +70,7 @@
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
 <td>1.209,139</td>
-<td></td>
+<td>1.208,071</td>
 </tr>
 <tr>
 <td>HEATING GASOIL</td>
@@ -88,22 +88,22 @@
 <tr>
 <td>LPG AUTO</td>
 <td>1.005,991</td>
-<td></td>
+<td>1.007,404</td>
 </tr>
 <tr>
 <td>LPG ΘΕΡΜΑΝΣΗΣ</td>
 <td>623,808</td>
-<td></td>
+<td>624,235</td>
 </tr>
 <tr>
 <td>LPG ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>684,108</td>
-<td></td>
+<td>684,535</td>
 </tr>
 <tr>
 <td>ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>766,769</td>
-<td></td>
+<td>777,377</td>
 </tr>
 <tr>
 <td>ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
@@ -121,7 +121,7 @@
 <tr>
 <td>Fuel Oil No 180 1%S</td>
 <td>596,593</td>
-<td></td>
+<td>595,423</td>
 </tr>
 <tr>
 <td>Fuel Oil No 380 1%S</td>
@@ -157,12 +157,12 @@
 <tr>
 <td>ΒΕΑ 50/70 &amp; 70/100</td>
 <td>491,990</td>
-<td></td>
+<td>492,740</td>
 </tr>
 <tr>
 <td>ΒΕΑ 30/45</td>
 <td>-</td>
-<td></td>
+<td>510,010</td>
 </tr>
 <tr>
 <td>ΒΕΑ 35/40</td>
