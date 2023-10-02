@@ -3,7 +3,7 @@ import {
     parseFeed,
     readJSON,
     writeJSON } from './deps.ts';
-import { parseFuelPage } from './postprocess.ts';
+import { parseFuelPage } from './parse_fuel_page.ts';
 
 export async function parseUnParsed(xml: string, statefile: string): Promise<FuelEntry[]> {
   try {
