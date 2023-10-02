@@ -33,7 +33,7 @@ export function parseFuelPage(html: string): FuelEntry[] {
     let i: number;
     for (i=0; i < tbody.children.length; i++) {
       const tmp: Date[] = DetectAndHandleDates(tbody.children[i].textContent);
-      if (tmp) {
+      if (tmp.length > 0) {
         parsedDates = tmp;
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
         const match: RegExpMatchArray | null = tbody.children[i].textContent.match(fuelCategoriesRegExp);
