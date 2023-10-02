@@ -153,7 +153,7 @@ export class FuelEntry {
    */
   public recordize(): Usable {
     return {
-      date: this.date.toString(),
+      date: this.date.toISOString(),
       category: this.category,
       notes: this.notes,
       fuel: this.fuel,
