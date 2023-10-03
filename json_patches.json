@@ -8,8 +8,8 @@
     { "op": "replace", "path": "/fuel", "value": "HEATING GASOIL (ΧΠ)" }
   ],
   [
-    { "op": "test", "path": "/notes", "value": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ"},
-    { "op": "replace", "path": "/notes", "value": "τιμές σε €/m3, συμπεριλ. φόρων - τελών, προ ΦΠΑ"}
+    { "op": "test", "path": "/notes", "value": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ" },
+    { "op": "replace", "path": "/notes", "value": "τιμές σε €/m3, συμπεριλ. φόρων - τελών, προ ΦΠΑ" }
   ],
   [
     { "op": "test", "path": "/notes", "value": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ" },
@@ -42,5 +42,4 @@
     { "op": "test", "path": "/fuel", "value": "DIESEL AUTO BIO" },
     { "op": "test", "path": "/date", "value": "2022-06-29T00:00:00.000Z" }
   ]
-
 ]

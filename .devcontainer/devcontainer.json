@@ -2,12 +2,12 @@
   "image": "mcr.microsoft.com/devcontainers/base:bullseye",
   "features": {
     "ghcr.io/devcontainers-contrib/features/deno:1": {}
-},
-"customizations": {
-	"vscode": {
-		"extensions": [
-			"denoland.vscode-deno"
-		]
-	}
-}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "denoland.vscode-deno"
+      ]
+    }
+  }
 }

@@ -1,11 +1,7 @@
-import {
-    parse,
-    isValid,
-    intervalToDuration,
-    el
-} from './deps.ts';
+import { el, intervalToDuration, isValid, parse } from "./deps.ts";
 
-const dateRangeRegExp = /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;
+const dateRangeRegExp =
+  /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;
 const daysRegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
 
 export function DetectAndHandleDates(input: string): Date[] {
@@ -26,15 +22,15 @@ export function DetectAndHandleDates(input: string): Date[] {
  */
 function sanitizeDates(input: string): string {
   // Remove great from days
-  let dates: string = input.replace('Μεγάλο', '').replace('Μεγάλη', '').replace('Μεγ.', '');
+  let dates: string = input.replace("Μεγάλο", "").replace("Μεγάλη", "").replace("Μεγ.", "");
   // Normalize string, e.g. get rid of unicode no break spaces
-  dates = dates.normalize('NFKC');
+  dates = dates.normalize("NFKC");
   // Remove all spaces now, the original data can be inconsistent anyway
-  dates = dates.replaceAll(' ', '');
+  dates = dates.replaceAll(" ", "");
   // Lowercase too as the original data can be inconsistent anyway
   dates = dates.toLowerCase();
   // Selectively fix a mess with diacritics and accents, hopefully it won't become larger than this
-  dates = dates.replace('μαϊου', 'μαΐου').replace('μάϊου', 'μαΐου').replace('ιουνιου', 'ιουνίου');
+  dates = dates.replace("μαϊου", "μαΐου").replace("μάϊου", "μαΐου").replace("ιουνιου", "ιουνίου");
   return dates;
 }
 
@@ -52,7 +48,7 @@ function getDateRange(candidateDates: string): string[] {
     const stopweekday: string = match[3];
     const startmonthday: string = match[4];
     const stopmonthday: string = match[7];
-    let startmonth = '';
+    let startmonth = "";
     const stopmonth: string = match[8];
     if (match[5]) {
       startmonth = match[5];
@@ -71,19 +67,18 @@ function getDateRange(candidateDates: string): string[] {
 }
 
 /**
- *
  * @param candidateDates A string containing the candidate dates.
  * @returns An array of dates.
  */
 function parseDates(candidateDates: string): Date[] {
-  const dateString = 'EEEE,dMMMMyyyy';
+  const dateString = "EEEE,dMMMMyyyy";
   const dates: Date[] = [];
   const dateRange: string[] = getDateRange(candidateDates);
 
   for (const date of dateRange) {
-    const parsedDate: Date = parse(date, dateString, new Date(), {locale: el});
+    const parsedDate: Date = parse(date, dateString, new Date(), { locale: el });
     if (!isValid(parsedDate)) {
-      console.log('Date invalid: ' + date);
+      console.log("Date invalid: " + date);
       continue;
     }
     dates.push(parsedDate);
@@ -91,12 +86,12 @@ function parseDates(candidateDates: string): Date[] {
   // Let's see if we had a date range after all and we need to augment it
   if (dates.length == 2) {
     const duration = intervalToDuration({
-        start: dates[0],
-        end: dates[1],
+      start: dates[0],
+      end: dates[1],
     });
     const extradays: number = duration.days - 1;
-    //const extradays: number = (duration / 86400000) - 1;
-    for (let i=1; i <= extradays; i++) {
+    // const extradays: number = (duration / 86400000) - 1;
+    for (let i = 1; i <= extradays; i++) {
       const newdate: Date = new Date(dates[0]);
       newdate.setDate(newdate.getDate() + i);
       dates.push(newdate);

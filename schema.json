@@ -1,87 +1,87 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "$id": "https://raw.githubusercontent.com/akosiaris/greek-oil-refinery-prices/main/schema.json",
-    "title": "Greek Oil Refinery fuel entry",
-    "description": "A price entry for a specific fuel as posted by http://oil.gge.gov.gr/, possibly augmented with derived data",
-    "type": "object",
-    "properties": {
-        "date": {
-            "description": "The date this specific fuel entry applies to. ISO8601 format",
-            "type": "string",
-            "format": "date-time"
-        },
-        "category": {
-            "description": "The fuel category this entry is in",
-            "enum": [
-                "Βενζίνες",
-                "Πετρέλαια",
-                "Υγραέρια – LPG",
-                "ΜΑΖΟΥΤ-FUEL OIL",
-                "ΚΗΡΟΖΙΝΗ – KERO",
-                "ΑΣΦΑΛΤΟΣ"
-            ]
-        },
-        "notes": {
-            "description": "Notes for this entry. Few distinct values",
-            "enum": [
-                "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ", 
-                "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ", 
-                "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ"
-            ]
-        },
-        "fuel": {
-            "description": "The name of the fuel",
-            "enum": [
-                "DIΕSEL AUTO BIO",
-                "Fuel Oil No 180 1%S",
-                "Fuel Oil No 380 1%S",
-                "HEATING GASOIL",
-                "HEATING GASOIL (Χ.Π)",
-                "HEATING GASOIL (ΧΠ)",
-                "KERO",
-                "KERO SPECIAL",
-                "LPG AUTO",
-                "LPG ΒΙΟΜΗΧΑΝΙΑΣ",
-                "LPG ΘΕΡΜΑΝΣΗΣ",
-                "UNLEADED 100",
-                "UNLEADED 100 BIO",
-                "UNLEADED 95",
-                "UNLEADED 95 BIO",
-                "UNLEADED LRP",
-                "UNLEADED LRP BIO",
-                "ΒΕΑ 30/45",
-                "ΒΕΑ 35/40",
-                "ΒΕΑ 50/70 & 70/100",
-                "ΒΕΘ 50/70",
-                "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
-                "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ"
-            ]
-        },
-        "elpePrice": {
-            "description": "The price of the fuel as advertised by ΕΛ.ΠΕ - (https://www.helpe.gr)",
-            "type": ["number", "null"]
-        },
-        "motoroilPrice": {
-            "description": "The price of the fuel as advertised by Motor Oil - (https://www.moh.gr/)",
-            "type": ["number", "null"]
-        },
-        "meanPrice": {
-            "description": "Derived data. The mean price of the above 2 prices",
-            "type": ["number", "null"]
-        },
-        "vatPrice": {
-            "description": "Derived data. The mean price including the appropriate for that date VAT",
-            "type": ["number", "null"]
-        },
-        "unit": {
-            "description": "The unit of the fuel. Mass vs Volume",
-            "enum": [
-                "Κυβικό Μέτρο",
-                "Μετρικός Τόνος",
-                "Άγνωστο"
-            ]
-        }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/akosiaris/greek-oil-refinery-prices/main/schema.json",
+  "title": "Greek Oil Refinery fuel entry",
+  "description": "A price entry for a specific fuel as posted by http://oil.gge.gov.gr/, possibly augmented with derived data",
+  "type": "object",
+  "properties": {
+    "date": {
+      "description": "The date this specific fuel entry applies to. ISO8601 format",
+      "type": "string",
+      "format": "date-time"
     },
-    "additionalProperties": false,
-    "required": ["date", "category", "notes", "fuel", "unit", "elpePrice", "motoroilPrice", "meanPrice", "vatPrice"]
+    "category": {
+      "description": "The fuel category this entry is in",
+      "enum": [
+        "Βενζίνες",
+        "Πετρέλαια",
+        "Υγραέρια – LPG",
+        "ΜΑΖΟΥΤ-FUEL OIL",
+        "ΚΗΡΟΖΙΝΗ – KERO",
+        "ΑΣΦΑΛΤΟΣ"
+      ]
+    },
+    "notes": {
+      "description": "Notes for this entry. Few distinct values",
+      "enum": [
+        "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+        "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+        "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ"
+      ]
+    },
+    "fuel": {
+      "description": "The name of the fuel",
+      "enum": [
+        "DIΕSEL AUTO BIO",
+        "Fuel Oil No 180 1%S",
+        "Fuel Oil No 380 1%S",
+        "HEATING GASOIL",
+        "HEATING GASOIL (Χ.Π)",
+        "HEATING GASOIL (ΧΠ)",
+        "KERO",
+        "KERO SPECIAL",
+        "LPG AUTO",
+        "LPG ΒΙΟΜΗΧΑΝΙΑΣ",
+        "LPG ΘΕΡΜΑΝΣΗΣ",
+        "UNLEADED 100",
+        "UNLEADED 100 BIO",
+        "UNLEADED 95",
+        "UNLEADED 95 BIO",
+        "UNLEADED LRP",
+        "UNLEADED LRP BIO",
+        "ΒΕΑ 30/45",
+        "ΒΕΑ 35/40",
+        "ΒΕΑ 50/70 & 70/100",
+        "ΒΕΘ 50/70",
+        "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+        "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ"
+      ]
+    },
+    "elpePrice": {
+      "description": "The price of the fuel as advertised by ΕΛ.ΠΕ - (https://www.helpe.gr)",
+      "type": ["number", "null"]
+    },
+    "motoroilPrice": {
+      "description": "The price of the fuel as advertised by Motor Oil - (https://www.moh.gr/)",
+      "type": ["number", "null"]
+    },
+    "meanPrice": {
+      "description": "Derived data. The mean price of the above 2 prices",
+      "type": ["number", "null"]
+    },
+    "vatPrice": {
+      "description": "Derived data. The mean price including the appropriate for that date VAT",
+      "type": ["number", "null"]
+    },
+    "unit": {
+      "description": "The unit of the fuel. Mass vs Volume",
+      "enum": [
+        "Κυβικό Μέτρο",
+        "Μετρικός Τόνος",
+        "Άγνωστο"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": ["date", "category", "notes", "fuel", "unit", "elpePrice", "motoroilPrice", "meanPrice", "vatPrice"]
 }

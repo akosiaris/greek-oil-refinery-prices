@@ -1,27 +1,21 @@
-import {
-    DB,
-    readJSON,
-    writeJSON,
-    readCSV,
-    writeCSV,
- } from './deps.ts';
-import { FuelEntry } from './FuelEntry.ts';
+import { DB, readCSV, readJSON, writeCSV, writeJSON } from "./deps.ts";
+import { FuelEntry } from "./FuelEntry.ts";
 
-const csvdatafile = 'fuels.csv';
-const jsondatafile = 'fuels.json';
-const sqlitedatafile = 'fuels.db';
+const csvdatafile = "fuels.csv";
+const jsondatafile = "fuels.json";
+const sqlitedatafile = "fuels.db";
 
 async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void> {
   let jsondata;
   try {
-    jsondata  = await readJSON(datafile);
+    jsondata = await readJSON(datafile);
     jsondata = jsondata.concat(data);
-  } catch(_error) {
+  } catch (_error) {
     jsondata = data;
   }
   try {
     await writeJSON(datafile, jsondata, null, 2);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -29,14 +23,18 @@ async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void
 async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void> {
   let csvdata: Record<string, unknown>[];
   try {
-    csvdata  = await readCSV(datafile);
-    csvdata = csvdata.concat(data.map(function(val) { return val.recordize() } ));
-  } catch(_error) {
-    csvdata = data.map(function(val) { return val.recordize() } );
+    csvdata = await readCSV(datafile);
+    csvdata = csvdata.concat(data.map(function(val) {
+      return val.recordize();
+    }));
+  } catch (_error) {
+    csvdata = data.map(function(val) {
+      return val.recordize();
+    });
   }
   try {
     await writeCSV(datafile, csvdata);
-  } catch(error) {
+  } catch (error) {
     console.log(error);
   }
 }
@@ -56,16 +54,16 @@ function appendSQLiteData(data: FuelEntry[], datafile: string): void {
     unit TEXT NOT NULL)
   `);
   const query = db.prepareQuery<never, never, {
-    date: string,
-    category: string,
-    notes: string,
-    fuel: string,
-    elpePrice: number,
-    motoroilPrice: number,
-    meanPrice: number,
-    vatPrice: number,
-    unit: string }>
-  (`
+    date: string;
+    category: string;
+    notes: string;
+    fuel: string;
+    elpePrice: number;
+    motoroilPrice: number;
+    meanPrice: number;
+    vatPrice: number;
+    unit: string;
+  }>(`
   INSERT INTO fuels (
     date,
     category,
@@ -92,8 +90,8 @@ function appendSQLiteData(data: FuelEntry[], datafile: string): void {
 }
 
 export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
-    // Write the original data
-    await appendJSONData(data, jsondatafile);
-    await appendCSVData(data, csvdatafile);
-    appendSQLiteData(data, sqlitedatafile);
+  // Write the original data
+  await appendJSONData(data, jsondatafile);
+  await appendCSVData(data, csvdatafile);
+  appendSQLiteData(data, sqlitedatafile);
 }

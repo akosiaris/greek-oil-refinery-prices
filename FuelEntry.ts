@@ -6,14 +6,14 @@
     * Usage of that .default thing.
     * Needing to put .js at the end of 2020, but not for ajv-formats
 */
-import Ajv2020 from "npm:ajv/dist/2020.js";
 import addFormats from "npm:ajv-formats";
-const ajv = new Ajv2020.default({coerceTypes: true});
+import Ajv2020 from "npm:ajv/dist/2020.js";
+const ajv = new Ajv2020.default({ coerceTypes: true });
 addFormats.default(ajv);
 
 // Used for VAT calculation
-import { VAT } from './VAT.ts';
-import fuel_schema from './schema.json' assert {type: 'json'};
+import fuel_schema from "./schema.json" assert { type: "json" };
+import { VAT } from "./VAT.ts";
 
 // RegExps for parsing notes to produce units, VAT
 const volumeRegExp = /τιμές σε €\/m3/;
@@ -21,27 +21,53 @@ const massRegExp = /τιμές σε €\/μ.τ./;
 const missingOnlyVATRegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
 
 // Type to limit the values for fuel categories. String Literal
-type FuelCategory = 'Βενζίνες' | 'Πετρέλαια' | 'Υγραέρια – LPG' | 'ΜΑΖΟΥΤ-FUEL OIL' | 'ΚΗΡΟΖΙΝΗ – KERO' | 'ΑΣΦΑΛΤΟΣ';
+type FuelCategory = "Βενζίνες" | "Πετρέλαια" | "Υγραέρια – LPG" | "ΜΑΖΟΥΤ-FUEL OIL" | "ΚΗΡΟΖΙΝΗ – KERO" | "ΑΣΦΑΛΤΟΣ";
 // Type to limit the values for fuel names. String Literal
-type FuelName = 'DIΕSEL AUTO BIO' | 'Fuel Oil No 180 1%S' | 'Fuel Oil No 380 1%S' | 'HEATING GASOIL' | 'HEATING GASOIL (Χ.Π)' | 'HEATING GASOIL (ΧΠ)' | 'KERO' | 'KERO SPECIAL' | 'LPG AUTO' | 'LPG ΒΙΟΜΗΧΑΝΙΑΣ' | 'LPG ΘΕΡΜΑΝΣΗΣ' | 'UNLEADED 100' | 'UNLEADED 100 BIO' | 'UNLEADED 95' | 'UNLEADED 95 BIO' | 'UNLEADED LRP' | 'UNLEADED LRP BIO' | 'ΒΕΑ 30/45' | 'ΒΕΑ 35/40' | 'ΒΕΑ 50/70 & 70/100' | 'ΒΕΘ 50/70' | 'ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ' | 'ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ';
+type FuelName =
+  | "DIΕSEL AUTO BIO"
+  | "Fuel Oil No 180 1%S"
+  | "Fuel Oil No 380 1%S"
+  | "HEATING GASOIL"
+  | "HEATING GASOIL (Χ.Π)"
+  | "HEATING GASOIL (ΧΠ)"
+  | "KERO"
+  | "KERO SPECIAL"
+  | "LPG AUTO"
+  | "LPG ΒΙΟΜΗΧΑΝΙΑΣ"
+  | "LPG ΘΕΡΜΑΝΣΗΣ"
+  | "UNLEADED 100"
+  | "UNLEADED 100 BIO"
+  | "UNLEADED 95"
+  | "UNLEADED 95 BIO"
+  | "UNLEADED LRP"
+  | "UNLEADED LRP BIO"
+  | "ΒΕΑ 30/45"
+  | "ΒΕΑ 35/40"
+  | "ΒΕΑ 50/70 & 70/100"
+  | "ΒΕΘ 50/70"
+  | "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ"
+  | "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ";
 // Type to limit the values for notes. Interestingly they are rather well structured, more than FuelNames. String Literal
-type Notes = 'τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ' | 'τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ' | 'τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ';
+type Notes =
+  | "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ"
+  | "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ"
+  | "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ";
 // Type to limit values of units. Is this fuel counted in mass? or volume ?. String Literal
-type Unit = 'Κυβικό Μέτρο' | 'Μετρικός Τόνος' | 'Άγνωστο';
+type Unit = "Κυβικό Μέτρο" | "Μετρικός Τόνος" | "Άγνωστο";
 
 // Let's compile the schema
 const validate_fuel = ajv.compile<FuelEntry>(fuel_schema);
 
 type Usable = {
-  date: string,
-  category: string,
-  notes: string,
-  fuel: string,
-  elpePrice: number,
-  motoroilPrice: number,
-  meanPrice: number,
-  vatPrice: number,
-  unit: string
+  date: string;
+  category: string;
+  notes: string;
+  fuel: string;
+  elpePrice: number;
+  motoroilPrice: number;
+  meanPrice: number;
+  vatPrice: number;
+  unit: string;
 };
 
 /**
@@ -74,8 +100,15 @@ export class FuelEntry {
    * @param elpePrice - The price of ΕΛ.ΠΕ.
    * @param motoroilPrice - The price of MotorOil
    */
-  public constructor(date: Date | string, category: string, notes: string, fuel: string, elpePrice = NaN, motoroilPrice = NaN) {
-    if (typeof date === 'string') {
+  public constructor(
+    date: Date | string,
+    category: string,
+    notes: string,
+    fuel: string,
+    elpePrice = NaN,
+    motoroilPrice = NaN,
+  ) {
+    if (typeof date === "string") {
       this.date = new Date(date);
     } else {
       this.date = date;
@@ -114,12 +147,12 @@ export class FuelEntry {
    */
   private deriveUnit(): Unit {
     if (volumeRegExp.test(this.notes)) {
-      return 'Κυβικό Μέτρο';
-    } else if (massRegExp.test(this.notes))  {
-      return 'Μετρικός Τόνος';
+      return "Κυβικό Μέτρο";
+    } else if (massRegExp.test(this.notes)) {
+      return "Μετρικός Τόνος";
     } else {
-      console.log('Could not figure out Unit, notes field is: ' + this.notes);
-      return 'Άγνωστο';
+      console.log("Could not figure out Unit, notes field is: " + this.notes);
+      return "Άγνωστο";
     }
   }
 
@@ -132,7 +165,7 @@ export class FuelEntry {
       // Round to 3 digits, Javascript sucks
       return parseFloat(vatPrice.toFixed(3));
     } else {
-      console.log('Fuel lacks more taxes than just VAT, avoiding adding it');
+      console.log("Fuel lacks more taxes than just VAT, avoiding adding it");
       return NaN;
     }
   }
@@ -180,11 +213,11 @@ export class FuelEntry {
         datum.notes,
         datum.fuel,
         datum.elpePrice,
-        datum.motoroilPrice
+        datum.motoroilPrice,
       );
     } else {
       console.log(validate_fuel.errors);
-      throw TypeError('Failed to validate');
+      throw TypeError("Failed to validate");
     }
   }
 }

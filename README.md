@@ -17,6 +17,7 @@ A Flat Data Github action approach that uses Deno, Typescript and Github to fetc
 The data exists in 3 formats, JSON, CSV and SQLite.
 
 **fuels.json**: An example is below. For an elasticsearch compatible schema, see schema.json
+
 ```
 {
   "date": "2023-04-07T00:00:00.000Z",
@@ -34,6 +35,7 @@ The data exists in 3 formats, JSON, CSV and SQLite.
 Note that some fields could be null. Pretty much ready to be posted to elasticsearch (albeit not in the bulk endpoint)
 
 **fuels.csv**: An example of a few entries is below, first row is the CSV header
+
 ```
 date,category,notes,fuel,elpePrice,motoroilPrice,unit,meanPrice,vatPrice
 2018-12-17T00:00:00.000Z,Βενζίνες,"τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",UNLEADED LRP,1090.851,1131.593,Κυβικό Μέτρο,1111.222,1377.915
@@ -67,12 +69,12 @@ You can also choose to feed it to whatever datastore you like (e.g. I plan to ev
 
 # TODOs:
 
-* Up to now, we kinda parse 1 "format" (for some definition of format). And it starts at ~end of 2018. Previous dates are unparsed yet.
+- Up to now, we kinda parse 1 "format" (for some definition of format). And it starts at ~end of 2018. Previous dates are unparsed yet.
 
 # Bugs/Gotchas/limitations:
 
-* Parsing dates that are human entered is error prone, this continually breaks for one reason or another, e.g. a different operator replaces the usual one, the operator makes an unaccounted for typo, alters habbits significantly, etc.
+- Parsing dates that are human entered is error prone, this continually breaks for one reason or another, e.g. a different operator replaces the usual one, the operator makes an unaccounted for typo, alters habbits significantly, etc.
 
-* At various points in time and for various reasons, values could be null
+- At various points in time and for various reasons, values could be null
 
-* Doesn't handle what upstream calls "correct repetition" (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ) of entries. So no corrected updates
+- Doesn't handle what upstream calls "correct repetition" (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ) of entries. So no corrected updates

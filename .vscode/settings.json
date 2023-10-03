@@ -1,7 +1,7 @@
 {
-    "deno.enable": true,
-    "deno.unstable": true,
-    "editor.unicodeHighlight.allowedLocales": {
-        "el": true
-    }
+  "deno.enable": true,
+  "deno.unstable": true,
+  "editor.unicodeHighlight.allowedLocales": {
+    "el": true
+  }
 }
