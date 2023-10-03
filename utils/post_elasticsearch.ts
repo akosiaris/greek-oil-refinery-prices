@@ -1,4 +1,4 @@
-// Posts a fuels.csv file to an elasticsearch cluster
+// Posts a fuels.json (first argument) file to an elasticsearch cluster
 
 import { readJSON } from '../deps.ts';
 
