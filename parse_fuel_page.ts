@@ -6,6 +6,10 @@ const fuelCategoriesRegExp = /(Βενζίνες|Πετρέλαια|Υγραέρ�
 const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
 export function parseFuelPage(html: string): FuelEntry[] {
+  return parseFuelPage_2019_present(html);
+}
+
+function parseFuelPage_2019_present(html: string): FuelEntry[] {
   try {
     const document: HTMLDocument | null = new DOMParser().parseFromString(html, "text/html");
     if (!document) {
