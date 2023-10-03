@@ -1,7 +1,12 @@
 {
-    "compilerOptions": {
-        "noImplicitAny": true,
-        "strictNullChecks": true
-    },
-    "lock": false
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "strictNullChecks": true
+  },
+  "lock": false,
+  "tasks": {
+    "fmt": "deno task dprint fmt",
+    "fmt:check": "deno task dprint check",
+    "dprint": "deno run -A npm:dprint"
+  }
 }
