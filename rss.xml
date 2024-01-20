@@ -12,8 +12,8 @@
 	<title>ΤΙΜΕΣ ΔΙΥΛΙΣΤΗΡΙΟΥ</title>
 	<atom:link href="http://oil.gge.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>http://oil.gge.gov.gr</link>
-	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή :  Ενημερώνουμε το κοινό ότι από την Κυριακή 14/1/2024 έως και τη Δευτέρα 15/1/2024  οι υπηρεσίες που αφορούν τις ΤΙΜΈΣ ΔΙΥΛΙΣΤΗΡΙΟΥ  (http://oil.gge.gov.gr/) θα παραμείνουν κλειστές λόγω εργασιών αναβάθμισης της πληροφοριακής υποδομής.</description>
-	<lastBuildDate>Fri, 19 Jan 2024 06:07:50 +0000</lastBuildDate>
+	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
+	<lastBuildDate>Fri, 19 Jan 2024 12:33:44 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
@@ -28,10 +28,10 @@
 
 		<guid isPermaLink="false">http://oil.gge.gov.gr/?p=16530</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
-				<content:encoded><![CDATA[<table style="height: 797px" width="541">
+				<content:encoded><![CDATA[<table style="height: 813px" width="536">
 <tbody>
 <tr>
-<td colspan="3" width="627">Παρασκευή, 19 Ιανουαρίου 2024</td>
+<td colspan="3" width="627">Παρασκευή, 19Ιανουαρίου 2024</td>
 </tr>
 <tr>
 <td colspan="3">ΤΙΜΕΣ ΓΙΑ ΕΤΑΙΡΙΕΣ ΕΜΠΟΡΙΑΣ (EX-FACTORY)</td>
@@ -52,12 +52,12 @@
 <tr>
 <td>UNLEADED 95 BIO</td>
 <td>1.341,145</td>
-<td></td>
+<td>1.340,606</td>
 </tr>
 <tr>
 <td>UNLEADED 100 BIO</td>
 <td>1.414,257</td>
-<td></td>
+<td>1.414,623</td>
 </tr>
 <tr>
 <td colspan="3">Πετρέλαια (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -70,12 +70,12 @@
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
 <td>1.181,568</td>
-<td></td>
+<td>1.180,500</td>
 </tr>
 <tr>
 <td>HEATING GASOIL (ΧΠ)</td>
 <td>946,585</td>
-<td></td>
+<td>945,324</td>
 </tr>
 <tr>
 <td colspan="3">Υγραέρια – LPG (τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -88,22 +88,22 @@
 <tr>
 <td>LPG AUTO</td>
 <td>1.060,288</td>
-<td></td>
+<td>1.061,753</td>
 </tr>
 <tr>
 <td>LPG ΘΕΡΜΑΝΣΗΣ</td>
 <td>681,461</td>
-<td></td>
+<td>681,919</td>
 </tr>
 <tr>
 <td>LPG ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>741,761</td>
-<td></td>
+<td>742,219</td>
 </tr>
 <tr>
 <td>ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>797,554</td>
-<td></td>
+<td>808,355</td>
 </tr>
 <tr>
 <td>ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
@@ -121,7 +121,7 @@
 <tr>
 <td>Fuel Oil No 180 1%S</td>
 <td>574,269</td>
-<td></td>
+<td>573,109</td>
 </tr>
 <tr>
 <td>Fuel Oil No 380 1%S</td>
@@ -157,12 +157,12 @@
 <tr>
 <td>ΒΕΑ 50/70 &amp; 70/100</td>
 <td>431,380</td>
-<td></td>
+<td>432,170</td>
 </tr>
 <tr>
 <td>ΒΕΑ 30/45</td>
 <td>-</td>
-<td></td>
+<td>449,690</td>
 </tr>
 <tr>
 <td>ΒΕΑ 35/40</td>
