@@ -13,7 +13,7 @@
 	<atom:link href="http://oil.gge.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>http://oil.gge.gov.gr</link>
 	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
-	<lastBuildDate>Tue, 23 Jan 2024 06:13:58 +0000</lastBuildDate>
+	<lastBuildDate>Tue, 23 Jan 2024 12:45:13 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
@@ -28,10 +28,10 @@
 
 		<guid isPermaLink="false">http://oil.gge.gov.gr/?p=16538</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
-				<content:encoded><![CDATA[<table style="height: 802px" width="538">
+				<content:encoded><![CDATA[<table style="height: 787px" width="537">
 <tbody>
 <tr>
-<td colspan="3" width="627">Τρίτη, 23 Ιανουαρίου 2024</td>
+<td colspan="3" width="627">Τρίτη, 23 Ιανουαρίου 2024</td>
 </tr>
 <tr>
 <td colspan="3">ΤΙΜΕΣ ΓΙΑ ΕΤΑΙΡΙΕΣ ΕΜΠΟΡΙΑΣ (EX-FACTORY)</td>
@@ -52,12 +52,12 @@
 <tr>
 <td>UNLEADED 95 BIO</td>
 <td>1.349,454</td>
-<td></td>
+<td>1.348,885</td>
 </tr>
 <tr>
 <td>UNLEADED 100 BIO</td>
 <td>1.422,759</td>
-<td></td>
+<td>1.423,085</td>
 </tr>
 <tr>
 <td colspan="3">Πετρέλαια (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -70,12 +70,12 @@
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
 <td>1.189,745</td>
-<td></td>
+<td>1.188,647</td>
 </tr>
 <tr>
 <td>HEATING GASOIL (ΧΠ)</td>
 <td>951,529</td>
-<td></td>
+<td>950,226</td>
 </tr>
 <tr>
 <td colspan="3">Υγραέρια – LPG (τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -88,22 +88,22 @@
 <tr>
 <td>LPG AUTO</td>
 <td>1.060,298</td>
-<td></td>
+<td>1.061,722</td>
 </tr>
 <tr>
 <td>LPG ΘΕΡΜΑΝΣΗΣ</td>
 <td>681,400</td>
-<td></td>
+<td>681,817</td>
 </tr>
 <tr>
 <td>LPG ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>741,700</td>
-<td></td>
+<td>742,117</td>
 </tr>
 <tr>
 <td>ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>798,073</td>
-<td></td>
+<td>808,843</td>
 </tr>
 <tr>
 <td>ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
@@ -121,7 +121,7 @@
 <tr>
 <td>Fuel Oil No 180 1%S</td>
 <td>565,635</td>
-<td></td>
+<td>564,435</td>
 </tr>
 <tr>
 <td>Fuel Oil No 380 1%S</td>
@@ -157,12 +157,12 @@
 <tr>
 <td>ΒΕΑ 50/70 &amp; 70/100</td>
 <td>426,700</td>
-<td></td>
+<td>427,470</td>
 </tr>
 <tr>
 <td>ΒΕΑ 30/45</td>
 <td>-</td>
-<td></td>
+<td>445,010</td>
 </tr>
 <tr>
 <td>ΒΕΑ 35/40</td>
