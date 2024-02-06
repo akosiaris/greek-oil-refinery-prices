@@ -28,7 +28,7 @@ jobs:
           ELASTICSEARCH_PASSWORD: ${{ secrets.ELASTICSEARCH_PASSWORD }}
         uses: githubocto/flat@mr/node16
         with:
-          http_url: http://oil.gge.gov.gr/?feed=rss2
+          http_url: http://oil.mindev.gov.gr/?feed=rss2
           downloaded_filename: rss.xml # The http_url gets saved and renamed in our repository as test.html
           postprocess: postprocess.ts # A postprocessing javascript or typescript file written in Deno
           mask: false # optional param to mask the source http_url from the commit. Look at README for more options
