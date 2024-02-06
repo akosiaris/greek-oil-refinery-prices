@@ -2,15 +2,15 @@
 
 # greek-oil-refinery-prices
 
-A repo using the Flat Data approach, scraping Greek oil refinery prices from http://oil.gge.gov.gr (note the lack of HTTPS) and assembling them in a number of more usable forms.
+A repo using the Flat Data approach, scraping Greek oil refinery prices from http://oil.mindev.gov.gr (note the lack of HTTPS) and assembling them in a number of more usable forms.
 
-# Still in development
+# Semi-stable
 
-This is a work in progress, do not rely on ANYTHING remaining stable
+While I make no guarantees about the data structure formats and reserve the right to change them to suit my needs, it's been stable for quite a while now.
 
 # Process:
 
-A Flat Data Github action approach that uses Deno, Typescript and Github to fetch periodically (eventually 1 per day) data from the RSS feed of [http://oil.gge.gov.gr](http://oil.gge.gov.gr), parses it and appends it to a set of flat data files (JSON and CSV) as well as an SQLite database.
+A Flat Data Github action approach that uses Deno, Typescript and Github to fetch periodically (eventually 1 per day) data from the RSS feed of [http://oil.mindev.gov.gr](http://oil.mindev.gov.gr), parses it and appends it to a set of flat data files (JSON and CSV) as well as an SQLite database.
 
 ## Data file description:
 
@@ -71,7 +71,7 @@ You can also choose to feed it to whatever datastore you like (e.g. I plan to ev
 
 - Up to now, we kinda parse 1 "format" (for some definition of format). And it starts at ~end of 2018. Previous dates are unparsed yet.
 
-# Bugs/Gotchas/limitations:
+# Bugs/Gotchas/Limitations:
 
 - Parsing dates that are human entered is error prone, this continually breaks for one reason or another, e.g. a different operator replaces the usual one, the operator makes an unaccounted for typo, alters habbits significantly, etc.
 
