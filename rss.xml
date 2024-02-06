@@ -32,7 +32,7 @@
 	</div><!--#header-->
 <div id="container">
 	<div id="rotating">
-		<img src="http://oil.mindev.gov.gr/wp-content/themes/primepress/rotating.php?image=9" 
+		<img src="http://oil.mindev.gov.gr/wp-content/themes/primepress/rotating.php?image=71" 
 width="920" alt="ΤΙΜΕΣ ΔΙΥΛΙΣΤΗΡΙΟΥ Rotating Header Image" title="ΤΙΜΕΣ ΔΙΥΛΙΣΤΗΡΙΟΥ Random Header Image" />	</div>	
 	<div id="primary" class="looped">
 		
@@ -1636,7 +1636,7 @@ width="920" alt="ΤΙΜΕΣ ΔΙΥΛΙΣΤΗΡΙΟΥ Rotating Header Image" titl
 		<td colspan="3" class="pad">&nbsp;</td><td>1</td><td>2</td><td>3</td><td>4</td>
 	</tr>
 	<tr>
-		<td id="today">5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td>
+		<td>5</td><td id="today">6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td>
 	</tr>
 	<tr>
 		<td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td><td>18</td>
