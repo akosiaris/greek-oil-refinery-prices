@@ -22,8 +22,8 @@ to a set of flat data files (JSON and CSV) as well as an SQLite database.
 
 The data exists in 3 formats, JSON, CSV and SQLite.
 
-**fuels.json**: An example is below. For an elasticsearch compatible schema, see
-schema.json
+**fuels.json**: An example is below. For an elasticsearch compatible mapping, see
+elasticsearch_mapping.json
 
 ```
 {
