@@ -1,3 +1,4 @@
+
 import { FuelEntry } from "./src/FuelEntry.ts";
 
 import { writeDataFiles } from "./src/datastorage.ts";
@@ -6,6 +7,10 @@ import { parseUnParsed } from "./src/feedparse.ts";
 
 const statefile = "state.json";
 
+/**
+ * Processes the XML file and writes the parsed data to data files.
+ * @returns A Promise that resolves when the processing is complete.
+ */
 async function main(): Promise<void> {
   try {
     const xmlfile: string = Deno.args[0];

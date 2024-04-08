@@ -4,6 +4,12 @@ const dateRangeRegExp =
   /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;
 const daysRegExp = /(Δευτέρα|Τρίτη|Τετάρτη|Πέμπτη|Παρασκευή|Σάββατο|Κυριακή)/;
 
+/**
+ * Detects and handles dates in the input string.
+ *
+ * @param input - The input string to search for dates.
+ * @returns An array of Date objects representing the detected dates.
+ */
 export function DetectAndHandleDates(input: string): Date[] {
   if (daysRegExp.test(input)) {
     const candidateDates: string = input.trim();
@@ -73,6 +79,8 @@ function getDateRange(candidateDates: string): string[] {
 }
 
 /**
+ * A function to parse a string containing dates into an array of Date objects.
+ *
  * @param candidateDates A string containing the candidate dates.
  * @returns An array of dates.
  */

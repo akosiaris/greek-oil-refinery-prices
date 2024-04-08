@@ -5,6 +5,13 @@ const csvdatafile = "fuels.csv";
 const jsondatafile = "fuels.json";
 const sqlitedatafile = "fuels.db";
 
+/**
+ * Appends JSON data to an existing data file.
+ *
+ * @param data - The data to be appended.
+ * @param datafile - The path to the data file.
+ * @returns A Promise that resolves when the data has been appended successfully.
+ */
 async function appendJSONData(
   data: FuelEntry[],
   datafile: string,
@@ -23,6 +30,13 @@ async function appendJSONData(
   }
 }
 
+/**
+ * Appends the given data to a CSV file.
+ *
+ * @param data - The data to be appended.
+ * @param datafile - The path of the CSV file.
+ * @returns A Promise that resolves when the data has been appended successfully.
+ */
 async function appendCSVData(
   data: FuelEntry[],
   datafile: string,
@@ -45,6 +59,12 @@ async function appendCSVData(
   }
 }
 
+/**
+ * Appends the given data to an SQLite database file.
+ *
+ * @param data - The array of fuel entries to be appended.
+ * @param datafile - The path to the SQLite database file.
+ */
 function appendSQLiteData(data: FuelEntry[], datafile: string): void {
   const db = new DB(datafile);
   db.execute(`
@@ -95,6 +115,11 @@ function appendSQLiteData(data: FuelEntry[], datafile: string): void {
   query.finalize();
 }
 
+/**
+ * Writes the data to the data files.
+ * @param data - The fuel entry data to be written.
+ * @returns A promise that resolves when the data has been written.
+ */
 export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
   // Write the original data
   await appendJSONData(data, jsondatafile);

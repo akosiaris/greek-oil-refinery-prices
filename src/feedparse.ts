@@ -2,6 +2,14 @@ import { parseFeed, readJSON, writeJSON } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { parseFuelPage } from "./parse_fuel_page.ts";
 
+/**
+ * Parses the XML feed, ignoring already parsed entries and
+ * returns an array of FuelEntry objects.
+ *
+ * @param xml - The XML feed to parse.
+ * @param statefile - The path to the state file.
+ * @returns A promise that resolves to an array of FuelEntry objects.
+ */
 export async function parseUnParsed(
   xml: string,
   statefile: string,

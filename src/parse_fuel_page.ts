@@ -6,10 +6,23 @@ const fuelCategoriesRegExp =
   /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
+/**
+ * Parses the fuel page HTML and returns an array of FuelEntry objects.
+ * This function is meant to be able to parse all variants of fuel pages. In practice, only the 2019-present variant is supported.
+ *
+ * @param html - The HTML content of the fuel page.
+ * @returns An array of FuelEntry objects representing the parsed fuel prices.
+ */
 export function parseFuelPage(html: string): FuelEntry[] {
   return parseFuelPage_2019_present(html);
 }
 
+/**
+ * Parses the fuel page HTML from 2019 to present and returns an array of FuelEntry objects.
+ *
+ * @param html - The HTML content of the fuel page.
+ * @returns An array of FuelEntry objects representing the parsed fuel prices.
+ */
 function parseFuelPage_2019_present(html: string): FuelEntry[] {
   try {
     const document: HTMLDocument | null = new DOMParser().parseFromString(
