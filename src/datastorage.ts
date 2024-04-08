@@ -5,7 +5,10 @@ const csvdatafile = "fuels.csv";
 const jsondatafile = "fuels.json";
 const sqlitedatafile = "fuels.db";
 
-async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void> {
+async function appendJSONData(
+  data: FuelEntry[],
+  datafile: string,
+): Promise<void> {
   let jsondata;
   try {
     jsondata = await readJSON(datafile);
@@ -20,15 +23,18 @@ async function appendJSONData(data: FuelEntry[], datafile: string): Promise<void
   }
 }
 
-async function appendCSVData(data: FuelEntry[], datafile: string): Promise<void> {
+async function appendCSVData(
+  data: FuelEntry[],
+  datafile: string,
+): Promise<void> {
   let csvdata: Record<string, unknown>[];
   try {
     csvdata = await readCSV(datafile);
-    csvdata = csvdata.concat(data.map(function(val) {
+    csvdata = csvdata.concat(data.map(function (val) {
       return val.recordize();
     }));
   } catch (_error) {
-    csvdata = data.map(function(val) {
+    csvdata = data.map(function (val) {
       return val.recordize();
     });
   }

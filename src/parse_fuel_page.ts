@@ -2,7 +2,8 @@ import { DOMParser, Element, HTMLDocument } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { DetectAndHandleDates } from "./parsedates.ts";
 
-const fuelCategoriesRegExp = /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
+const fuelCategoriesRegExp =
+  /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
 const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
 
 export function parseFuelPage(html: string): FuelEntry[] {
@@ -11,7 +12,10 @@ export function parseFuelPage(html: string): FuelEntry[] {
 
 function parseFuelPage_2019_present(html: string): FuelEntry[] {
   try {
-    const document: HTMLDocument | null = new DOMParser().parseFromString(html, "text/html");
+    const document: HTMLDocument | null = new DOMParser().parseFromString(
+      html,
+      "text/html",
+    );
     if (!document) {
       return [];
     }
@@ -31,7 +35,8 @@ function parseFuelPage_2019_present(html: string): FuelEntry[] {
       if (tmp.length > 0) {
         parsedDates = tmp;
       } else if (fuelCategoriesRegExp.test(tbody.children[i].textContent)) {
-        const match: RegExpMatchArray | null = tbody.children[i].textContent.match(fuelCategoriesRegExp);
+        const match: RegExpMatchArray | null = tbody.children[i].textContent
+          .match(fuelCategoriesRegExp);
         if (match) {
           category = match[1];
           notes = match[2];
@@ -43,12 +48,23 @@ function parseFuelPage_2019_present(html: string): FuelEntry[] {
         // deno-lint-ignore no-explicit-any
         const tds: any = tbody.children[i].children;
         const fuelName: string = tds[0].textContent.trim();
-        const elpePrice: number = parseFloat(tds[1].textContent.replace(/\./, "").replace(/,/, "."));
-        const motoroilPrice: number = parseFloat(tds[2].textContent.replace(/\./, "").replace(/,/, "."));
+        const elpePrice: number = parseFloat(
+          tds[1].textContent.replace(/\./, "").replace(/,/, "."),
+        );
+        const motoroilPrice: number = parseFloat(
+          tds[2].textContent.replace(/\./, "").replace(/,/, "."),
+        );
         // And let's create the objects
         for (const parsedDate of parsedDates) {
           const dtmp: Date = new Date(parsedDate.toISOString().split("T")[0]);
-          const fuel = new FuelEntry(dtmp, category, notes, fuelName, elpePrice, motoroilPrice);
+          const fuel = new FuelEntry(
+            dtmp,
+            category,
+            notes,
+            fuelName,
+            elpePrice,
+            motoroilPrice,
+          );
           fuels.push(fuel);
         }
       }

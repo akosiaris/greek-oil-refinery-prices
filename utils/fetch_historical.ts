@@ -24,7 +24,7 @@ for (let i: number = start; i <= end; i++) {
       },
     });
     // Let's be polite
-    await new Promise(f => setTimeout(f, 1000));
+    await new Promise((f) => setTimeout(f, 1000));
     if (!(resp.status == 200)) {
       continue;
     }

@@ -83,5 +83,15 @@
     }
   },
   "additionalProperties": false,
-  "required": ["date", "category", "notes", "fuel", "unit", "elpePrice", "motoroilPrice", "meanPrice", "vatPrice"]
+  "required": [
+    "date",
+    "category",
+    "notes",
+    "fuel",
+    "unit",
+    "elpePrice",
+    "motoroilPrice",
+    "meanPrice",
+    "vatPrice"
+  ]
 }

@@ -21,7 +21,13 @@ const massRegExp = /τιμές σε €\/μ.τ./;
 const missingOnlyVATRegExp = /συμπεριλ. φόρων – τελών, προ ΦΠΑ/;
 
 // Type to limit the values for fuel categories. String Literal
-type FuelCategory = "Βενζίνες" | "Πετρέλαια" | "Υγραέρια – LPG" | "ΜΑΖΟΥΤ-FUEL OIL" | "ΚΗΡΟΖΙΝΗ – KERO" | "ΑΣΦΑΛΤΟΣ";
+type FuelCategory =
+  | "Βενζίνες"
+  | "Πετρέλαια"
+  | "Υγραέρια – LPG"
+  | "ΜΑΖΟΥΤ-FUEL OIL"
+  | "ΚΗΡΟΖΙΝΗ – KERO"
+  | "ΑΣΦΑΛΤΟΣ";
 // Type to limit the values for fuel names. String Literal
 type FuelName =
   | "DIΕSEL AUTO BIO"

@@ -22,7 +22,10 @@ export function DetectAndHandleDates(input: string): Date[] {
  */
 function sanitizeDates(input: string): string {
   // Remove great from days
-  let dates: string = input.replace("Μεγάλο", "").replace("Μεγάλη", "").replace("Μεγ.", "");
+  let dates: string = input.replace("Μεγάλο", "").replace("Μεγάλη", "").replace(
+    "Μεγ.",
+    "",
+  );
   // Normalize string, e.g. get rid of unicode no break spaces
   dates = dates.normalize("NFKC");
   // Remove all spaces now, the original data can be inconsistent anyway
@@ -30,7 +33,10 @@ function sanitizeDates(input: string): string {
   // Lowercase too as the original data can be inconsistent anyway
   dates = dates.toLowerCase();
   // Selectively fix a mess with diacritics and accents, hopefully it won't become larger than this
-  dates = dates.replace("μαϊου", "μαΐου").replace("μάϊου", "μαΐου").replace("ιουνιου", "ιουνίου");
+  dates = dates.replace("μαϊου", "μαΐου").replace("μάϊου", "μαΐου").replace(
+    "ιουνιου",
+    "ιουνίου",
+  );
   return dates;
 }
 
@@ -76,7 +82,9 @@ function parseDates(candidateDates: string): Date[] {
   const dateRange: string[] = getDateRange(candidateDates);
 
   for (const date of dateRange) {
-    const parsedDate: Date = parse(date, dateString, new Date(), { locale: el });
+    const parsedDate: Date = parse(date, dateString, new Date(), {
+      locale: el,
+    });
     if (!isValid(parsedDate)) {
       console.log("Date invalid: " + date);
       continue;

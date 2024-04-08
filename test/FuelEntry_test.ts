@@ -118,7 +118,7 @@ Deno.test("Test serialization and deserialization of entry", () => {
 
 Deno.test("Test non syntactically valid JSON deserialization", () => {
   // The syntax error is the comma at the end
-  const entry = "{\"motoroilPrice\": 101,}";
+  const entry = '{"motoroilPrice": 101,}';
   assertThrows(() => {
     FuelEntry.deserialize(entry);
   }, SyntaxError);

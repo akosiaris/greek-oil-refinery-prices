@@ -2,21 +2,28 @@
 
 # greek-oil-refinery-prices
 
-A repo using the Flat Data approach, scraping Greek oil refinery prices from http://oil.mindev.gov.gr (note the lack of HTTPS) and assembling them in a number of more usable forms.
+A repo using the Flat Data approach, scraping Greek oil refinery prices from
+http://oil.mindev.gov.gr (note the lack of HTTPS) and assembling them in a
+number of more usable forms.
 
 # Semi-stable
 
-While I make no guarantees about the data structure formats and reserve the right to change them to suit my needs, it's been stable for quite a while now.
+While I make no guarantees about the data structure formats and reserve the
+right to change them to suit my needs, it's been stable for quite a while now.
 
 # Process:
 
-A Flat Data Github action approach that uses Deno, Typescript and Github to fetch periodically (eventually 1 per day) data from the RSS feed of [http://oil.mindev.gov.gr](http://oil.mindev.gov.gr), parses it and appends it to a set of flat data files (JSON and CSV) as well as an SQLite database.
+A Flat Data Github action approach that uses Deno, Typescript and Github to
+fetch periodically (eventually 1 per day) data from the RSS feed of
+[http://oil.mindev.gov.gr](http://oil.mindev.gov.gr), parses it and appends it
+to a set of flat data files (JSON and CSV) as well as an SQLite database.
 
 ## Data file description:
 
 The data exists in 3 formats, JSON, CSV and SQLite.
 
-**fuels.json**: An example is below. For an elasticsearch compatible schema, see schema.json
+**fuels.json**: An example is below. For an elasticsearch compatible schema, see
+schema.json
 
 ```
 {
@@ -32,7 +39,8 @@ The data exists in 3 formats, JSON, CSV and SQLite.
 },
 ```
 
-Note that some fields could be null. Pretty much ready to be posted to elasticsearch (albeit not in the bulk endpoint)
+Note that some fields could be null. Pretty much ready to be posted to
+elasticsearch (albeit not in the bulk endpoint)
 
 **fuels.csv**: An example of a few entries is below, first row is the CSV header
 
@@ -46,7 +54,8 @@ date,category,notes,fuel,elpePrice,motoroilPrice,unit,meanPrice,vatPrice
 2018-12-17T00:00:00.000Z,Υγραέρια – LPG,"τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",LPG AUTO,877.716,878.133,Μετρικός Τόνος,877.925,1088.627
 ```
 
-**fuels.db**: EXPERIMENTAL. The table schema is the following. No various normal forms, no indices, or any kind of optimization.
+**fuels.db**: EXPERIMENTAL. The table schema is the following. No various normal
+forms, no indices, or any kind of optimization.
 
 ```
 CREATE TABLE IF NOT EXISTS fuels (
@@ -63,18 +72,24 @@ CREATE TABLE IF NOT EXISTS fuels (
 
 # How to use:
 
-Just go to https://flatgithub.com/akosiaris/greek-oil-refinery-prices , pick the data file you want and get a basic UI for exploring it.
+Just go to https://flatgithub.com/akosiaris/greek-oil-refinery-prices , pick the
+data file you want and get a basic UI for exploring it.
 
-You can also choose to feed it to whatever datastore you like (e.g. I plan to eventually post it to Elasticsearch and graph it via Grafana)
+You can also choose to feed it to whatever datastore you like (e.g. I plan to
+eventually post it to Elasticsearch and graph it via Grafana)
 
 # TODOs:
 
-- Up to now, we kinda parse 1 "format" (for some definition of format). And it starts at ~end of 2018. Previous dates are unparsed yet.
+- Up to now, we kinda parse 1 "format" (for some definition of format). And it
+  starts at ~end of 2018. Previous dates are unparsed yet.
 
 # Bugs/Gotchas/Limitations:
 
-- Parsing dates that are human entered is error prone, this continually breaks for one reason or another, e.g. a different operator replaces the usual one, the operator makes an unaccounted for typo, alters habbits significantly, etc.
+- Parsing dates that are human entered is error prone, this continually breaks
+  for one reason or another, e.g. a different operator replaces the usual one,
+  the operator makes an unaccounted for typo, alters habbits significantly, etc.
 
 - At various points in time and for various reasons, values could be null
 
-- Doesn't handle what upstream calls "correct repetition" (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ) of entries. So no corrected updates
+- Doesn't handle what upstream calls "correct repetition" (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ) of
+  entries. So no corrected updates

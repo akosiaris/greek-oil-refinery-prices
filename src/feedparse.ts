@@ -2,7 +2,10 @@ import { parseFeed, readJSON, writeJSON } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { parseFuelPage } from "./parse_fuel_page.ts";
 
-export async function parseUnParsed(xml: string, statefile: string): Promise<FuelEntry[]> {
+export async function parseUnParsed(
+  xml: string,
+  statefile: string,
+): Promise<FuelEntry[]> {
   try {
     let ret: FuelEntry[] = [];
     const statedata = await readJSON(statefile);
