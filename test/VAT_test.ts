@@ -1,5 +1,5 @@
-import { assertEquals } from "./test_deps.ts";
-import { VAT } from "./VAT.ts";
+import { assertEquals } from "../test_deps.ts";
+import { VAT } from "../src/VAT.ts";
 
 Deno.test("18%", () => {
   const rate = VAT.VATbyDate(new Date("2004-01-01"));

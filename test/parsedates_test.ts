@@ -1,6 +1,6 @@
-import { DetectAndHandleDates, getDateRange_test, parseDates_test, sanitizeDates_test } from "./parsedates.ts";
+import { DetectAndHandleDates, getDateRange_test, parseDates_test, sanitizeDates_test } from "../src/parsedates.ts";
 
-import { assertEquals } from "./test_deps.ts";
+import { assertEquals } from "../test_deps.ts";
 
 Deno.test("Sanitize a range of dates", () => {
   const dates: Record<string, string> = {

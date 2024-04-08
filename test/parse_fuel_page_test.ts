@@ -1,7 +1,7 @@
-import { readTXT } from "./deps.ts";
-import { parseFuelPage } from "./parse_fuel_page.ts";
+import { readTXT } from "../deps.ts";
+import { parseFuelPage } from "../src/parse_fuel_page.ts";
 
-import { assertEquals } from "./test_deps.ts";
+import { assertEquals } from "../test_deps.ts";
 
 const sample_page_file = "./.fixtures/sample_page_2019_present.html";
 

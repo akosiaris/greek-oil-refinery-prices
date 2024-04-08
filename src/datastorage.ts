@@ -1,4 +1,4 @@
-import { DB, readCSV, readJSON, writeCSV, writeJSON } from "./deps.ts";
+import { DB, readCSV, readJSON, writeCSV, writeJSON } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 
 const csvdatafile = "fuels.csv";

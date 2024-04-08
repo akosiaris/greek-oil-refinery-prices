@@ -1,4 +1,4 @@
-import { el, intervalToDuration, isValid, parse } from "./deps.ts";
+import { el, intervalToDuration, isValid, parse } from "../deps.ts";
 
 const dateRangeRegExp =
   /([α-ωίϊΐόάέύϋΰήώ]+)(έως|εως|εώς)([α-ωίϊΐόάέύϋΰήώ]+),(\d+)([α-ωίϊΐόάέύϋΰήώ]+)?(έως|εως|εώς|–)(\d+)([α-ωίϊΐόάέύϋΰήώ]+)(\d{4})/;

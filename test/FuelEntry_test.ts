@@ -1,5 +1,5 @@
-import { FuelEntry } from "./FuelEntry.ts";
-import { assertEquals, assertThrows } from "./test_deps.ts";
+import { FuelEntry } from "../src/FuelEntry.ts";
+import { assertEquals, assertThrows } from "../test_deps.ts";
 
 Deno.test("Fully Specified Entry - Gazoline", () => {
   const date = new Date("2020-01-01T00:00:00.000Z");

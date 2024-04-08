@@ -1,4 +1,4 @@
-import { parseFeed, readJSON, writeJSON } from "./deps.ts";
+import { parseFeed, readJSON, writeJSON } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { parseFuelPage } from "./parse_fuel_page.ts";
 

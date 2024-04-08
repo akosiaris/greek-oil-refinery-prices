@@ -1,4 +1,4 @@
-import { DOMParser, Element, HTMLDocument } from "./deps.ts";
+import { DOMParser, Element, HTMLDocument } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { DetectAndHandleDates } from "./parsedates.ts";
 

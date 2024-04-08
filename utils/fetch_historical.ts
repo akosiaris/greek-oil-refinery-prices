@@ -1,6 +1,6 @@
-import { writeDataFiles } from "../datastorage.ts";
+import { writeDataFiles } from "../src/datastorage.ts";
 import { readTXT, writeTXT } from "../deps.ts";
-import { parseFuelPage } from "../parse_fuel_page.ts";
+import { parseFuelPage } from "../src/parse_fuel_page.ts";
 
 const site = "http://oil.gge.gov.gr/?p=";
 // Some sane defaults

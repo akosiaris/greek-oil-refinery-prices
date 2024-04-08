@@ -1,7 +1,7 @@
-import { readTXT } from "./deps.ts";
-import { parseUnParsed } from "./feedparse.ts";
-import { FuelEntry } from "./FuelEntry.ts";
-import { assertEquals } from "./test_deps.ts";
+import { readTXT } from "../deps.ts";
+import { parseUnParsed } from "../src/feedparse.ts";
+import { FuelEntry } from "../src/FuelEntry.ts";
+import { assertEquals } from "../test_deps.ts";
 
 const xmlfile = "./.fixtures/rss.xml";
 const statefile = "./.fixtures/state.json";

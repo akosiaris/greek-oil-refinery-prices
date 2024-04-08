@@ -12,7 +12,7 @@ const ajv = new Ajv2020.default({ coerceTypes: true });
 addFormats.default(ajv);
 
 // Used for VAT calculation
-import fuel_schema from "./schema.json" assert { type: "json" };
+import fuel_schema from "../schema.json" assert { type: "json" };
 import { VAT } from "./VAT.ts";
 
 // RegExps for parsing notes to produce units, VAT

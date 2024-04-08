@@ -1,9 +1,9 @@
 import { env } from "node:process";
-import { FuelEntry } from "./FuelEntry.ts";
+import { FuelEntry } from "./src/FuelEntry.ts";
 
-import { writeDataFiles } from "./datastorage.ts";
+import { writeDataFiles } from "./src/datastorage.ts";
 import { readTXT } from "./deps.ts";
-import { parseUnParsed } from "./feedparse.ts";
+import { parseUnParsed } from "./src/feedparse.ts";
 
 const statefile = "state.json";
 
