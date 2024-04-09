@@ -22,7 +22,9 @@ to a set of flat data files (JSON and CSV) as well as an SQLite database.
 
 The data exists in 3 formats, JSON, CSV and SQLite.
 
-**fuels.json**: An example is below. For an elasticsearch compatible mapping, see
+### JSON
+
+The most verbose. An example entry below. For an elasticsearch compatible mapping, see
 elasticsearch_mapping.json
 
 ```
@@ -39,10 +41,15 @@ elasticsearch_mapping.json
 },
 ```
 
+Filename: **fuels.json**
+
 Note that some fields could be null. Pretty much ready to be posted to
 elasticsearch (albeit not in the bulk endpoint)
 
-**fuels.csv**: An example of a few entries is below, first row is the CSV header
+### CSV
+
+I wish I could say that CSV is a "standard" format, however CSVs can be very ambiguously defined. Nevertheless, I try to offer that too.
+An example of a few entries is below, first row is the CSV header
 
 ```
 date,category,notes,fuel,elpePrice,motoroilPrice,unit,meanPrice,vatPrice
@@ -54,8 +61,16 @@ date,category,notes,fuel,elpePrice,motoroilPrice,unit,meanPrice,vatPrice
 2018-12-17T00:00:00.000Z,Υγραέρια – LPG,"τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",LPG AUTO,877.716,878.133,Μετρικός Τόνος,877.925,1088.627
 ```
 
-**fuels.db**: EXPERIMENTAL. The table schema is the following. No various normal
-forms, no indices, or any kind of optimization.
+Filename: **fuels.csv**
+
+### SQLite
+
+We provide a number of variants here
+
+#### 1NF (1st Normal Form)
+
+The table schema is the following.
+The table is in 1st normal form. TL;DR no cell contains tables
 
 ```
 CREATE TABLE IF NOT EXISTS fuels (
@@ -67,7 +82,34 @@ CREATE TABLE IF NOT EXISTS fuels (
   motoroilPrice REAL,
   meanPrice REAL,
   vatPrice REAL,
-  unit TEXT NOT NULL)
+  unit TEXT NOT NULL);
+CREATE INDEX IF NOT EXISTS idx_fuels_date ON fuels(date);
+```
+
+Filename: **fuels.db**
+
+#### 2NF (2nd Normal Form)
+
+The table schema is the following.
+The tables are in 2nd normal form, that means already in 1NF and all non-key attributes functionally dependent on the primary key.
+
+```
+  CREATE TABLE IF NOT EXISTS categories (
+    id integer PRIMARY KEY AUTOINCREMENT,
+    category TEXT NOT NULL,
+    notes TEXT NOT NULL,
+    unit TEXT NOT NULL);
+
+  CREATE TABLE IF NOT EXISTS fuels (
+    date TEXT NOT NULL,
+    category_id integer NOT NULL,
+    fuel TEXT NOT NULL,
+    elpePrice REAL,
+    motoroilPrice REAL,
+    meanPrice REAL,
+    vatPrice REAL,
+    FOREIGN KEY (category_id) REFERENCES categories(id));
+  CREATE INDEX IF NOT EXISTS idx_fuels_date ON fuels(date);
 ```
 
 # How to use:
@@ -75,8 +117,7 @@ CREATE TABLE IF NOT EXISTS fuels (
 Just go to https://flatgithub.com/akosiaris/greek-oil-refinery-prices , pick the
 data file you want and get a basic UI for exploring it.
 
-You can also choose to feed it to whatever datastore you like (e.g. I plan to
-eventually post it to Elasticsearch and graph it via Grafana)
+You can also choose to feed the 3 different formats we provide it to whatever datastore you like
 
 # TODOs:
 
