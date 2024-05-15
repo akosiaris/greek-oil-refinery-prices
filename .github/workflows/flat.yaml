@@ -12,20 +12,20 @@ jobs:
   scheduled:
     runs-on: ubuntu-latest
     steps: # This workflow has 3 steps
-      # The first step is to check out the repository so it can read the files inside of it and do other operations
+      # The first step is to check out the repository so it can read the files
+      # inside of it and do other operations
       - name: Check out repo
         uses: actions/checkout@v3
-      # This step installs Deno, which is a new Javascript runtime that improves on Node. We'll use it for postprocessing later
+      # This step installs Deno, which is a new Javascript runtime that
+      # improves on Node. We'll use it for postprocessing later
       - name: Setup deno
         uses: denoland/setup-deno@main
         with:
           deno-version: v1.x
-      # The third step is a Flat Action step. We fetch the data in the http_url and save it as downloaded_filename
+      # The third step is a Flat Action step. We fetch the data in the http_url
+      # and save it as downloaded_filename
       - name: Fetch data
         env:
-          ELASTICSEARCH_URL: ${{ secrets.ELASTICSEARCH_URL }}
-          ELASTICSEARCH_USERNAME: ${{ secrets.ELASTICSEARCH_USERNAME }}
-          ELASTICSEARCH_PASSWORD: ${{ secrets.ELASTICSEARCH_PASSWORD }}
         uses: githubocto/flat@mr/node16
         with:
           http_url: http://oil.mindev.gov.gr/?feed=rss2
