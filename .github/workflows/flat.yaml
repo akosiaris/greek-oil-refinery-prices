@@ -25,7 +25,6 @@ jobs:
       # The third step is a Flat Action step. We fetch the data in the http_url
       # and save it as downloaded_filename
       - name: Fetch data
-        env:
         uses: githubocto/flat@mr/node16
         with:
           http_url: http://oil.mindev.gov.gr/?feed=rss2
