@@ -14,7 +14,7 @@ right to change them to suit my needs, it's been stable for quite a while now.
 # Process:
 
 A Flat Data Github action approach that uses Deno, Typescript and Github to
-fetch periodically (eventually 1 per day) data from the RSS feed of
+fetch periodically (twice per day) data from the RSS feed of
 [http://oil.mindev.gov.gr](http://oil.mindev.gov.gr), parses it and appends it
 to a set of flat data files (JSON and CSV) as well as an SQLite database.
 
