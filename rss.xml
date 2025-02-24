@@ -13,13 +13,13 @@
 	<atom:link href="http://oil.mindev.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>http://oil.mindev.gov.gr</link>
 	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
-	<lastBuildDate>Sat, 22 Feb 2025 07:28:47 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 24 Feb 2025 08:16:24 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
 	<generator>http://wordpress.org/?v=3.9.1</generator>
 	<item>
-		<title>Σάββατο έως Δευτέρα, 22 έως 24 Φεβρουαρίου 2025</title>
+		<title>Σάββατο έως Δευτέρα, 22 	έως 24 Φεβρουαρίου 2025</title>
 		<link>http://oil.mindev.gov.gr/?p=17667</link>
 		<comments>http://oil.mindev.gov.gr/?p=17667#comments</comments>
 		<pubDate>Sat, 22 Feb 2025 07:28:47 +0000</pubDate>
@@ -28,10 +28,13 @@
 
 		<guid isPermaLink="false">http://oil.mindev.gov.gr/?p=17667</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
-				<content:encoded><![CDATA[<table style="height: 751px" width="507">
+				<content:encoded><![CDATA[<table style="height: 790px" width="540">
 <tbody>
 <tr>
 <td colspan="3" width="627">Σάββατο έως Δευτέρα, 22 έως 24 Φεβρουαρίου 2025</td>
+</tr>
+<tr>
+<td colspan="3"></td>
 </tr>
 <tr>
 <td colspan="3">Βενζίνες (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -49,12 +52,12 @@
 <tr>
 <td>UNLEADED 95 BIO</td>
 <td>1.345,731</td>
-<td></td>
+<td>1.345,153</td>
 </tr>
 <tr>
 <td>UNLEADED 100 BIO</td>
 <td>1.421,682</td>
-<td></td>
+<td>1.422,048</td>
 </tr>
 <tr>
 <td colspan="3">Πετρέλαια (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -67,12 +70,12 @@
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
 <td>1.150,396</td>
-<td></td>
+<td>1.149,268</td>
 </tr>
 <tr>
 <td>HEATING GASOIL (ΧΠ)</td>
 <td>916,319</td>
-<td></td>
+<td>914,275</td>
 </tr>
 <tr>
 <td colspan="3">Υγραέρια – LPG (τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -85,22 +88,22 @@
 <tr>
 <td>LPG AUTO</td>
 <td>1.197,105</td>
-<td></td>
+<td>1.198,600</td>
 </tr>
 <tr>
 <td>LPG ΘΕΡΜΑΝΣΗΣ</td>
 <td>822,814</td>
-<td></td>
+<td>823,272</td>
 </tr>
 <tr>
 <td>LPG ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>883,114</td>
-<td></td>
+<td>883,572</td>
 </tr>
 <tr>
 <td>ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>902,590</td>
-<td></td>
+<td>913,817</td>
 </tr>
 <tr>
 <td>ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
@@ -118,7 +121,7 @@
 <tr>
 <td>Fuel Oil No 180 1%S</td>
 <td>588,457</td>
-<td></td>
+<td>587,216</td>
 </tr>
 <tr>
 <td>Fuel Oil No 380 1%S</td>
@@ -154,12 +157,12 @@
 <tr>
 <td>ΒΕΑ 50/70 &amp; 70/100</td>
 <td>496,300</td>
-<td></td>
+<td>497,100</td>
 </tr>
 <tr>
 <td>ΒΕΑ 30/45</td>
 <td>-</td>
-<td></td>
+<td>515,380</td>
 </tr>
 <tr>
 <td>ΒΕΑ 35/40</td>
