@@ -4,7 +4,7 @@ import { DetectAndHandleDates } from "./parsedates.ts";
 
 const fuelCategoriesRegExp =
   /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
-const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος/;
+const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή Περίοδος|\n\n/;
 
 /**
  * Parses the fuel page HTML and returns an array of FuelEntry objects.
