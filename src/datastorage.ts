@@ -147,15 +147,17 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
   CREATE INDEX IF NOT EXISTS idx_fuels_date ON fuels(date);
   `);
   const fetch_category_id_query = db.prepareQuery<
-  [number],
-  { id: number },
-  { category: string }>(`
+    [number],
+    { id: number },
+    { category: string }
+  >(`
     SELECT id FROM categories WHERE category = :category
   `);
   const insert_category = db.prepareQuery<
-  never,
-  never,
-  { category: string; notes: string; unit: string }>(`
+    never,
+    never,
+    { category: string; notes: string; unit: string }
+  >(`
     INSERT INTO categories (category, notes, unit) VALUES (:category, :notes, :unit)
   `);
   const insert_fuel = db.prepareQuery<never, never, {
@@ -184,7 +186,9 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
       :vatPrice)
   `);
   for (const entry of data) {
-    const category_id = fetch_category_id_query.firstEntry({ category: entry["category"]});
+    const category_id = fetch_category_id_query.firstEntry({
+      category: entry["category"],
+    });
     if (category_id === undefined) {
       insert_category.allEntries({
         category: entry.category,
