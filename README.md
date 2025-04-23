@@ -3,8 +3,8 @@
 # greek-oil-refinery-prices
 
 A repo using the Flat Data approach, scraping Greek oil refinery prices from
-http://oil.mindev.gov.gr (note the lack of HTTPS) and assembling them in a
-number of more usable forms.
+https://oil.mindev.gov.gr (HTTPS support was added in 2025 - before that we had HTTP) 
+and assembling them in a number of more usable forms.
 
 # Semi-stable
 
@@ -15,7 +15,7 @@ right to change them to suit my needs, it's been stable for quite a while now.
 
 A Flat Data Github action approach that uses Deno, Typescript and Github to
 fetch periodically (twice per day) data from the RSS feed of
-[http://oil.mindev.gov.gr](http://oil.mindev.gov.gr), parses it and appends it
+[https://oil.mindev.gov.gr](https://oil.mindev.gov.gr), parses it and appends it
 to a set of flat data files (JSON and CSV) as well as an SQLite database.
 
 ## Data file description:
