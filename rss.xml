@@ -13,7 +13,7 @@
 	<atom:link href="https://oil.mindev.gov.gr/?feed=rss2" rel="self" type="application/rss+xml" />
 	<link>https://oil.mindev.gov.gr</link>
 	<description>Γενική  Γραμματεία  Εμπορίου &#38; Προστασίας Καταναλωτή</description>
-	<lastBuildDate>Mon, 15 Sep 2025 06:08:30 +0000</lastBuildDate>
+	<lastBuildDate>Mon, 15 Sep 2025 14:11:52 +0000</lastBuildDate>
 	<language>el</language>
 		<sy:updatePeriod>hourly</sy:updatePeriod>
 		<sy:updateFrequency>1</sy:updateFrequency>
@@ -28,10 +28,10 @@
 
 		<guid isPermaLink="false">https://oil.mindev.gov.gr/?p=18319</guid>
 		<description><![CDATA[ [&#8230;]]]></description>
-				<content:encoded><![CDATA[<table style="height: 795px" width="510">
+				<content:encoded><![CDATA[<table style="height: 757px" width="488">
 <tbody>
 <tr>
-<td colspan="3" width="627"></td>
+<td colspan="3"> Σάββατο έως Δευτέρα,13 έως 15 Σεπτεμβρίου 2025</td>
 </tr>
 <tr>
 <td colspan="3">Βενζίνες (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -49,12 +49,12 @@
 <tr>
 <td>UNLEADED 95 BIO</td>
 <td>1.275,131</td>
-<td></td>
+<td>1.274,623</td>
 </tr>
 <tr>
 <td>UNLEADED 100 BIO</td>
 <td>1.342,843</td>
-<td></td>
+<td>1.343,189</td>
 </tr>
 <tr>
 <td colspan="3">Πετρέλαια (τιμές σε €/m<sup>3</sup>, συμπεριλ. φόρων – τελών, προ ΦΠΑ)</td>
@@ -67,7 +67,7 @@
 <tr>
 <td width="186">DIΕSEL AUTO BIO</td>
 <td>1.062,752</td>
-<td></td>
+<td>1.061,786</td>
 </tr>
 <tr>
 <td>HEATING GASOIL</td>
@@ -85,22 +85,22 @@
 <tr>
 <td>LPG AUTO</td>
 <td>1.146,448</td>
-<td></td>
+<td>1.147,801</td>
 </tr>
 <tr>
 <td>LPG ΘΕΡΜΑΝΣΗΣ</td>
 <td>754,116</td>
-<td></td>
+<td>754,533</td>
 </tr>
 <tr>
 <td>LPG ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>814,416</td>
-<td></td>
+<td>814,833</td>
 </tr>
 <tr>
 <td>ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
 <td>978,315</td>
-<td></td>
+<td>988,354</td>
 </tr>
 <tr>
 <td>ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ</td>
@@ -118,7 +118,7 @@
 <tr>
 <td>Fuel Oil No 180 1%S</td>
 <td>462,175</td>
-<td></td>
+<td>461,098</td>
 </tr>
 <tr>
 <td>Fuel Oil No 380 1%S</td>
@@ -154,21 +154,16 @@
 <tr>
 <td>ΒΕΑ 50/70 &amp; 70/100</td>
 <td>372,210</td>
-<td></td>
+<td>372,940</td>
 </tr>
 <tr>
 <td>ΒΕΑ 30/45</td>
 <td>-</td>
-<td></td>
+<td>-</td>
 </tr>
 <tr>
 <td>ΒΕΑ 35/40</td>
 <td>388,510</td>
-<td>-</td>
-</tr>
-<tr>
-<td>ΒΕΘ 50/70</td>
-<td>375,640</td>
 <td>-</td>
 </tr>
 </tbody>
