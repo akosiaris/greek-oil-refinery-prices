@@ -8,16 +8,16 @@ import { parseUnParsed } from "./src/feedparse.ts";
 const statefile = "state.json";
 
 /**
- * Processes the XML file and writes the parsed data to data files.
+ * Processes the flat downloaded file and writes the parsed data to data files.
  * @returns A Promise that resolves when the processing is complete.
  */
 async function main(): Promise<void> {
   try {
-    const xmlfile: string = Deno.args[0];
+    const inputfile: string = Deno.args[0];
 
-    if (xmlfile) {
-      const xml: string = await readTXT(xmlfile);
-      const parsed: FuelEntry[] = await parseUnParsed(xml, statefile);
+    if (inputfile) {
+      const input: string = await readTXT(inputfile);
+      const parsed: FuelEntry[] = await parseUnParsed(input, statefile);
       await writeDataFiles(parsed);
     }
   } catch (error) {

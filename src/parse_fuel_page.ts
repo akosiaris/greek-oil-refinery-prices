@@ -1,6 +1,8 @@
-import { DOMParser, Element, HTMLDocument } from "../deps.ts";
+import { DOMParser, Element, HTMLDocument, parseISO } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { DetectAndHandleDates } from "./parsedates.ts";
+import { isBefore } from "../deps.ts";
+import { parse_api_posts } from "./parse_json_api.ts";
 
 const fuelCategoriesRegExp =
   /(Βενζίνες|Πετρέλαια|Υγραέρια – LPG|ΜΑΖΟΥΤ-FUEL OIL|ΚΗΡΟΖΙΝΗ – KERO|ΑΣΦΑΛΤΟΣ) \((.+)\)/;
@@ -13,8 +15,15 @@ const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή �
  * @param html - The HTML content of the fuel page.
  * @returns An array of FuelEntry objects representing the parsed fuel prices.
  */
-export function parseFuelPage(html: string): FuelEntry[] {
-  return parseFuelPage_2019_present(html);
+export function parseFuelPage(input: string|Record<string, Record<string, string|number>[]>): FuelEntry[] {
+  const today = new Date();
+  // After 2025-11-05, the site was radically changed and we need a different handling method
+  const target = parseISO('2025-11-05', {});
+  if (isBefore(today, target)) {
+    return parseFuelPage_2019_to_2025_11_05(input as string);
+  } else {
+    return parse_api_posts(input as Record<string, Record<string, string|number>[]>);
+  }
 }
 
 /**
@@ -23,7 +32,7 @@ export function parseFuelPage(html: string): FuelEntry[] {
  * @param html - The HTML content of the fuel page.
  * @returns An array of FuelEntry objects representing the parsed fuel prices.
  */
-function parseFuelPage_2019_present(html: string): FuelEntry[] {
+function parseFuelPage_2019_to_2025_11_05(html: string): FuelEntry[] {
   try {
     const document: HTMLDocument | null = new DOMParser().parseFromString(
       html,

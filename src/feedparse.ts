@@ -1,4 +1,4 @@
-import { parseFeed, readJSON, writeJSON } from "../deps.ts";
+import { readJSON, writeJSON } from "../deps.ts";
 import { FuelEntry } from "./FuelEntry.ts";
 import { parseFuelPage } from "./parse_fuel_page.ts";
 
@@ -11,18 +11,24 @@ import { parseFuelPage } from "./parse_fuel_page.ts";
  * @returns A promise that resolves to an array of FuelEntry objects.
  */
 export async function parseUnParsed(
-  xml: string,
+  input: string,
   statefile: string,
 ): Promise<FuelEntry[]> {
   try {
     let ret: FuelEntry[] = [];
     const statedata = await readJSON(statefile);
-    const { entries } = await parseFeed(xml);
-    for (const entry of entries) {
-      if (!(entry.id in statedata)) {
-        const freshdata: FuelEntry[] = parseFuelPage(entry.content!.value!);
+    const { posts, postDetails } = await JSON.parse(input);
+    for (const post of posts) {
+      if (!(post.id in statedata)) {
+        const data: any = {
+          posts: [post],
+          postDetails: postDetails.filter(
+            (detail: any) => detail.iD_Post === post.id,
+          ),
+        };
+        const freshdata: FuelEntry[] = parseFuelPage(data);
         ret = ret.concat(freshdata);
-        statedata[entry.id] = true;
+        statedata[post.id] = true;
       }
     }
     await writeJSON(statefile, statedata, null, 2);
