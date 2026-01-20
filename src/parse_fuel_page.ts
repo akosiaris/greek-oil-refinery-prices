@@ -18,20 +18,21 @@ const ignoreRegExp = /ΕΛ.ΠΕ.|Motor Oil|EX-FACTORY|ΧΠ: Χειμερινή �
 export function parseFuelPage(
   input: string | Record<string, Record<string, string | number>[]>,
 ): FuelEntry[] {
-  const today = new Date();
-  // After 2025-11-05, the site was radically changed and we need a different handling method
-  const target = parseISO("2025-11-05", {});
-  if (isBefore(today, target)) {
-    return parseFuelPage_2019_to_2025_11_05(input as string);
+  // First, try the method past 2025-11-05
+  let result: FuelEntry[];
+  result = parse_api_posts(
+    input as Record<string, Record<string, string | number>[]>,
+  );
+  // If we did not get back results, let's move to the next method
+  if (result.length > 0) {
+    return result;
   } else {
-    return parse_api_posts(
-      input as Record<string, Record<string, string | number>[]>,
-    );
+    return parseFuelPage_2019_to_2025_11_05(input as string);
   }
 }
 
 /**
- * Parses the fuel page HTML from 2019 to present and returns an array of FuelEntry objects.
+ * Parses the fuel page HTML from 2019 to 2025-11-05 and returns an array of FuelEntry objects.
  *
  * @param html - The HTML content of the fuel page.
  * @returns An array of FuelEntry objects representing the parsed fuel prices.

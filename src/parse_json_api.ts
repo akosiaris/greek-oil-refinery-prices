@@ -234,6 +234,9 @@ export function parse_api_posts(
 ): FuelEntry[] {
   const fuel_entries: FuelEntry[] = [];
   const raw_posts = data["posts"];
+  if (!raw_posts) {
+    return fuel_entries;
+  }
   /* Re-key posts by their ID for easier access */
   const posts: Record<string, Record<string, string | number>> = {};
   for (const post of raw_posts) {
