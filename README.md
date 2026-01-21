@@ -69,10 +69,10 @@ We provide a number of variants here
 
 #### 1NF (1st Normal Form)
 
-The table schema is the following.
 The table is in 1NF, that is [First Normal Form](https://en.wikipedia.org/wiki/First_normal_form).
 It's beyond the scope of this README to explain, but one TL;DR can be "no table cell contains sets of values (e.g. nested tables)"
 
+The table schema is the following.
 ```
 CREATE TABLE IF NOT EXISTS fuels (
   date TEXT NOT NULL,
@@ -91,10 +91,10 @@ Filename: **fuels.db**
 
 #### 2NF (2nd Normal Form)
 
-The table schema is the following.
 The tables are in 2NF, that is [Second Normal Form](https://en.wikipedia.org/wiki/Second_normal_form).
 Again, beyond the scope of this README to explain, but one TL;DR can be "1NF + no partial dependencies".
 
+The table schema is the following.
 ```
   CREATE TABLE IF NOT EXISTS fuels (
     id    INTEGER,
@@ -114,6 +114,19 @@ Again, beyond the scope of this README to explain, but one TL;DR can be "1NF + n
     FOREIGN KEY(fuel_id) REFERENCES fuels(id)
   );
   CREATE INDEX IF NOT EXISTS idx_prices_date ON prices(date);
+```
+
+Filename: **fuels_2nf.db**
+Note: This file is substantially less than half the size of fuels.db, since there is a lot less duplication
+
+#### 3NF (3rd Normal Form)
+The table schema is the following.
+The tables are in 3NF, that is [Third Normal Form](https://en.wikipedia.org/wiki/Third_normal_form).
+Again, beyond the scope of this README to explain, but one TL;DR can be "2NF + no transitive dependencies".
+
+The table schema is the following.
+```
+NOT YET DONE
 ```
 
 # How to use:

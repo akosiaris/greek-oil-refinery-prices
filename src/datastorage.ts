@@ -158,7 +158,7 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
   const insert_fuel = db.prepareQuery<
     never,
     never,
-    { fuel: string, category: string; notes: string; unit: string }
+    { fuel: string; category: string; notes: string; unit: string }
   >(`
     INSERT INTO fuels (name, category, notes, unit) VALUES (:fuel, :category, :notes, :unit)
   `);
@@ -190,7 +190,7 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
     });
     if (fuel_id === undefined) {
       insert_fuel.allEntries({
-	fuel: entry.fuel,
+        fuel: entry.fuel,
         category: entry.category,
         notes: entry.notes,
         unit: entry.unit,
