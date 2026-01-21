@@ -96,7 +96,7 @@ The tables are in 2nd normal form, that means already in 1NF and all non-key att
 ```
   CREATE TABLE IF NOT EXISTS categories (
     id integer PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL,
+    category TEXT NOT NULL UNIQUE,
     notes TEXT NOT NULL,
     unit TEXT NOT NULL);
 

@@ -131,7 +131,7 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
   db.execute(`
   CREATE TABLE IF NOT EXISTS categories (
     id integer PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL,
+    category TEXT NOT NULL UNIQUE,
     notes TEXT NOT NULL,
     unit TEXT NOT NULL);
 
