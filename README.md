@@ -96,22 +96,24 @@ The tables are in 2NF, that is [Second Normal Form](https://en.wikipedia.org/wik
 Again, beyond the scope of this README to explain, but one TL;DR can be "1NF + no partial dependencies".
 
 ```
-  CREATE TABLE IF NOT EXISTS categories (
-    id integer PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL UNIQUE,
-    notes TEXT NOT NULL,
-    unit TEXT NOT NULL);
-
   CREATE TABLE IF NOT EXISTS fuels (
-    date TEXT NOT NULL,
-    category_id integer NOT NULL,
-    fuel TEXT NOT NULL,
-    elpePrice REAL,
-    motoroilPrice REAL,
-    meanPrice REAL,
-    vatPrice REAL,
-    FOREIGN KEY (category_id) REFERENCES categories(id));
-  CREATE INDEX IF NOT EXISTS idx_fuels_date ON fuels(date);
+    id    INTEGER,
+    name    TEXT NOT NULL UNIQUE,
+    category    TEXT NOT NULL,
+    notes    TEXT NOT NULL,
+    unit    TEXT NOT NULL,
+    PRIMARY KEY(id AUTOINCREMENT)
+  );
+  CREATE TABLE prices (
+    date    TEXT NOT NULL,
+    fuel_id    INTEGER NOT NULL,
+    elpePrice    REAL,
+    motoroilPrice    REAL,
+    meanPrice    REAL,
+    vatPrice    REAL,
+    FOREIGN KEY(fuel_id) REFERENCES fuels(id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_prices_date ON prices(date);
 ```
 
 # How to use:

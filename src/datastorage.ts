@@ -129,41 +129,42 @@ function appendSQLiteData_1NF(data: FuelEntry[], datafile: string): void {
 function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
   const db = new DB(datafile);
   db.execute(`
-  CREATE TABLE IF NOT EXISTS categories (
-    id integer PRIMARY KEY AUTOINCREMENT,
-    category TEXT NOT NULL UNIQUE,
-    notes TEXT NOT NULL,
-    unit TEXT NOT NULL);
-
   CREATE TABLE IF NOT EXISTS fuels (
-    date TEXT NOT NULL,
-    category_id integer NOT NULL,
-    fuel TEXT NOT NULL,
-    elpePrice REAL,
-    motoroilPrice REAL,
-    meanPrice REAL,
-    vatPrice REAL,
-    FOREIGN KEY (category_id) REFERENCES categories(id));
-  CREATE INDEX IF NOT EXISTS idx_fuels_date ON fuels(date);
+    id    INTEGER,
+    name    TEXT NOT NULL UNIQUE,
+    category    TEXT NOT NULL,
+    notes    TEXT NOT NULL,
+    unit    TEXT NOT NULL,
+    PRIMARY KEY(id AUTOINCREMENT)
+  );
+  CREATE TABLE prices (
+    date    TEXT NOT NULL,
+    fuel_id    INTEGER NOT NULL,
+    elpePrice    REAL,
+    motoroilPrice    REAL,
+    meanPrice    REAL,
+    vatPrice    REAL,
+    FOREIGN KEY(fuel_id) REFERENCES fuels(id)
+  );
+  CREATE INDEX IF NOT EXISTS idx_prices_date ON prices(date);
   `);
-  const fetch_category_id_query = db.prepareQuery<
+  const fetch_fuel_id_query = db.prepareQuery<
     [number],
     { id: number },
-    { category: string }
+    { fuel: string }
   >(`
-    SELECT id FROM categories WHERE category = :category
+    SELECT id FROM fuels WHERE name = :fuel
   `);
-  const insert_category = db.prepareQuery<
+  const insert_fuel = db.prepareQuery<
     never,
     never,
-    { category: string; notes: string; unit: string }
+    { fuel: string, category: string; notes: string; unit: string }
   >(`
-    INSERT INTO categories (category, notes, unit) VALUES (:category, :notes, :unit)
+    INSERT INTO fuels (name, category, notes, unit) VALUES (:fuel, :category, :notes, :unit)
   `);
-  const insert_fuel = db.prepareQuery<never, never, {
+  const insert_prices = db.prepareQuery<never, never, {
     date: string;
-    category_id: number;
-    fuel: string;
+    fuel_id: number;
     elpePrice: number;
     motoroilPrice: number;
     meanPrice: number;
@@ -171,45 +172,42 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
   }>(`
   INSERT INTO fuels (
     date,
-    category_id,
-    fuel,
+    fuel_id,
     elpePrice,
     motoroilPrice,
     meanPrice,
     vatPrice) VALUES (
       :date,
-      :category_id,
-      :fuel,
+      :fuel_id,
       :elpePrice,
       :motoroilPrice,
       :meanPrice,
       :vatPrice)
   `);
   for (const entry of data) {
-    const category_id = fetch_category_id_query.firstEntry({
-      category: entry["category"],
+    const fuel_id = fetch_fuel_id_query.firstEntry({
+      fuel: entry[fuel],
     });
-    if (category_id === undefined) {
-      insert_category.allEntries({
+    if (fuel_id === undefined) {
+      insert_fuel.allEntries({
+	fuel: entry.fuel,
         category: entry.category,
         notes: entry.notes,
         unit: entry.unit,
       });
-      const category = db.lastInsertRowId;
-      insert_fuel.execute({
+      const fuel = db.lastInsertRowId;
+      insert_prices.execute({
         date: entry.date.toISOString(),
-        category_id: category,
-        fuel: entry.fuel,
+        fuel_id: fuel,
         elpePrice: entry.elpePrice,
         motoroilPrice: entry.motoroilPrice,
         meanPrice: entry.meanPrice,
         vatPrice: entry.vatPrice,
       });
     } else {
-      insert_fuel.execute({
+      insert_prices.execute({
         date: entry.date.toISOString(),
-        category_id: category_id.id,
-        fuel: entry.fuel,
+        fuel_id: fuel_id.id,
         elpePrice: entry.elpePrice,
         motoroilPrice: entry.motoroilPrice,
         meanPrice: entry.meanPrice,
@@ -217,9 +215,9 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
       });
     }
   }
-  fetch_category_id_query.finalize();
-  insert_category.finalize();
+  fetch_fuel_id_query.finalize();
   insert_fuel.finalize();
+  insert_prices.finalize();
 }
 
 /**
