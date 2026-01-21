@@ -70,7 +70,8 @@ We provide a number of variants here
 #### 1NF (1st Normal Form)
 
 The table schema is the following.
-The table is in 1st normal form. TL;DR no cell contains tables
+The table is in 1NF, that is [First Normal Form](https://en.wikipedia.org/wiki/First_normal_form).
+It's beyond the scope of this README to explain, but one TL;DR can be "no table cell contains sets of values (e.g. nested tables)"
 
 ```
 CREATE TABLE IF NOT EXISTS fuels (
@@ -91,7 +92,8 @@ Filename: **fuels.db**
 #### 2NF (2nd Normal Form)
 
 The table schema is the following.
-The tables are in 2nd normal form, that means already in 1NF and all non-key attributes functionally dependent on the primary key.
+The tables are in 2NF, that is [Second Normal Form](https://en.wikipedia.org/wiki/Second_normal_form).
+Again, beyond the scope of this README to explain, but one TL;DR can be "1NF + no partial dependencies".
 
 ```
   CREATE TABLE IF NOT EXISTS categories (
