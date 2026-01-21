@@ -137,7 +137,7 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
     unit    TEXT NOT NULL,
     PRIMARY KEY(id AUTOINCREMENT)
   );
-  CREATE TABLE prices (
+  CREATE TABLE IF NOT EXISTS prices (
     date    TEXT NOT NULL,
     fuel_id    INTEGER NOT NULL,
     elpePrice    REAL,
@@ -170,7 +170,7 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
     meanPrice: number;
     vatPrice: number;
   }>(`
-  INSERT INTO fuels (
+  INSERT INTO prices (
     date,
     fuel_id,
     elpePrice,
