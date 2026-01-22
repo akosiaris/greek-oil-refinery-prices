@@ -88,6 +88,12 @@ CREATE INDEX IF NOT EXISTS idx_fuels_date ON fuels(date);
 ```
 
 Filename: **fuels.db**
+Note: The lack of a primary/unique key, is because given the way data is
+published, that constraint is very difficult to enforce. At times, upstream
+updates published data (to fix errors or inconsistencies presumably), in ways
+that lead to duplicate entries. I have made a conscious decision to avoid
+dealing with this as it is too much work to somehow deal with it. Expect
+duplicates to show up
 
 #### 2NF (2nd Normal Form)
 
@@ -117,9 +123,15 @@ The table schema is the following.
 ```
 
 Filename: **fuels_2nf.db**
-Note: This file is substantially less than half the size of fuels.db, since there is a lot less duplication
+Note: This file is substantially smaller than the 1NF version, as there is a
+lot less duplication. The `prices` table suffers from the exact same deficiency
+as the 1NF table as far as lack of a primary/unique key goes, for the exact
+same reasons
 
 #### 3NF (3rd Normal Form)
+
+**WARNING: This file isn't currently updated automatically, it's a work-in-progress**
+
 The table schema is the following.
 The tables are in 3NF, that is [Third Normal Form](https://en.wikipedia.org/wiki/Third_normal_form).
 Again, beyond the scope of this README to explain, but one TL;DR can be "2NF + no transitive dependencies".
@@ -131,15 +143,12 @@ CREATE TABLE IF NOT EXISTS "prices" (
 	"fuel_id"	INTEGER NOT NULL,
 	"elpePrice"	REAL,
 	"motoroilPrice"	REAL,
-	"meanPrice"	REAL,
-	"vatPrice"	REAL,
 	FOREIGN KEY("fuel_id") REFERENCES "fuels"("id")
 );
 CREATE TABLE IF NOT EXISTS "categories" (
 	"id"	INTEGER NOT NULL,
 	"name"	TEXT NOT NULL UNIQUE,
 	"notes"	TEXT NOT NULL,
-	"unit"	TEXT NOT NULL,
 	PRIMARY KEY("id" AUTOINCREMENT)
 );
 CREATE TABLE sqlite_sequence(name,seq);
@@ -154,7 +163,10 @@ CREATE INDEX idx_fuels_date ON "prices"(date);
 ```
 
 Filename: **fuels_3nf.db**
-Note: This file isn't currently updated, it's a work-in-progress
+Note: This form lacks computed attributes 1NF and 2NF have. The reason for
+the approach is that once you get to 3NF, derived/computed attributes stop
+making sense to store. It's best to calculate them on the fly.
+The same notice about lack of a primary/unique key for the `prices` table applies here as well
 
 # How to use:
 
@@ -165,8 +177,7 @@ You can also choose to feed the 3 different formats we provide it to whatever da
 
 # TODOs:
 
-- Up to now, we kinda parse 1 "format" (for some definition of format). And it
-  starts at ~end of 2018. Previous dates are unparsed yet.
+- None
 
 # Bugs/Gotchas/Limitations:
 
@@ -175,6 +186,8 @@ You can also choose to feed the 3 different formats we provide it to whatever da
   the operator makes an unaccounted for typo, alters habbits significantly, etc.
 
 - At various points in time and for various reasons, values could be null
+
+- Similarly, at various points in time and for various reasons, there might be values that make 0 sense.
 
 - Doesn't handle what upstream calls "correct repetition" (ΟΡΘΗ ΕΠΑΝΑΛΗΨΗ) of
   entries. So no corrected updates
