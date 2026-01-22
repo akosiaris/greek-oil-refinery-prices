@@ -126,8 +126,35 @@ Again, beyond the scope of this README to explain, but one TL;DR can be "2NF + n
 
 The table schema is the following.
 ```
-NOT YET DONE
+CREATE TABLE IF NOT EXISTS "prices" (
+	"date"	TEXT NOT NULL,
+	"fuel_id"	INTEGER NOT NULL,
+	"elpePrice"	REAL,
+	"motoroilPrice"	REAL,
+	"meanPrice"	REAL,
+	"vatPrice"	REAL,
+	FOREIGN KEY("fuel_id") REFERENCES "fuels"("id")
+);
+CREATE TABLE IF NOT EXISTS "categories" (
+	"id"	INTEGER NOT NULL,
+	"name"	TEXT NOT NULL UNIQUE,
+	"notes"	TEXT NOT NULL,
+	"unit"	TEXT NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE TABLE sqlite_sequence(name,seq);
+CREATE TABLE IF NOT EXISTS "fuels" (
+	"id"	INTEGER NOT NULL,
+	"name"	TEXT NOT NULL UNIQUE,
+	"category_id"	INTEGER NOT NULL,
+	PRIMARY KEY("id" AUTOINCREMENT),
+	FOREIGN KEY("category_id") REFERENCES "categories"("id")
+);
+CREATE INDEX idx_fuels_date ON "prices"(date);
 ```
+
+Filename: **fuels_3nf.db**
+Note: This file isn't currently updated, it's a work-in-progress
 
 # How to use:
 
