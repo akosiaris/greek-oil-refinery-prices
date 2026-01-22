@@ -186,7 +186,7 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
   `);
   for (const entry of data) {
     const fuel_id = fetch_fuel_id_query.firstEntry({
-      fuel: entry[fuel],
+      fuel: entry["fuel"],
     });
     if (fuel_id === undefined) {
       insert_fuel.allEntries({
