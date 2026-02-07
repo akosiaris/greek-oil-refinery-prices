@@ -323,7 +323,7 @@ function appendSQLiteData_3NF(data: FuelEntry[], datafile: string): void {
     } else {
       const fuel_id = fetch_fuel_id_query.firstEntry({
         fuel: entry["fuel"],
-        });
+      });
       if (fuel_id === undefined) {
         insert_fuel.allEntries({
           fuel: entry.fuel,
