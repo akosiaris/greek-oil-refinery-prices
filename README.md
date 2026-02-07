@@ -3,7 +3,7 @@
 # greek-oil-refinery-prices
 
 A repo using the Flat Data approach, scraping Greek oil refinery prices from
-https://oil.mindev.gov.gr (HTTPS support was added in 2025 - before that we had HTTP) 
+https://oil.mindev.gov.gr (HTTPS support was added in 2025 - before that we had HTTP)
 and assembling them in a number of more usable forms.
 
 # Semi-stable
@@ -25,7 +25,7 @@ The data exists in 3 formats, JSON, CSV and SQLite.
 ### JSON
 
 The most verbose. An example entry below. For an elasticsearch compatible mapping, see
-elasticsearch_mapping.json
+[data/elasticsearch_mapping.json](data/elasticsearch_mapping.json)
 
 ```
 {
@@ -126,9 +126,14 @@ Filename: **fuels_2nf.db**
 Note: This file is substantially smaller than the 1NF version, as there is a
 lot less duplication. The `prices` table suffers from the exact same deficiency
 as the 1NF table as far as lack of a primary/unique key goes, for the exact
-same reasons
+same reasons. Strictly speaking, this means the table isn't really in 2NF.
+However, in 2026-02-07, the duplicates detected where less than 1.1% of the
+full size of the tables. For analytical purposes, this is probably acceptable?
+There are a number of ways out of this, I am still weighing on the pros
+and cons of each
 
-#### 3NF (3rd Normal Form)
+
+#### 3NF (3rd Normal Form) / Boyce Codd Normal Form
 
 **WARNING: This file isn't currently updated automatically, it's a work-in-progress**
 
@@ -166,7 +171,18 @@ Filename: **fuels_3nf.db**
 Note: This form lacks computed attributes 1NF and 2NF have. The reason for
 the approach is that once you get to 3NF, derived/computed attributes stop
 making sense to store. It's best to calculate them on the fly.
-The same notice about lack of a primary/unique key for the `prices` table applies here as well
+The same notice about lack of a primary/unique key for the `prices` table
+applies here as well. To be abundantly clear, this also means that strictly
+speaking this table is NOT in 3NF.
+
+##### Boyce Codd Normal Form
+
+The above table is also (inadvertedly admittedly) in BCNF. Again, beyond the
+scope of this README to explain, a TL;DR would be "3NF + all functional
+dependencies are on a superkey".
+
+Same notice as above for primary/unique key and again yes, the table, strictly
+speaking is not in BCNF.
 
 # How to use:
 
