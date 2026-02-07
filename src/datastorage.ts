@@ -5,6 +5,7 @@ const csvdatafile = "fuels.csv";
 const jsondatafile = "fuels.json";
 const sqlitedatafile = "fuels.db";
 const sqlitedatafile_2nf = "fuels_2nf.db";
+const sqlitedatafile_3nf = "fuels_3nf.db";
 
 /**
  * Appends JSON data to an existing data file.
@@ -221,6 +222,137 @@ function appendSQLiteData_2NF(data: FuelEntry[], datafile: string): void {
 }
 
 /**
+ * Appends the given data to an SQLite database file.
+ * Table is in 3rd Normal Form (3NF). This means that the table is in 2NF
+ * and there are no transitive dependencies.
+ *
+ * @param data - The array of fuel entries to be appended.
+ * @param datafile - The path to the SQLite database file.
+ */
+function appendSQLiteData_3NF(data: FuelEntry[], datafile: string): void {
+  const db = new DB(datafile);
+  db.execute(`
+  CREATE TABLE IF NOT EXISTS "prices" (
+    "date"	TEXT NOT NULL,
+    "fuel_id"	INTEGER NOT NULL,
+    "elpePrice"	REAL,
+    "motoroilPrice"	REAL,
+    FOREIGN KEY("fuel_id") REFERENCES "fuels"("id")
+  );
+  CREATE TABLE IF NOT EXISTS "categories" (
+    "id"	INTEGER NOT NULL,
+    "name"	TEXT NOT NULL UNIQUE,
+    "notes"	TEXT NOT NULL,
+    PRIMARY KEY("id" AUTOINCREMENT)
+  );
+  CREATE TABLE IF NOT EXISTS "fuels" (
+    "id"	INTEGER NOT NULL,
+    "name"	TEXT NOT NULL UNIQUE,
+    "category_id"	INTEGER NOT NULL,
+    PRIMARY KEY("id" AUTOINCREMENT),
+    FOREIGN KEY("category_id") REFERENCES "categories"("id")
+  );
+  CREATE INDEX IF NOT EXISTS idx_fuels_date ON "prices"(date);
+  `);
+  const fetch_category_id_query = db.prepareQuery<
+    [number],
+    { id: number },
+    { category: string }
+  >(`
+    SELECT id FROM categories WHERE name = :category
+  `);
+  const insert_category = db.prepareQuery<
+    never,
+    never,
+    { category: string; notes: string }
+  >(`
+    INSERT INTO categories (name, notes) VALUES (:category, :notes)
+  `);
+  const fetch_fuel_id_query = db.prepareQuery<
+    [number],
+    { id: number },
+    { fuel: string }
+  >(`
+    SELECT id FROM fuels WHERE name = :fuel
+  `);
+  const insert_fuel = db.prepareQuery<
+    never,
+    never,
+    { fuel: string; category_id: number }
+  >(`
+    INSERT INTO fuels (name, category_id) VALUES (:fuel, :category_id)
+  `);
+  const insert_prices = db.prepareQuery<never, never, {
+    date: string;
+    fuel_id: number;
+    elpePrice: number;
+    motoroilPrice: number;
+  }>(`
+  INSERT INTO prices (
+    date,
+    fuel_id,
+    elpePrice,
+    motoroilPrice) VALUES (
+      :date,
+      :fuel_id,
+      :elpePrice,
+      :motoroilPrice)
+  `);
+  for (const entry of data) {
+    const category_id = fetch_category_id_query.firstEntry({
+      category: entry["category"],
+    });
+    if (category_id === undefined) {
+      insert_category.allEntries({
+        category: entry.category,
+        notes: entry.notes,
+      });
+      const category = db.lastInsertRowId;
+      // If we haven't seen the category before, we also haven't seen the fuel before, so we can insert it directly
+      insert_fuel.allEntries({
+        fuel: entry.fuel,
+        category_id: category,
+      });
+      const fuel = db.lastInsertRowId;
+      insert_prices.execute({
+        date: entry.date.toISOString(),
+        fuel_id: fuel,
+        elpePrice: entry.elpePrice,
+        motoroilPrice: entry.motoroilPrice,
+      });
+    } else {
+      const fuel_id = fetch_fuel_id_query.firstEntry({
+        fuel: entry["fuel"],
+        });
+      if (fuel_id === undefined) {
+        insert_fuel.allEntries({
+          fuel: entry.fuel,
+          category_id: category_id.id,
+        });
+        const fuel = db.lastInsertRowId;
+        insert_prices.execute({
+          date: entry.date.toISOString(),
+          fuel_id: fuel,
+          elpePrice: entry.elpePrice,
+          motoroilPrice: entry.motoroilPrice,
+        });
+      } else {
+        insert_prices.execute({
+          date: entry.date.toISOString(),
+          fuel_id: fuel_id.id,
+          elpePrice: entry.elpePrice,
+          motoroilPrice: entry.motoroilPrice,
+        });
+      }
+    }
+  }
+  fetch_category_id_query.finalize();
+  fetch_fuel_id_query.finalize();
+  insert_fuel.finalize();
+  insert_prices.finalize();
+}
+
+/**
  * Writes the data to the data files.
  * @param data - The fuel entry data to be written.
  * @returns A promise that resolves when the data has been written.
@@ -231,4 +363,5 @@ export async function writeDataFiles(data: FuelEntry[]): Promise<void> {
   await appendCSVData(data, csvdatafile);
   appendSQLiteData_1NF(data, sqlitedatafile);
   appendSQLiteData_2NF(data, sqlitedatafile_2nf);
+  appendSQLiteData_3NF(data, sqlitedatafile_3nf);
 }

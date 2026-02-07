@@ -164,7 +164,7 @@ CREATE TABLE IF NOT EXISTS "fuels" (
 	PRIMARY KEY("id" AUTOINCREMENT),
 	FOREIGN KEY("category_id") REFERENCES "categories"("id")
 );
-CREATE INDEX idx_fuels_date ON "prices"(date);
+CREATE INDEX IF NOT EXISTS idx_fuels_date ON "prices"(date);
 ```
 
 Filename: **fuels_3nf.db**
