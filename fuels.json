@@ -536325,5 +536325,203 @@
     "meanPrice": null,
     "vatPrice": null,
     "unit": "Κυβικό Μέτρο"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuel": "ΒΕΘ 50/70",
+    "elpePrice": 531.98,
+    "motoroilPrice": null,
+    "meanPrice": 531.98,
+    "vatPrice": null,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuel": "ΒΕΑ 35/40",
+    "elpePrice": 545.74,
+    "motoroilPrice": null,
+    "meanPrice": 545.74,
+    "vatPrice": null,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuel": "ΒΕΑ 30/45",
+    "elpePrice": null,
+    "motoroilPrice": 546.53,
+    "meanPrice": 546.53,
+    "vatPrice": null,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΑΣΦΑΛΤΟΣ",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuel": "ΒΕΑ 50/70 & 70/100",
+    "elpePrice": 528.31,
+    "motoroilPrice": 529.1,
+    "meanPrice": 528.705,
+    "vatPrice": null,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΚΗΡΟΖΙΝΗ – KERO",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuel": "KERO SPECIAL",
+    "elpePrice": 1075.27,
+    "motoroilPrice": null,
+    "meanPrice": 1075.27,
+    "vatPrice": null,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΚΗΡΟΖΙΝΗ – KERO",
+    "notes": "τιμές σε €/μ.τ., προ φόρων – τελών και ΦΠΑ",
+    "fuel": "KERO",
+    "elpePrice": 1069.77,
+    "motoroilPrice": null,
+    "meanPrice": 1069.77,
+    "vatPrice": null,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΜΑΖΟΥΤ-FUEL OIL",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "Fuel Oil No 380 1%S",
+    "elpePrice": 584.795,
+    "motoroilPrice": null,
+    "meanPrice": 584.795,
+    "vatPrice": 725.146,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "ΜΑΖΟΥΤ-FUEL OIL",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "Fuel Oil No 180 1%S",
+    "elpePrice": 633.916,
+    "motoroilPrice": 632.767,
+    "meanPrice": 633.341,
+    "vatPrice": 785.343,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "ΒΟΥΤΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 1203.652,
+    "motoroilPrice": null,
+    "meanPrice": 1203.652,
+    "vatPrice": 1492.528,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "ΠΡΟΠΑΝΙΟ ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 1096.919,
+    "motoroilPrice": 1107.668,
+    "meanPrice": 1102.293,
+    "vatPrice": 1366.843,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "LPG ΒΙΟΜΗΧΑΝΙΑΣ",
+    "elpePrice": 1182.325,
+    "motoroilPrice": 1182.804,
+    "meanPrice": 1182.564,
+    "vatPrice": 1466.379,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "LPG ΘΕΡΜΑΝΣΗΣ",
+    "elpePrice": 1122.025,
+    "motoroilPrice": 1122.504,
+    "meanPrice": 1122.264,
+    "vatPrice": 1391.607,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Υγραέρια – LPG",
+    "notes": "τιμές σε €/μ.τ., συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "LPG AUTO",
+    "elpePrice": 1483.197,
+    "motoroilPrice": 1484.682,
+    "meanPrice": 1483.939,
+    "vatPrice": 1840.084,
+    "unit": "Μετρικός Τόνος"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Πετρέλαια",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "HEATING GASOIL (ΧΠ)",
+    "elpePrice": 904.35,
+    "motoroilPrice": 896.202,
+    "meanPrice": 900.276,
+    "vatPrice": 1116.342,
+    "unit": "Κυβικό Μέτρο"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Πετρέλαια",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "DIΕSEL AUTO BIO",
+    "elpePrice": 1313.849,
+    "motoroilPrice": 1309.394,
+    "meanPrice": 1311.621,
+    "vatPrice": 1626.41,
+    "unit": "Κυβικό Μέτρο"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Βενζίνες",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "UNLEADED 100 BIO",
+    "elpePrice": 1473.965,
+    "motoroilPrice": 1473.833,
+    "meanPrice": 1473.899,
+    "vatPrice": 1827.635,
+    "unit": "Κυβικό Μέτρο"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Βενζίνες",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "UNLEADED 95 BIO",
+    "elpePrice": 1319.086,
+    "motoroilPrice": 1318.059,
+    "meanPrice": 1318.572,
+    "vatPrice": 1635.029,
+    "unit": "Κυβικό Μέτρο"
+  },
+  {
+    "date": "2026-11-26T00:00:00.000Z",
+    "category": "Βενζίνες",
+    "notes": "τιμές σε €/m3, συμπεριλ. φόρων – τελών, προ ΦΠΑ",
+    "fuel": "UNLEADED LRP BIO",
+    "elpePrice": null,
+    "motoroilPrice": null,
+    "meanPrice": null,
+    "vatPrice": null,
+    "unit": "Κυβικό Μέτρο"
   }
 ]
